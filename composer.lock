@@ -733,16 +733,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.2.0",
+            "version": "v7.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "77110b6434e65b10b655ab92e645e830b1a79caf"
+                "reference": "261e74cf8c6f760fd302fb08b2b51feb066f8987"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/77110b6434e65b10b655ab92e645e830b1a79caf",
-                "reference": "77110b6434e65b10b655ab92e645e830b1a79caf",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/261e74cf8c6f760fd302fb08b2b51feb066f8987",
+                "reference": "261e74cf8c6f760fd302fb08b2b51feb066f8987",
                 "shasum": ""
             },
             "require": {
@@ -880,7 +880,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-03-17T14:08:55+00:00"
+            "time": "2020-03-19T14:31:45+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -3561,16 +3561,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "b8dbf7791c81619161270d580a64a30bad41b832"
+                "reference": "67f1677954ad33ca6b77f2c41cf43a58624f27fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/b8dbf7791c81619161270d580a64a30bad41b832",
-                "reference": "b8dbf7791c81619161270d580a64a30bad41b832",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/67f1677954ad33ca6b77f2c41cf43a58624f27fc",
+                "reference": "67f1677954ad33ca6b77f2c41cf43a58624f27fc",
                 "shasum": ""
             },
             "require": {
@@ -3592,7 +3592,7 @@
                 "orchestra/testbench": "5.0"
             },
             "suggest": {
-                "laravel/telescope": "^2.0"
+                "laravel/telescope": "^3.1"
             },
             "type": "library",
             "extra": {
@@ -3628,7 +3628,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2020-03-05T12:32:22+00:00"
+            "time": "2020-03-18T19:20:44+00:00"
         },
         {
             "name": "facade/ignition-contracts",
