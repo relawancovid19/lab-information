@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/report
 /storage/*.key
 /vendor
 .env
@@ -10,3 +11,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+docker-compose.yml
+coverage.txt
