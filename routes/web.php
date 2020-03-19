@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/login', 301);
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
