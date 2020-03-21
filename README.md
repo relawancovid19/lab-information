@@ -9,8 +9,17 @@ This is the repository for the lab information tracker app.
 Please visit [WEB UJI SWAB COVID-19](http://35.185.181.25)
 
 ```bash
-Username: superadmin
-Password: relawancovid19id
+# Staff Registrasi
+username: registrasi
+password: relawancovid19id
+
+# Kepala Lab
+username: kepala_lab
+password: relawancovid19id
+
+# Staff Lab
+username: petugas_lab
+password: relawancovid19id
 ```
 
 ## Prerequisites
