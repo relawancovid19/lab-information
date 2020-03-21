@@ -2,6 +2,17 @@
 
 This is the repository for the lab information tracker app.
 
+![CI](https://github.com/andisis/lab-information/workflows/CI/badge.svg?branch=master)
+
+## Demo
+
+Please visit [WEB UJI SWAB COVID-19](http://35.185.181.25)
+
+```bash
+Username: superadmin
+Password: relawancovid19id
+```
+
 ## Prerequisites
 
 **Install NGINX**
@@ -152,6 +163,14 @@ When contributing to this repository, please note we have a code standards, plea
 **Note** :
 * Please make sure to update tests as appropriate.
 * It's recommended to run **Testing** command before submit a pull request.
+
+## Contributors
+
+Thanks goes to these wonderful people:
+
+* [Relawan COVID-19 Indonesia](https://relawancovid19.id)
+* Septian Hari [@LIQRGV](https://github.com/LIQRGV)
+* Andi Siswanto [@andisis](https://github.com/andisis)
 
 ## Deployment
 

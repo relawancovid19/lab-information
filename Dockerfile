@@ -32,6 +32,8 @@ WORKDIR ${WORKDIR}
 RUN rm index.nginx-debian.html && \
     # Install composer
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer && \
+    # Clone project
+    git clone git@github.com:relawancovid19/lab-information.git && \
     # Change workdir permission
     chown -R www-data.www-data ${WORKDIR} && \
     chmod -R 755 ${WORKDIR} && \
