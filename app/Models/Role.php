@@ -18,11 +18,16 @@ class Role extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'role_name', 'role'
     ];
 
     /**
      * @var string
      */
-    public $name;
+    public $roleName;
+
+    /**
+     * @var int
+     */
+    public $role;
 }
