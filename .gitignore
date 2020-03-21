@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 docker-compose.yml
 coverage.txt
+.idea
