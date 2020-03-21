@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'regis@relawancovid19.id',
             'email_verified_at' => date('Y-m-d H:i:s'),
             'password' => Hash::make('relawancovid19id'),
-            'role_id' => \App\Models\Role::query()->where('name', "petugas registrasi")->first()->id,
+            'role_id' => \App\Models\Role::STAFF_REGISTRASI,
         ]);
 
 
@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'lab@relawancovid19.id',
             'email_verified_at' => date('Y-m-d H:i:s'),
             'password' => Hash::make('relawancovid19id'),
-            'role_id' => \App\Models\Role::query()->where('name', "petugas lab")->first()->id,
+            'role_id' => \App\Models\Role::STAFF_LAB,
         ]);
 
 
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'kalab@relawancovid19.id',
             'email_verified_at' => date('Y-m-d H:i:s'),
             'password' => Hash::make('relawancovid19id'),
-            'role_id' => \App\Models\Role::query()->where('name', "kepala lab")->first()->id,
+            'role_id' => \App\Models\Role::KEPALA_LAB,
         ]);
     }
 }

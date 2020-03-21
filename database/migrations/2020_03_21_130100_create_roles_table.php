@@ -15,7 +15,8 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('role_name');
+            $table->string('role')->comment("0 = Kepala Lab | 1 = Staff Registrasi | 2 = Staff Lab");
         });
     }
 

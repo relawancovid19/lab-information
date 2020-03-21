@@ -8,15 +8,19 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $roles = [
-            "petugas registrasi",
-            "petugas lab",
-            "kepala lab",
+            \App\Models\Role::KEPALA_LAB => "Kepala Lab",
+            \App\Models\Role::STAFF_REGISTRASI =>"Staff Registrasi",
+            \App\Models\Role::STAFF_LAB =>"Staff Lab",
         ];
 
-        foreach ($roles as $role) {
+        foreach ($roles as $key => $role) {
             DB::table('roles')->insert([
-                'name' => $role,
+                'id' => $key,
+                'role_name' => $role,
+                'role' => $key,
             ]);
         }
+
+        DB::statement("ALTER TABLE roles AUTO_INCREMENT = 4;");
     }
 }
