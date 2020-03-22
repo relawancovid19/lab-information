@@ -60,7 +60,7 @@ class RegistrationController extends Controller
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
         // Insert Patient
-        $patient = $data['patient_id'] != null ? Patient::find($data['patient_id']) : Patient::create($data);
+        $patient = Patient::firstOrCreate(['id' => $data['patient_id']], $data);
         // Insert Registration
         $registration = $patient->registration()->create($data);
         // Insert Symptom
