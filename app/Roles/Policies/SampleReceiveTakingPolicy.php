@@ -7,34 +7,41 @@ use App\Models\User;
 
 class SampleReceiveTakingPolicy
 {
-    public function index(User $user) {
+    public function index(User $user)
+    {
         return $this->isLabOfficer($user);
     }
 
-    public function create(User $user) {
+    public function create(User $user)
+    {
         return $this->isLabOfficer($user);
     }
 
-    public function store(User $user) {
+    public function store(User $user)
+    {
         return $this->isLabOfficer($user);
     }
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
         return $this->isLabOfficer($user);
     }
 
-    public function edit(User $user) {
+    public function edit(User $user)
+    {
         return $this->isLabOfficer($user);
     }
 
-    public function update(User $user) {
+    public function update(User $user)
+    {
         return $this->isLabOfficer($user);
     }
 
-    private function isLabOfficer($user) {
+    private function isLabOfficer($user)
+    {
         return $user && in_array($user->role->getAttribute("role"), [
-            Role::KEPALA_LAB,
-            Role::STAFF_LAB,
-        ]);
+                Role::KEPALA_LAB,
+                Role::STAFF_LAB,
+            ]);
     }
 }

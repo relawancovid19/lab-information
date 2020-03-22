@@ -21,19 +21,23 @@ class SampleType extends Model
 
     public $timestamps = false;
 
-    public function getSampleNameAttribute() {
+    public function getSampleNameAttribute()
+    {
         return $this->attributes['sample_name'];
     }
 
-    public function setSampleNameAttribute(string $sampleName) {
+    public function setSampleNameAttribute(string $sampleName)
+    {
         $this->attributes['sample_name'] = $sampleName;
     }
 
-    public function getSlugSampleNameAttribute() {
+    public function getSlugSampleNameAttribute()
+    {
         return $this->attributes['slug_sample_name'];
     }
 
-    public function setSlugSampleNameAttribute(string $slugName) {
+    public function setSlugSampleNameAttribute(string $slugName)
+    {
         $this->attributes['slug_sample_name'] = $slugName;
     }
 }

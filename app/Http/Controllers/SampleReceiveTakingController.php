@@ -86,14 +86,14 @@ class SampleReceiveTakingController extends Controller
     {
         $sampleReceiveTaking->fill($request->all());
 
-        if($sampleReceiveTaking->isDirty()) {
+        if ($sampleReceiveTaking->isDirty()) {
             $sampleReceiveTaking->save();
         }
 
         $sampleTypes = $request->input('sample_type');
 
         $sampleTypes = array_map(function ($sampleType) {
-            if(Arr::get($sampleType, "is_done", 0) == 0) {
+            if (Arr::get($sampleType, "is_done", 0) == 0) {
                 $sampleType = [
                     "is_done" => 0,
                 ];

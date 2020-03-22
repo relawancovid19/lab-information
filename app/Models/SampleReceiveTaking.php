@@ -50,7 +50,8 @@ class SampleReceiveTaking extends Model
         parent::__set($key, $value);
     }
 
-    public function sampleTypes() {
+    public function sampleTypes()
+    {
         return $this->belongsToMany(SampleType::class, 'sample_type_receive_taking_pivots')
             ->using(SampleTypeReceiveTakingPivot::class)
             ->withPivot([
