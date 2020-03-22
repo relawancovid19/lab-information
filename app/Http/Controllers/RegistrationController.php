@@ -101,14 +101,30 @@ class RegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Registration  $request
      * @param  int  $idRegistration
      * @return \Illuminate\Http\Response
-     * @SuppressWarnings("unused")
      */
-    public function update(Request $request, $idRegistration)
+    public function update(RegistrationRequest $request, $idRegistration)
     {
-        //
+        $data = $request->all();
+        // Change date format to Y-m-d
+        $data['date_of_birth'] = Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d');
+        $data['registration_date'] = Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d');
+        $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
+
+        // Update registration
+        $registration = Registration::findOrFail($idRegistration);
+        $registration->update($data);
+        // Update patient
+        $registration->patient->update($data);
+        // Update symptom
+        $registration->symptom->update($data);
+
+        return redirect()->route('registrations.index')->with('alert', [
+            'color' => 'success',
+            'message' => 'Registrasi berhasil diubah!',
+        ]);
     }
 
     /**

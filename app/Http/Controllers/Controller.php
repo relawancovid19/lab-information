@@ -26,8 +26,8 @@ class Controller extends BaseController
 
         $subMenu = [
             // REGISTRATION
-            ['name' => 'all_registration', 'url' => url('/registrations'), 'label' => 'Data Registrasi', 'icon' => '', 'active_in' => ['registrations'], 'parent' => 'registration'],
-            ['name' => 'new_registration', 'url' => url('/registrations/create'), 'label' => 'Registrasi Baru', 'icon' => '', 'active_in' => ['registrations/create'], 'parent' => 'registration'],
+            ['name' => 'all_registration', 'url' => url('/registrations'), 'label' => 'Data Registrasi', 'icon' => '', 'active_in' => ['registrations'], 'not_active' => ['registrations/create'], 'parent' => 'registration'],
+            ['name' => 'new_registration', 'url' => url('/registrations/create'), 'label' => 'Registrasi Baru', 'icon' => '', 'active_in' => ['registrations/create'], 'not_active' => '', 'parent' => 'registration'],
         ];
 
         View::share('mainMenu', $mainMenu);

@@ -35,7 +35,7 @@
                         @if ($menu['has_submenu'])
                             <ul class="nav nav-treeview">
                                 @foreach($subMenu as $sub)
-                                    @php $isActive = in_array(Request::path(), $sub['active_in']); @endphp
+                                    @php $isActive = in_array(Request::path(), $sub['active_in']) || (!empty($sub['not_active']) && !in_array(Request::path(), $sub['not_active'])); @endphp
                                     @if ($menu['name'] == $sub['parent'])
                                         <li class="nav-item">
                                             <a class="nav-link {{ ($isActive) ? 'active' : '' }}" href="{{ $sub['url'] }}">

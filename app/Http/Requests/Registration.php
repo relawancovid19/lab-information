@@ -25,7 +25,7 @@ class Registration extends FormRequest
     {
         return [
             // Patient
-            'nik' => 'required|integer|unique:patients',
+            'nik' => 'required|integer',
             'fullname' => 'required',
             'date_of_birth' => 'required|date_format:d/m/Y',
             'age_year' => 'required|integer',
@@ -34,7 +34,7 @@ class Registration extends FormRequest
             'address_1' => 'required',
             'phone_number' => 'required|digits_between:10,15',
             // Registration
-            'registration_number' => 'required|integer|unique:registrations',
+            'registration_number' => 'required|integer|unique:registrations,registration_number,'.$this->registration,
             'sample_number' => 'required',
             'dinkes_sender' => 'required',
             'fasyankes_sender' => 'required',
