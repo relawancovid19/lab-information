@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  testing:
+    name: Testing
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:7.3
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install composer dependencies
+      run: |
+        composer install --no-scripts
+
+    - name: Prepare Laravel Application
+      run: |
+        cp .env.ci .env
+        php artisan key:generate
+
+    - name: Check code metric
+      run: |
+        vendor/bin/phpmd app text phpmd_rulesets.xml
+        vendor/bin/phpmd tests text phpmd_rulesets.xml
+
+    - name: Check code standard
+      run: |
+        vendor/bin/phpcs app --standard=PSR2 -n
+        vendor/bin/phpcs tests --standard=PSR2 -n
+
+    - name: Testing
+      run: |
+        vendor/bin/phpunit --debug --stop-on-failure --stop-on-error
