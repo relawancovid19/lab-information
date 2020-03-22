@@ -21,7 +21,7 @@ class Controller extends BaseController
     {
         $mainMenu = [
             ['name' => 'dashboard', 'url' => url('/dashboard'), 'label' => 'Dashboard', 'icon' => 'fas fa-tachometer-alt', 'active_in' => ['dashboard'], 'segment_active' => 1, 'has_submenu' => false],
-            ['name' => 'registration', 'url' => url('/registration'), 'label' => 'Registrasi', 'icon' => 'fas fa-book-medical', 'active_in' => ['registration'], 'segment_active' => 1, 'has_submenu' => false],
+            ['name' => 'registration', 'url' => url('/registrations'), 'label' => 'Registrasi', 'icon' => 'fas fa-book-medical', 'active_in' => ['registrations'], 'segment_active' => 1, 'has_submenu' => false],
         ];
 
         View::share('mainMenu', $mainMenu);

@@ -22,5 +22,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Registration
-    Route::resource('/registration', 'RegistrationController');
+    Route::resource('/registrations', 'RegistrationController');
 });

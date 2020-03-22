@@ -37,11 +37,6 @@
                                 </div>
                             </div>
                         </div>
-                        @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
 
                         <div class="input-group mb-3">
                             <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password">
@@ -51,11 +46,6 @@
                                 </div>
                             </div>
                         </div>
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
 
                         <div class="row">
                             <!-- /.col -->
@@ -78,5 +68,25 @@
         <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ url('dist/js/adminlte.min.js') }}"></script>
+        @error('username')
+        <script>
+            $(document).Toasts('create', {
+                class: "bg-warning", 
+                title: "Login Failed!",
+                position: "topRight",
+                body: "{{ $message }}"
+            })
+        </script>
+        @enderror
+        @error('password')
+        <script>
+            $(document).Toasts('create', {
+                class: "bg-warning", 
+                title: "Login Failed!",
+                position: "topRight",
+                body: "{{ $message }}"
+            })
+        </script>
+        @enderror
     </body>
 </html>

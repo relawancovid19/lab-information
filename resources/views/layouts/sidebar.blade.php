@@ -2,28 +2,18 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard') }}" class="brand-link text-center">
-        <span class="brand-text font-weight-light">UJI SWAB COVID-19</span>
+        <span class="brand-text font-weight-light">UJI SWAB <strong>COVID-19</strong></span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex row">
-            <div class="info col-12">
-                <div class="row">
-                    <div class="col-8">
-                        <a href="javascript::void();" class="d-block">{{ Auth::user()->name }}</a>
-                    </div>
-                    <div class="col-4">
-                        <a class="badge badge-danger text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fa fa-power-off"></i> Logout
-                        </a>
-        
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                </div>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ url('dist/img/logo.png') }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
+            </div>
+            <div class="info">
+                <a href="javascript::void();" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
