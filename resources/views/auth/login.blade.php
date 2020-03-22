@@ -68,25 +68,17 @@
         <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ url('dist/js/adminlte.min.js') }}"></script>
-        @error('username')
-        <script>
-            $(document).Toasts('create', {
-                class: "bg-warning", 
-                title: "Login Failed!",
-                position: "topRight",
-                body: "{{ $message }}"
-            })
-        </script>
-        @enderror
-        @error('password')
-        <script>
-            $(document).Toasts('create', {
-                class: "bg-warning", 
-                title: "Login Failed!",
-                position: "topRight",
-                body: "{{ $message }}"
-            })
-        </script>
-        @enderror
+        @if ($errors->any())
+            @foreach ($errors->all() as $message)
+                <script>
+                    $(document).Toasts('create', {
+                        class: "bg-warning", 
+                        title: "Login Failed!",
+                        position: "topRight",
+                        body: "{{ $message }}"
+                    })
+                </script>
+            @endforeach
+        @endif
     </body>
 </html>
