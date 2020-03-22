@@ -2,7 +2,7 @@
 
 This is the repository for the lab information tracker app.
 
-![CI](https://github.com/andisis/lab-information/workflows/CI/badge.svg?branch=master)
+![CI](https://github.com/relawancovid19/lab-information/workflows/CI/badge.svg)
 
 ## Demo
 
