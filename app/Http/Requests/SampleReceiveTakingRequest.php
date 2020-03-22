@@ -20,9 +20,9 @@ class SampleReceiveTakingRequest extends FormRequest
             'sample_receiver_officer' => 'required|string',
 
             'sample_type.*.id_done' => 'boolean',
-            'sample_type.*.sampling_officer' => 'string',
-            'sample_type.*.sampling_date' => 'date',
-            'sample_type.*.sample_number' => 'string',
+            'sample_type.*.sampling_officer' => 'nullable|string',
+            'sample_type.*.sampling_date' => 'nullable|date',
+            'sample_type.*.sample_number' => 'nullable|string',
 
             'notes' => 'string',
         ];
