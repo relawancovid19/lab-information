@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Request;
 use View;
 
 class Controller extends BaseController
@@ -16,7 +15,6 @@ class Controller extends BaseController
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -66,11 +64,6 @@ class Controller extends BaseController
             ],
         ];
 
-        $subMenu = [
-            // REGISTRATION
-        ];
-
         View::share('mainMenu', $mainMenu);
-        View::share('subMenu', $subMenu);
     }
 }

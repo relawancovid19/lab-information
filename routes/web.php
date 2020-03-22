@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\SampleReceiveTaking;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,35 +19,29 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $router) {
     // Dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Registration
     Route::resource('/registrations', 'RegistrationController');
 
-    Route::group([], function () {
-        Route::prefix("sample_receive_taking")
+    $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
+        $router->prefix("sample_receive_taking")
             ->name("sample_receive_taking.")
-            ->group(function() {
+            ->group(function () {
                 Route::get("", "SampleReceiveTakingController@index")
-                    ->name("index")
-                    ->middleware("can:index," . SampleReceiveTaking::class);
+                    ->name("index");
                 Route::get("create", "SampleReceiveTakingController@create")
-                    ->name("create")
-                    ->middleware("can:create," . SampleReceiveTaking::class);
+                    ->name("create");
                 Route::post("", "SampleReceiveTakingController@store")
-                    ->name("store")
-                    ->middleware("can:store," . SampleReceiveTaking::class);
+                    ->name("store");
                 Route::get("{sampleReceiveTaking}", "SampleReceiveTakingController@show")
-                    ->name("show")
-                    ->middleware("can:show," . SampleReceiveTaking::class);
+                    ->name("show");
                 Route::get("{sampleReceiveTaking}/edit", "SampleReceiveTakingController@edit")
-                    ->name("edit")
-                    ->middleware("can:edit," . SampleReceiveTaking::class);
+                    ->name("edit");
                 Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceiveTakingController@update")
-                    ->name("update")
-                    ->middleware("can:update," . SampleReceiveTaking::class);
+                    ->name("update");
             });
 
     });
