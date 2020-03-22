@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Models\Registration;
-use App\Models\Symptom;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +27,7 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $registrations = Registration::get();
+        $registrations = Registration::orderBy('created_at', 'desc')->get();
 
         return view('pages.registration.index', compact('registrations'));
     }
@@ -40,9 +39,10 @@ class RegistrationController extends Controller
      */
     public function create()
     {
+        $patients = Patient::get();
         $registrationNumber = $this->nextRegistrationNumber();
 
-        return view('pages.registration.create', compact('registrationNumber'));
+        return view('pages.registration.create', compact('patients', 'registrationNumber'));
     }
 
     /**
@@ -60,7 +60,7 @@ class RegistrationController extends Controller
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
         // Insert Patient
-        $patient = Patient::create($data);
+        $patient = $data['patient_id'] != null ? Patient::find($data['patient_id']) : Patient::create($data);
         // Insert Registration
         $registration = $patient->registration()->create($data);
         // Insert Symptom
@@ -125,18 +125,6 @@ class RegistrationController extends Controller
             'color' => 'success',
             'message' => 'Registrasi berhasil diubah!',
         ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $idRegistration
-     * @return \Illuminate\Http\Response
-     * @SuppressWarnings("unused")
-     */
-    public function destroy($idRegistration)
-    {
-        //
     }
 
     /**
