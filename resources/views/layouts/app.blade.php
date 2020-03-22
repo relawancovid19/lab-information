@@ -17,10 +17,11 @@
         <link rel="stylesheet" href="{{ url('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url('plugins/toastr/toastr.min.css') }}">
 
         @yield('extend-css')
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed">
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
         <div class="wrapper">
             @include('layouts.navbar')
             @include('layouts.sidebar')
@@ -45,6 +46,18 @@
         <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ url('dist/js/adminlte.min.js') }}"></script>
+        <script src="{{ url('plugins/toastr/toastr.min.js') }}"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+
+        @if (Session::get('alert') && Session::get('alert')['color'] == 'success')
+        <script>
+            toastr.success("{{ Session::get('alert')['message'] }}")
+        </script>
+        @endif
 
         @yield('extend-js')
     </body>

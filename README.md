@@ -2,18 +2,32 @@
 
 This is the repository for the lab information tracker app.
 
+![CI](https://github.com/andisis/lab-information/workflows/CI/badge.svg?branch=master)
+
+## Demo
+
+Please visit [WEB UJI SWAB COVID-19](http://35.185.181.25)
+
+```bash
+# Staff Registrasi
+username: registrasi
+password: relawancovid19id
+
+# Kepala Lab
+username: kepala_lab
+password: relawancovid19id
+
+# Staff Lab
+username: petugas_lab
+password: relawancovid19id
+```
+
 ## Prerequisites
 
 **Install NGINX**
 
 ```bash
 sudo apt install -y nginx
-```
-
-**Install Redis**
-
-```bash
-sudo apt install -y redis-server
 ```
 
 **Install PHP and required service**
@@ -94,7 +108,6 @@ php artisan db:seed
 * Clone this repository
 * Create docker network `docker network create covid19id`
 * Install mysql with docker and connect to network `covid19id`
-* Install redis with docker and connect to network `covid19id`
 
 **Create project image**
 
@@ -110,7 +123,7 @@ docker run -d --name <container_name> -p <the_port_you_want>:80 covid19id_lab:la
 
 **Note** :
 
-* Make sure the redis, mysql, and project container are in 1 docker network, so they can communicate with each other
+* Make sure mysql and project container are in 1 docker network, so they can communicate with each other
 
 ## Testing
 
@@ -153,6 +166,14 @@ When contributing to this repository, please note we have a code standards, plea
 * Please make sure to update tests as appropriate.
 * It's recommended to run **Testing** command before submit a pull request.
 
+## Contributors
+
+Thanks goes to these wonderful people:
+
+* [Relawan COVID-19 Indonesia](https://relawancovid19.id)
+* Septian Hari [@LIQRGV](https://github.com/LIQRGV)
+* Andi Siswanto [@andisis](https://github.com/andisis)
+
 ## Deployment
 
 Coming soon
@@ -162,6 +183,5 @@ Coming soon
 * [Admin LTE v3](https://adminlte.io/themes/v3/)
 * [Install Docker on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 * [Laravel Documentation](https://laravel.com/docs/7.x)
-* [Laravel Redis Mock](https://github.com/josiasmontag/laravel-redis-mock)
 * [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 * [PHPMD](https://github.com/phpmd/phpmd)

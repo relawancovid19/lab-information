@@ -22,6 +22,28 @@ class Controller extends BaseController
     {
         $mainMenu = [
             ['name' => 'dashboard', 'url' => url('/dashboard'), 'label' => 'Dashboard', 'icon' => 'fas fa-tachometer-alt', 'active_in' => ['dashboard'], 'segment_active' => 1, 'submenu' => []],
+            ['name' => 'registration', 'url' => '', 'label' => 'Registrasi', 'icon' => 'fas fa-book-medical', 'active_in' => ['registrations'], 'segment_active' => 1, 'submenu' =>
+                [
+                    [
+                        'name' => 'all_registration',
+                        'url' => url('/registrations'),
+                        'label' => 'Data Registrasi', 'icon' => '',
+                        'active_in' => [''],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'registration'
+                    ],
+                    [
+                        'name' => 'new_registration',
+                        'url' => url('/registrations/create'),
+                        'label' => 'Registrasi Baru', 'icon' => '',
+                        'active_in' => ['create'],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'registration'
+                    ],
+                ]
+            ],
             ['name' => 'sample_receive_taking', 'url' => "#", 'label' => 'Pengambilan / Penerimaan Sampel', 'icon' => 'fas fa-file-signature', 'active_in' => ['Pengambilan Penerimaan Sampel'], 'segment_active' => 1, 'submenu' =>
                 [
                     [
@@ -44,6 +66,11 @@ class Controller extends BaseController
             ],
         ];
 
+        $subMenu = [
+            // REGISTRATION
+        ];
+
         View::share('mainMenu', $mainMenu);
+        View::share('subMenu', $subMenu);
     }
 }

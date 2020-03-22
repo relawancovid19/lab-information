@@ -20,7 +20,16 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->
+
+Route::group(['middleware' => ['auth']], function () {
+    // Dashboard
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+    // Registration
+    Route::resource('/registrations', 'RegistrationController');
+
+    Route::group([], function () {
         Route::prefix("sample_receive_taking")
             ->name("sample_receive_taking.")
             ->group(function() {
@@ -45,3 +54,4 @@ Route::middleware('auth')->group(function () {
             });
 
     });
+});
