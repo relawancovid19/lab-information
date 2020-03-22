@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\SampleReceiveTaking;
+use App\Roles\Policies\SampleReceiveTakingPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        SampleReceiveTaking::class => SampleReceiveTakingPolicy::class,
     ];
 
     /**
