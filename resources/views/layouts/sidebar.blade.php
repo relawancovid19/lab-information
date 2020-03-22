@@ -38,7 +38,7 @@
                                     @php $subIsActive = in_array(Request::segment($sub['segment_active']), $sub['active_in']); @endphp
                                     @if ($menu['name'] == $sub['parent'])
                                         <li class="nav-item">
-                                            <a class="nav-link {{ ($subIsActive) ? 'active' : '' }}" href="{{ $sub['url'] }}">
+                                            <a class="nav-link {{ ($menuIsActive && $subIsActive) ? 'active' : '' }}" href="{{ $sub['url'] }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ $sub['label'] }}</p>
                                             </a>
