@@ -75,12 +75,12 @@ class RegistrationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $idRegistration
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idRegistration)
     {
-        $registration = Registration::findOrFail($id);
+        $registration = Registration::findOrFail($idRegistration);
 
         return view('pages.registration.show', compact('registration'));
     }
@@ -88,12 +88,12 @@ class RegistrationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $idRegistration
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idRegistration)
     {
-        $registration = Registration::findOrFail($id);
+        $registration = Registration::findOrFail($idRegistration);
 
         return view('pages.registration.edit', compact('registration'));
     }
@@ -102,10 +102,11 @@ class RegistrationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $idRegistration
      * @return \Illuminate\Http\Response
+     * @SuppressWarnings("unused")
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idRegistration)
     {
         //
     }
@@ -113,10 +114,11 @@ class RegistrationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $idRegistration
      * @return \Illuminate\Http\Response
+     * @SuppressWarnings("unused")
      */
-    public function destroy($id)
+    public function destroy($idRegistration)
     {
         //
     }
@@ -131,13 +133,13 @@ class RegistrationController extends Controller
         // Get the last created registration
         $lastRegistration = Registration::orderBy('created_at', 'desc')->first();
 
-        if ( ! $lastRegistration )
+        if (!$lastRegistration) {
             // We get here if there is no registration at all
             // If there is no number set it to 0, which will be 1 at the end.
             $number = 0;
-        else
+        } else {
             $number = substr($lastRegistration->registration_number, 8);
-
+        }
         // If we have YYYYMMDD000001 in the database then we only want the number
         // So the substr returns this 000001
 
