@@ -12,10 +12,9 @@ class AccessRole
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
-     * @param Request $request
      * @return string|null
      */
-    protected function redirectTo($request)
+    protected function redirectTo()
     {
         return route('dashboard');
     }
@@ -33,14 +32,19 @@ class AccessRole
         $camelizedMethod = Str::camel("is_{$role}");
         if (method_exists($this, $camelizedMethod)) {
             if (!$this->$camelizedMethod($request->user())) {
-                return redirect($this->redirectTo($request));
+                return redirect($this->redirectTo());
             }
         }
 
         return $next($request);
     }
 
-
+    /**
+     * This will suppress UnusedLocalVariable
+     * warnings in this method
+     *
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+     */
     private function isLabOfficer($user)
     {
         return $user && in_array($user->role->getAttribute("role"), [
