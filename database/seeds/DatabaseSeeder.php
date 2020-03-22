@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PatientsTableSeeder::class,
             RegistrationsTableSeeder::class,
             SymptomsTableSeeder::class,
+            SampleTypesTableSeeder::class,
         ]);
     }
 }

@@ -21,24 +21,24 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @foreach($mainMenu as $menu)
-                    @php $isActive = in_array(Request::segment($menu['segment_active']), $menu['active_in']); @endphp
-                    <li class="nav-item has-treeview {{ ($isActive) ? 'menu-open' : '' }}">
-                        <a href="{{ $menu['url'] }}" class="nav-link {{ ($isActive) ? 'active' : '' }}">
+                    @php $menuIsActive = in_array(Request::segment($menu['segment_active']), $menu['active_in']); @endphp
+                    <li class="nav-item has-treeview">
+                        <a href="{{ $menu['url'] }}" class="nav-link {{ ($menuIsActive) ? 'active' : '' }}">
                             <i class="nav-icon {{ $menu['icon'] }}"></i>
                             <p>
                                 {{ $menu['label'] }}
-                                @if ($menu['has_submenu'])
+                                @if ($menu['submenu'])
                                     <i class="right fas fa-angle-left"></i>
                                 @endif
                             </p>
                         </a>
-                        @if ($menu['has_submenu'])
-                            <ul class="nav nav-treeview">
-                                @foreach($subMenu as $sub)
-                                    @php $isActive = in_array(Request::path(), $sub['active_in']); @endphp
+                        @if ($menu['submenu'])
+                            <ul class="nav nav-treeview" {{ ($menuIsActive) ? 'style=display:block' : "" }}>
+                                @foreach($menu['submenu'] as $sub)
+                                    @php $subIsActive = in_array(Request::segment($sub['segment_active']), $sub['active_in']); @endphp
                                     @if ($menu['name'] == $sub['parent'])
                                         <li class="nav-item">
-                                            <a class="nav-link {{ ($isActive) ? 'active' : '' }}" href="{{ $sub['url'] }}">
+                                            <a class="nav-link {{ ($menuIsActive && $subIsActive) ? 'active' : '' }}" href="{{ $sub['url'] }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ $sub['label'] }}</p>
                                             </a>
