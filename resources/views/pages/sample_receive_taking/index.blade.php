@@ -11,17 +11,17 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Data Registrasi</h1>
+                <h1 class="m-0 text-dark">Data Sampel</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('login') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Registrasi</li>
+                    <li class="breadcrumb-item active">Sampel</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
         <div class="text-right">
-            <a href="{{ route('login') }}" class="btn btn-primary"><i class="fas fa-plus pr-1"></i> Registrasi Baru</a>
+            <a href="{{ route('sample_receive_taking.create') }}" class="btn btn-primary"><i class="fas fa-plus pr-1"></i> Sampel Baru</a>
         </div>
     </div><!-- /.container-fluid -->
 </div>

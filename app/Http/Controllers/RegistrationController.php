@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Models\Registration;
-use App\Models\Symptom;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +27,7 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $registrations = Registration::get();
+        $registrations = Registration::orderBy('created_at', 'desc')->get();
 
         return view('pages.registration.index', compact('registrations'));
     }
@@ -40,9 +39,10 @@ class RegistrationController extends Controller
      */
     public function create()
     {
+        $patients = Patient::get();
         $registrationNumber = $this->nextRegistrationNumber();
 
-        return view('pages.registration.create', compact('registrationNumber'));
+        return view('pages.registration.create', compact('patients', 'registrationNumber'));
     }
 
     /**
@@ -60,7 +60,7 @@ class RegistrationController extends Controller
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
         // Insert Patient
-        $patient = Patient::create($data);
+        $patient = Patient::firstOrCreate(['id' => $data['patient_id']], $data);
         // Insert Registration
         $registration = $patient->registration()->create($data);
         // Insert Symptom
@@ -101,26 +101,30 @@ class RegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Registration  $request
      * @param  int  $idRegistration
      * @return \Illuminate\Http\Response
-     * @SuppressWarnings("unused")
      */
-    public function update(Request $request, $idRegistration)
+    public function update(RegistrationRequest $request, $idRegistration)
     {
-        //
-    }
+        $data = $request->all();
+        // Change date format to Y-m-d
+        $data['date_of_birth'] = Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d');
+        $data['registration_date'] = Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d');
+        $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $idRegistration
-     * @return \Illuminate\Http\Response
-     * @SuppressWarnings("unused")
-     */
-    public function destroy($idRegistration)
-    {
-        //
+        // Update registration
+        $registration = Registration::findOrFail($idRegistration);
+        $registration->update($data);
+        // Update patient
+        $registration->patient->update($data);
+        // Update symptom
+        $registration->symptom->update($data);
+
+        return redirect()->route('registrations.index')->with('alert', [
+            'color' => 'success',
+            'message' => 'Registrasi berhasil diubah!',
+        ]);
     }
 
     /**

@@ -99,7 +99,6 @@
                             </div>
                         </div>
 
-                        <hr />
                         @foreach ($sampleTypes as $sampleType)
                             <div class="form-group row">
                                 <label for="dinkes_sender" class="col-sm-3 col-form-label">{{$sampleType->sampleName}} <span class="text-danger">*</span></label>
@@ -154,11 +153,10 @@
                             </div>
                         @endforeach
 
-                        <hr />
                         <div class="row">
                             <label for="notes" class="col-sm-3 col-form-label">Catatan</label>
                             <div class="col-sm-9">
-                                <textarea name="notes" id="notes" form="pengambilanPenerimaanSampelForm" placeholder="Catatan sampel di sini" class="boxSizingBorder"></textarea>
+                                <textarea name="notes" id="notes" form="pengambilanPenerimaanSampelForm" placeholder="Catatan sampel di sini" class="boxSizingBorder form-control"></textarea>
                             </div>
                         </div>
 

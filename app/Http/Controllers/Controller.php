@@ -42,11 +42,11 @@ class Controller extends BaseController
                     ],
                 ]
             ],
-            ['name' => 'sample_receive_taking', 'url' => "#", 'label' => 'Pengambilan / Penerimaan Sampel', 'icon' => 'fas fa-file-signature', 'active_in' => ['sample_receive_taking'], 'segment_active' => 1, 'submenu' =>
+            ['name' => 'sample_receive_taking', 'url' => "#", 'label' => 'Sampel', 'icon' => 'fas fa-file-signature', 'active_in' => ['sample_receive_taking'], 'segment_active' => 1, 'submenu' =>
                 [
                     [
                         'name' => 'index', 'url' => url('/sample_receive_taking'),
-                        'label' => 'List Data', 'icon' => 'fas fa-file-signature',
+                        'label' => 'Data Sampel', 'icon' => 'fas fa-file-signature',
                         'active_in' => [''],
                         'segment_active' => 2,
                         'has_submenu' => false,
