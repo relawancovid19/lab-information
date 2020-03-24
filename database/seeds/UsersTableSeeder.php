@@ -22,6 +22,23 @@ class UsersTableSeeder extends Seeder
             'role_id' => \App\Models\Role::STAFF_REGISTRASI,
         ]);
 
+        DB::table('users')->insert([
+            'name' => "dr. Respati",
+            'username' => 'dokter_alit',
+            'email' => 'respati@relawancovid19.id',
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'password' => Hash::make('relawancovid19id'),
+            'role_id' => \App\Models\Role::STAFF_REGISTRASI,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => "dr. Vita",
+            'username' => 'dokter_vita',
+            'email' => 'vita@relawancovid19.id',
+            'email_verified_at' => date('Y-m-d H:i:s'),
+            'password' => Hash::make('relawancovid19id'),
+            'role_id' => \App\Models\Role::STAFF_REGISTRASI,
+        ]);
 
         DB::table('users')->insert([
             'name' => "Petugas Lab",
