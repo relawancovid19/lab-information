@@ -62,6 +62,26 @@ class Controller extends BaseController
                     ]
                 ]
             ],
+            ['name' => 'rna', 'url' => "#", 'label' => 'RNA', 'icon' => 'fas fa-file-signature', 'active_in' => ['rna'], 'segment_active' => 1, 'submenu' =>
+                [
+                    [
+                        'name' => 'index', 'url' => url('/rna'),
+                        'label' => 'Data RNA', 'icon' => 'fas fa-file-signature',
+                        'active_in' => [''],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'rna'
+                    ],
+                    [
+                        'name' => 'create', 'url' => url('/rna/create'),
+                        'label' => 'Buat Baru', 'icon' => 'fas fa-file-signature',
+                        'active_in' => ['create'],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'rna'
+                    ]
+                ]
+            ],
         ];
 
         View::share('mainMenu', $mainMenu);
