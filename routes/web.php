@@ -17,10 +17,31 @@ Route::redirect('/', '/login', 301);
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function () {
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $router) {
     // Dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Registration
     Route::resource('/registrations', 'RegistrationController')->except('destroy');
+
+    $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
+        $router->prefix("sample_receive_taking")
+            ->name("sample_receive_taking.")
+            ->group(function () {
+                Route::get("", "SampleReceiveTakingController@index")
+                    ->name("index");
+                Route::get("create", "SampleReceiveTakingController@create")
+                    ->name("create");
+                Route::post("", "SampleReceiveTakingController@store")
+                    ->name("store");
+                Route::get("{sampleReceiveTaking}", "SampleReceiveTakingController@show")
+                    ->name("show");
+                Route::get("{sampleReceiveTaking}/edit", "SampleReceiveTakingController@edit")
+                    ->name("edit");
+                Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceiveTakingController@update")
+                    ->name("update");
+            });
+    });
 });
