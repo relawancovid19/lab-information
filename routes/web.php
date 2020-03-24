@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Registration
-    Route::resource('/registrations', 'RegistrationController');
+    Route::resource('/registrations', 'RegistrationController')->except('destroy');
 
     $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
         $router->prefix("sample_receive_taking")
@@ -43,6 +43,5 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                 Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceiveTakingController@update")
                     ->name("update");
             });
-
     });
 });

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('extend-css')
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ url('plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 <style>
@@ -64,7 +66,10 @@
                     <!-- Step 1: Identitas Pasien -->
                     <div class="tab">
                         <div class="form-group row">
-                            <label class="col col-form-label">1. IDENTITAS PASIEN</label>
+                            <label class="col-sm-3 col-form-label">1. IDENTITAS PASIEN</label>
+                            <div class="col-sm-9">
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalPatient" title="Cari Pasien"><i class="fas fa-search mr-1"></i> Cari Pasien</button>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="dinkes_sender" class="col-sm-3 col-form-label">Dinkes Pengirim <span class="text-danger">*</span></label>
@@ -188,12 +193,12 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('gender') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="laki" name="gender" value="Laki-laki" {{ old('gender') == 'Laki-laki' ? 'checked' : '' }}>
-                                        <label for="laki">Laki-laki</label>
+                                        <input type="radio" id="laki_laki" name="gender" value="Laki-laki" {{ old('gender') == 'Laki-laki' ? 'checked' : '' }}>
+                                        <label for="laki_laki">Laki-laki</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
                                         <input type="radio" id="perempuan" name="gender" value="Perempuan" {{ old('gender') == 'Perempuan' ? 'checked' : '' }}>
-                                        <label for="gender">Perempuan</label>
+                                        <label for="perempuan">Perempuan</label>
                                     </div>
                                 </div>
 
@@ -239,11 +244,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('fever') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaPanas" name="fever" value="1" {{ old('fever') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaPanas" name="fever" value="1" {{ old('fever') == true ? 'checked' : '' }}>
                                         <label for="iyaPanas">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakPanas" name="fever" value="0" {{ old('fever') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakPanas" name="fever" value="0" {{ old('fever') == false ? 'checked' : '' }}>
                                         <label for="tidakPanas">Tidak</label>
                                     </div>
                                 </div>
@@ -258,11 +263,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('cough') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaBatuk" name="cough" value="1" {{ old('cough') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaBatuk" name="cough" value="1" {{ old('cough') == true ? 'checked' : '' }}>
                                         <label for="iyaBatuk">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakBatuk" name="cough" value="0" {{ old('cough') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakBatuk" name="cough" value="0" {{ old('cough') == false ? 'checked' : '' }}>
                                         <label for="tidakBatuk">Tidak</label>
                                     </div>
                                 </div>
@@ -277,11 +282,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('sore_throat') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaNyeri" name="sore_throat" value="1" {{ old('sore_throat') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaNyeri" name="sore_throat" value="1" {{ old('sore_throat') == true ? 'checked' : '' }}>
                                         <label for="iyaNyeri">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakNyeri" name="sore_throat" value="0" {{ old('sore_throat') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakNyeri" name="sore_throat" value="0" {{ old('sore_throat') == false ? 'checked' : '' }}>
                                         <label for="tidakNyeri">Tidak</label>
                                     </div>
                                 </div>
@@ -296,11 +301,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('shortness_of_breath') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaSesak" name="shortness_of_breath" value="1" {{ old('shortness_of_breath') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaSesak" name="shortness_of_breath" value="1" {{ old('shortness_of_breath') == true ? 'checked' : '' }}>
                                         <label for="iyaSesak">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakSesak" name="shortness_of_breath" value="0" {{ old('shortness_of_breath') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakSesak" name="shortness_of_breath" value="0" {{ old('shortness_of_breath') == false ? 'checked' : '' }}>
                                         <label for="tidakSesak">Tidak</label>
                                     </div>
                                 </div>
@@ -315,11 +320,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('flu') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaFlu" name="flu" value="1" {{ old('flu') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaFlu" name="flu" value="1" {{ old('flu') == true ? 'checked' : '' }}>
                                         <label for="iyaFlu">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakFlu" name="flu" value="0" {{ old('flu') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakFlu" name="flu" value="0" {{ old('flu') == false ? 'checked' : '' }}>
                                         <label for="tidakFlu">Tidak</label>
                                     </div>
                                 </div>
@@ -334,11 +339,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('fatigue') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaLesu" name="fatigue" value="1" {{ old('fatigue') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaLesu" name="fatigue" value="1" {{ old('fatigue') == true ? 'checked' : '' }}>
                                         <label for="iyaLesu">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakLesu" name="fatigue" value="0" {{ old('fatigue') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakLesu" name="fatigue" value="0" {{ old('fatigue') == false ? 'checked' : '' }}>
                                         <label for="tidakLesu">Tidak</label>
                                     </div>
                                 </div>
@@ -353,11 +358,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('headache') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaSakit" name="headache" value="1" {{ old('headache') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaSakit" name="headache" value="1" {{ old('headache') == true ? 'checked' : '' }}>
                                         <label for="iyaSakit">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakSakit" name="headache" value="0" {{ old('headache') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakSakit" name="headache" value="0" {{ old('headache') == false ? 'checked' : '' }}>
                                         <label for="tidakSakit">Tidak</label>
                                     </div>
                                 </div>
@@ -372,11 +377,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('diarrhea') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaDiare" name="diarrhea" value="1" {{ old('diarrhea') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaDiare" name="diarrhea" value="1" {{ old('diarrhea') == true ? 'checked' : '' }}>
                                         <label for="iyaDiare">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakDiare" name="diarrhea" value="0" {{ old('diarrhea') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakDiare" name="diarrhea" value="0" {{ old('diarrhea') == false ? 'checked' : '' }}>
                                         <label for="tidakDiare">Tidak</label>
                                     </div>
                                 </div>
@@ -391,11 +396,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('nausea_or_vomiting') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaMual" name="nausea_or_vomiting" value="1" {{ old('nausea_or_vomiting') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaMual" name="nausea_or_vomiting" value="1" {{ old('nausea_or_vomiting') == true ? 'checked' : '' }}>
                                         <label for="iyaMual">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakMual" name="nausea_or_vomiting" value="0" {{ old('nausea_or_vomiting') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakMual" name="nausea_or_vomiting" value="0" {{ old('nausea_or_vomiting') == false ? 'checked' : '' }}>
                                         <label for="tidakMual">Tidak</label>
                                     </div>
                                 </div>
@@ -410,11 +415,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('comorbid') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaKomorbid" name="comorbid" value="1" {{ old('comorbid') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaKomorbid" name="comorbid" value="1" {{ old('comorbid') == true ? 'checked' : '' }}>
                                         <label for="iyaKomorbid">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakKomorbid" name="comorbid" value="0" {{ old('comorbid') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakKomorbid" name="comorbid" value="0" {{ old('comorbid') == false ? 'checked' : '' }}>
                                         <label for="tidakKomorbid">Tidak</label>
                                     </div>
                                 </div>
@@ -468,11 +473,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('using_ventilator') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaVentilator" name="using_ventilator" value="1" {{ old('using_ventilator') == 'true' ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaVentilator" name="using_ventilator" value="1" {{ old('using_ventilator') == true ? 'checked' : '' }}>
                                         <label for="iyaVentilator">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakVentilator" name="using_ventilator" value="0" {{ old('using_ventilator') == 'false' ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakVentilator" name="using_ventilator" value="0" {{ old('using_ventilator') == false ? 'checked' : '' }}>
                                         <label for="tidakVentilator">Tidak</label>
                                     </div>
                                 </div>
@@ -485,11 +490,53 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-9 offset-sm-3">
+                            <input type="hidden" name="patient_id" id="patientID">
                             <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Sebelumnya</button>
                             <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)">Berikutnya</button>
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <!-- existing patient -->
+    <div class="modal fade" id="modalPatient">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Daftar Pasien</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">NIK</th>
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center">Tanggal Lahir</th>
+                                    <th class="text-center">Jenis Kelamin</th>
+                                    <th width="10%" class="text-center">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($patients as $patient)
+                                <tr>
+                                    <td>{{ $patient->nik }}</td>
+                                    <td>{{ $patient->fullname }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($patient->date_of_birth)->format('d/m/Y') }}</td>
+                                    <td>{{ $patient->gender }}</td>
+                                    <td class="text-center">
+                                        <button data-dismiss="modal" type="button" class="btn btn-primary btn-xs selectPatient" value="{{ $patient }}"><i class="fas fa-check mr-1"></i> Pilih</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -500,7 +547,13 @@
 <!-- InputMask -->
 <script src="{{ url('plugins/moment/moment.min.js') }}"></script>
 <script src="{{ url('plugins/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
+<!-- DataTables -->
+<script src="{{ url('plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
 <script>
+    // Datatables
+    $("#datatable").DataTable();
+
     // Datemask dd/mm/yyyy
     $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
 
@@ -548,5 +601,22 @@
         // Otherwise, display the correct tab:
         showTab(currentTab);
     }
+
+    // Select existing patient
+    $(".selectPatient").click(function () {
+        var x = $(this).prop("value");
+        var obj = JSON.parse(x);
+
+        $("input[name='fullname']").val(obj.fullname);
+        $("input[name='nik']").val(obj.nik);
+        $("input[name='date_of_birth']").val(obj.date_of_birth);
+        $("input[name='age_year']").val(obj.age_year);
+        $("input[name='age_month']").val(obj.age_month);
+        $("input[value="+obj.gender+"]").attr("checked", true);
+        $("input[name='address_1']").val(obj.address_1);
+        $("input[name='address_2']").val(obj.address_2);
+        $("input[name='phone_number']").val(obj.phone_number);
+        $("input[name='patient_id']").val(obj.id);
+    });
 </script>
 @endsection
