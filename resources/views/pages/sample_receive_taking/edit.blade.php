@@ -122,7 +122,6 @@
                             </div>
                         </div>
 
-                        <hr />
                         @foreach ($sampleReceiveTaking->sampleTypes as $sampleType)
                             @php
                                 $pivot = $sampleType->pivot;
@@ -211,11 +210,10 @@
                             </div>
                         @endforeach
 
-                        <hr />
                         <div class="row">
                             <label for="notes" class="col-sm-3 col-form-label">Catatan</label>
                             <div class="col-sm-9">
-                                <textarea class="boxSizingBorder" form="pengambilanPenerimaanSampelForm" id="notes"
+                                <textarea class="boxSizingBorder form-control" form="pengambilanPenerimaanSampelForm" id="notes"
                                           name="notes" placeholder="Catatan sampel di sini">{{$sampleReceiveTaking->notes}}</textarea>
                             </div>
                         </div>
