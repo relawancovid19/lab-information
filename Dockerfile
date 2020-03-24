@@ -21,7 +21,7 @@ RUN apt update && apt upgrade -y && apt install -y software-properties-common &&
     make
 
 # Copy nginx config
-ADD ./docker-default.conf /etc/nginx/sites-available/default
+ADD ./docker/nginx-default.conf /etc/nginx/sites-available/default
 
 # Copy project to workdir
 ADD . ${WORKDIR}
