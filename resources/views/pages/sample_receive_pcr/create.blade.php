@@ -134,13 +134,38 @@
                                 <input type="text" class="form-control timemask @error('check_start_time') is-invalid @enderror" name="check_start_time" value="{{ old('check_start_time') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-mask placeholder="Jam mulai pemeriksaan">
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label for="check_type" class="col-sm-3 col-form-label">Metode pemeriksaan <span class="text-danger">*</span></label>
+                            <label for="check_finish_time" class="col-sm-3 col-form-label">Jam selesai pemeriksaan <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="check_type" id="check_type" placeholder="Metode pemeriksaan" required>
+                                <input type="text" class="form-control timemask @error('check_finish_time') is-invalid @enderror" name="check_finish_time" value="{{ old('check_finish_time') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-mask placeholder="Jam selesai pemeriksaan">
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Metode pemeriksaan <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input col-sm-4" name="check_type" value="multiplex" id="check_type_multiplex" required>
+                                    <label for="check_type_multiplex" class="custom-control-label">
+                                        Multiplex
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input col-sm-4" name="check_type" value="singleplex" id="check_type_singleplex" required>
+                                    <label for="check_type_singleplex" class="custom-control-label">
+                                        Singleplex
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input col-sm-4" name="check_type" value="lainnya" id="check_type_other" required>
+                                    <label for="check_type_other" class="custom-control-label">
+                                        Lainnya, sebutkan
+                                    </label>
+                                    <input type="text" class="form-control col-sm-4" name="check_type_other" value="">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="check_kit" class="col-sm-3 col-form-label">Nama kit pemeriksaan <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
@@ -155,22 +180,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="check_finish_date" class="col-sm-3 col-form-label">Tanggal selesai pemeriksaan <span class="text-danger">*</span></label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control datemask @error('check_finish_date') is-invalid @enderror" name="check_finish_date" value="{{ old('check_finish_date') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal selesai pemeriksaan">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="check_finish_time" class="col-sm-3 col-form-label">Jam selesai pemeriksaan <span class="text-danger">*</span></label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control timemask @error('check_finish_time') is-invalid @enderror" name="check_finish_time" value="{{ old('check_finish_time') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-mask placeholder="Jam selesai pemeriksaan">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="result" class="col-sm-3 col-form-label">Hasil deteksi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="result" id="result" placeholder="Hasil deteksi" required>
+                                CT Value <input type="text" class="form-control" name="result" id="result" placeholder="Hasil deteksi" required>
                             </div>
                         </div>
 
