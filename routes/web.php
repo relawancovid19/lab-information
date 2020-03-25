@@ -51,11 +51,11 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                     ->name("create");
                 Route::post("", "SampleReceivePcrController@store")
                     ->name("store");
-                Route::get("{sampleReceiveTaking}", "SampleReceivePcrController@show")
+                Route::get("{sampleReceivePcr}", "SampleReceivePcrController@show")
                     ->name("show");
-                Route::get("{sampleReceiveTaking}/edit", "SampleReceivePcrController@edit")
+                Route::get("{sampleReceivePcr}/edit", "SampleReceivePcrController@edit")
                     ->name("edit");
-                Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceivePcrController@update")
+                Route::match(['put', 'patch'], "{sampleReceivePcr}", "SampleReceivePcrController@update")
                     ->name("update");
             });
     });
