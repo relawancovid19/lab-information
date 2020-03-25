@@ -97,7 +97,7 @@ class SampleReceivePcrController extends Controller
         $data = $request->only((new SampleReceivePcr())->getFillable());
         $data['rna_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('rna_date'))->format('Y-m-d') . ' ' . $request->input('rna_time');
         $data['check_start_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('check_start_date'))->format('Y-m-d') . ' ' . $request->input('check_start_time');
-        $data['check_finish_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('check_finish_date'))->format('Y-m-d') . ' ' . $request->input('check_finish_time');
+        $data['check_finish_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('check_start_date'))->format('Y-m-d') . ' ' . $request->input('check_finish_time');
         $data['from_lab'] = $request->input('from_lab') == 'lainnya' ? $request->input('from_lab_other') : $request->input('from_lab');
 
         $sampleReceivePcr->fill($data);

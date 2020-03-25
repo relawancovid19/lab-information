@@ -135,13 +135,38 @@
                                 <input type="text" class="form-control timemask @error('check_start_time') is-invalid @enderror" name="check_start_time" value="{{ $sampleReceivePcr->check_start_datetime ? \Carbon\Carbon::parse($sampleReceivePcr->check_start_datetime)->format('H:i') : old('check_start_time') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-mask placeholder="Jam mulai pemeriksaan">
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label for="check_type" class="col-sm-3 col-form-label">Metode pemeriksaan <span class="text-danger">*</span></label>
+                            <label for="check_finish_time" class="col-sm-3 col-form-label">Jam selesai pemeriksaan <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="check_type" id="check_type" placeholder="Metode pemeriksaan" required value="{{ $sampleReceivePcr->check_type }}">
+                                <input type="text" class="form-control timemask @error('check_finish_time') is-invalid @enderror" name="check_finish_time" value="{{ $sampleReceivePcr->check_finish_datetime ? \Carbon\Carbon::parse($sampleReceivePcr->check_finish_datetime)->format('H:i') : old('check_finish_time') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-mask placeholder="Jam selesai pemeriksaan">
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Metode pemeriksaan <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input col-sm-4" name="check_type" value="multiplex" id="check_type_multiplex" required {{ $sampleReceivePcr->check_type == 'multiplex' ? 'checked' : '' }}>
+                                    <label for="check_type_multiplex" class="custom-control-label">
+                                        Multiplex
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input col-sm-4" name="check_type" value="singleplex" id="check_type_singleplex" required {{ $sampleReceivePcr->check_type == 'singleplex' ? 'checked' : '' }}>
+                                    <label for="check_type_singleplex" class="custom-control-label">
+                                        Singleplex
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input col-sm-4" name="check_type" value="lainnya" id="check_type_other" required {{ !in_array($sampleReceivePcr->check_type, ['multiplex', 'singleplex']) ? 'checked' : '' }}>
+                                    <label for="check_type_other" class="custom-control-label">
+                                        Lainnya, sebutkan
+                                    </label>
+                                    <input type="text" class="form-control col-sm-4" name="check_type_other" value="{{ !in_array($sampleReceivePcr->check_type, ['multiplex', 'singleplex']) ? $sampleReceivePcr->check_type : '' }}">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="check_kit" class="col-sm-3 col-form-label">Nama kit pemeriksaan <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
@@ -152,19 +177,6 @@
                             <label for="gen_target" class="col-sm-3 col-form-label">Target gen <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="gen_target" id="gen_target" placeholder="Target gen" required value="{{ $sampleReceivePcr->gen_target }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="check_finish_date" class="col-sm-3 col-form-label">Tanggal selesai pemeriksaan <span class="text-danger">*</span></label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control datemask @error('check_finish_date') is-invalid @enderror" name="check_finish_date" value="{{ $sampleReceivePcr->check_finish_datetime ? \Carbon\Carbon::parse($sampleReceivePcr->check_finish_datetime)->format('d/m/Y') : old('check_finish_date') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal selesai pemeriksaan">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="check_finish_time" class="col-sm-3 col-form-label">Jam selesai pemeriksaan <span class="text-danger">*</span></label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control timemask @error('check_finish_time') is-invalid @enderror" name="check_finish_time" value="{{ $sampleReceivePcr->check_finish_datetime ? \Carbon\Carbon::parse($sampleReceivePcr->check_finish_datetime)->format('H:i') : old('check_finish_time') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-mask placeholder="Jam selesai pemeriksaan">
                             </div>
                         </div>
 
