@@ -48,8 +48,8 @@ class AccessRole
     private function isLabOfficer($user)
     {
         return $user && in_array($user->role->getAttribute("role"), [
-                Role::KEPALA_LAB,
-                Role::STAFF_LAB,
-            ]);
+            Role::KEPALA_LAB,
+            Role::STAFF_LAB,
+        ]);
     }
 }

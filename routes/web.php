@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,20 +11,20 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::redirect('/', '/login', 301);
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $router) {
+Route::group(['middleware' => ['auth']], function (Router $router) {
     // Dashboard
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Registration
     Route::resource('/registrations', 'RegistrationController')->except('destroy');
 
-    $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
+    $router->group(['middleware' => ['role:lab_officer']], function (Router $router) {
         $router->prefix("sample_receive_taking")
             ->name("sample_receive_taking.")
             ->group(function () {
@@ -41,6 +41,5 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                 Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceiveTakingController@update")
                     ->name("update");
             });
-
     });
 });
