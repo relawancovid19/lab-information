@@ -25,37 +25,25 @@ class Registration extends FormRequest
     {
         return [
             // Patient
-            'nik' => 'required|integer',
+            'nik' => 'nullable|integer',
             'fullname' => 'required',
-            'date_of_birth' => 'required|date_format:d/m/Y',
-            'age_year' => 'required|integer',
+            'date_of_birth' => 'nullable|date_format:d/m/Y',
+            'age_year' => 'nullable|integer',
             'age_month' => 'nullable|integer',
-            'gender' => 'required',
-            'address_1' => 'required',
-            'phone_number' => 'required|digits_between:10,15',
+            'gender' => 'nullable',
+            'address_1' => 'nullable',
+            'phone_number' => 'nullable|digits_between:10,15',
             // Registration
             'registration_number' => 'required|integer|unique:registrations,registration_number,'.$this->registration,
             'sample_number' => 'required',
-            'dinkes_sender' => 'required',
-            'fasyankes_sender' => 'required',
-            'fasyankes_phone' => 'required|digits_between:10,15',
-            'doctor' => 'required',
-            'registration_date' => 'required|date_format:d/m/Y',
-            'reference_number' => 'required',
+            'dinkes_sender' => 'nullable',
+            'fasyankes_sender' => 'nullable',
+            'fasyankes_phone' => 'nullable|digits_between:10,15',
+            'doctor' => 'nullable',
+            'registration_date' => 'nullable|date_format:d/m/Y',
+            'reference_number' => 'nullable',
             // Symptoms
-            'fever' => 'required|boolean',
-            'cough' => 'required|boolean',
-            'sore_throat' => 'required|boolean',
-            'shortness_of_breath' => 'required|boolean',
-            'flu' => 'required|boolean',
-            'fatigue' => 'required|boolean',
-            'headache' => 'required|boolean',
-            'diarrhea' => 'required|boolean',
-            'nausea_or_vomiting' => 'required|boolean',
-            'comorbid' => 'required|boolean',
             'comorbid_description' => 'required_if:comorbid,true',
-            'pulmonary_xray' => 'required',
-            'using_ventilator' => 'required|boolean'
         ];
     }
 

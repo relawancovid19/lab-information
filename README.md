@@ -125,9 +125,9 @@ docker run -d --name <container_name> -p <the_port_you_want>:80 covid19id_lab:la
 
 * Make sure mysql and project container are in 1 docker network, so they can communicate with each other
 
-## Testing
+## Check Code
 
-**Run Testing**
+**Run Check Code**
 
 ```bash
 # Check code metric
@@ -136,8 +136,6 @@ vendor/bin/phpmd tests text phpmd_rulesets.xml
 # Check code standard
 vendor/bin/phpcs app --standard=PSR2 -n
 vendor/bin/phpcs tests --standard=PSR2 -n
-# Unit testing
-vendor/bin/phpunit --debug --stop-on-failure --stop-on-error
 ```
 
 or you can run all of these commands with the `make` command
@@ -163,8 +161,7 @@ When contributing to this repository, please note we have a code standards, plea
 5. Submit pull request.
 
 **Note** :
-* Please make sure to update tests as appropriate.
-* It's recommended to run **Testing** command before submit a pull request.
+* It's recommended to run **Check Code** command before submit a pull request.
 
 ## Contributors
 
