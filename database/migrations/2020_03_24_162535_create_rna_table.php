@@ -17,8 +17,7 @@ class CreateRnaTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes('deleted_at', 0);
-            $table->string('registration_number');
-            // $table->foreign('registration_number_id', 'foreign_registrations')->references('id')->on('registrations');
+            $table->foreign('registration_number_id', 'foreign_registrations')->references('id')->on('registrations');
             $table->foreign('sample_receive_taking_id', 'foreign_sample_receive_taking')->references('id')->on('sample_receive_takings');
             $table->date('taken_date');
             $table->time('taken_time');
