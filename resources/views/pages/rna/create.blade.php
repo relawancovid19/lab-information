@@ -86,6 +86,13 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="receiver_officer" class="col-sm-3 col-form-label">Petugas penerima sampel <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="receiver_officer" id="receiver_officer" placeholder="Petugas penerima sampel" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="extraction_operator" class="col-sm-3 col-form-label">Operator ekstraksi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="extraction_operator" id="extraction_operator" placeholder="Operator ekstraksi" required>

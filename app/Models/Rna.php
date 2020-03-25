@@ -37,6 +37,11 @@ class Rna extends Model {
         'sent_to',
         'sender_name',
         'sent_date_time',
-        'note'
+        'notes'
     ];
+
+    public function registration()
+    {
+        return $this->hasOne(Registration::class, 'id', 'registration_number_id');
+    }
 }

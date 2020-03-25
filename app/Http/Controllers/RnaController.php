@@ -40,4 +40,11 @@ class RnaController extends Controller {
 
         return redirect()->route('rna.index');
     }
+
+    public function show(Rna $rna)
+    {
+        return view('pages.rna.show', [
+            'rna' => $rna,
+        ]);
+    }
 }
