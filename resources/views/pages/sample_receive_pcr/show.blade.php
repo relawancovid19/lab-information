@@ -107,6 +107,12 @@
                                 {{ \Carbon\Carbon::parse($sampleReceivePcr->check_start_datetime)->format('H:i') }}
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="check_finish_time" class="col-sm-3 col-form-label">Jam selesai pemeriksaan</label>
+                            <div class="col-sm-9">
+                                {{ \Carbon\Carbon::parse($sampleReceivePcr->check_finish_datetime)->format('H:i') }}
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="check_type" class="col-sm-3 col-form-label">Metode pemeriksaan</label>
@@ -124,19 +130,6 @@
                             <label for="gen_target" class="col-sm-3 col-form-label">Target gen</label>
                             <div class="col-sm-9">
                                 {{ $sampleReceivePcr->gen_target }}
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="check_finish_date" class="col-sm-3 col-form-label">Tanggal selesai pemeriksaan</label>
-                            <div class="col-sm-9">
-                                {{ \Carbon\Carbon::parse($sampleReceivePcr->check_finish_datetime)->format('d/m/Y') }}
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="check_finish_time" class="col-sm-3 col-form-label">Jam selesai pemeriksaan</label>
-                            <div class="col-sm-9">
-                                {{ \Carbon\Carbon::parse($sampleReceivePcr->check_finish_datetime)->format('H:i') }}
                             </div>
                         </div>
 
