@@ -29,9 +29,9 @@ class SampleReceivePcrController extends Controller
      */
     public function create()
     {
-        $registration = Registration::query()->get();
+        $registrations = Registration::query()->get();
         return view('pages.sample_receive_pcr.create', [
-            'registration' => $registration,
+            'registrations' => $registrations,
         ]);
     }
 

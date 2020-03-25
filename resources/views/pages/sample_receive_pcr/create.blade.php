@@ -52,7 +52,10 @@
                         <div class="form-group row">
                             <label for="registration_id" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control numbermask" name="registration_id" id="registration_id" placeholder="Nomer registrasi" required>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalPatient" title="Nomer registrasi"><i class="fas fa-search mr-1"></i> Nomer registrasi</button>
+                                <input type="hidden" class="form-control" name="registration_id" id="registration_id" required>
+                                <br>
+                                <span class="registration_number"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -207,6 +210,49 @@
                 </div>
             </div>
         </div>
+        <!-- existing patient -->
+        <div class="modal fade" id="modalPatient">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Nomer Registrasi</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-bordered table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nomer Registrasi</th>
+                                        <th class="text-center">NIK</th>
+                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">Tanggal Lahir</th>
+                                        <th class="text-center">Jenis Kelamin</th>
+                                        <th width="10%" class="text-center">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($registrations as $registration)
+                                    <tr>
+                                        <td>{{ $registration->registration_number }}</td>
+                                        <td>{{ $registration->patient->nik }}</td>
+                                        <td>{{ $registration->patient->fullname }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($registration->patient->date_of_birth)->format('d/m/Y') }}</td>
+                                        <td>{{ $registration->patient->gender }}</td>
+                                        <td class="text-center">
+                                            <button data-dismiss="modal" type="button" class="btn btn-primary btn-xs selectRegistration" value="{{ $registration }}"><i class="fas fa-check mr-1"></i> Pilih</button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 
@@ -239,5 +285,14 @@
         $('.timemask').inputmask('HH:MM', { 'placeholder': 'HH:MM' })
 
         $('.numbermask').inputmask({ 'mask': '9', 'repeat': 10, 'greedy': false, placeholder: '' })
+
+        // Select existing registration
+        $(".selectRegistration").click(function () {
+            var x = $(this).prop("value");
+            var obj = JSON.parse(x);
+
+            $("input[name='registration_id']").val(obj.id);
+            $(".registration_number").text(obj.registration_number);
+        });
     </script>
 @endsection

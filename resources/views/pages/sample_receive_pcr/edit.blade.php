@@ -56,7 +56,7 @@
                         <div class="form-group row">
                             <label for="registration_id" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control numbermask" name="registration_id" id="registration_id" placeholder="Nomer registrasi" required value="{{ $sampleReceivePcr->registration_id }}">
+                                {{ $sampleReceivePcr->registration->registration_number }}
                             </div>
                         </div>
                         <div class="form-group row">
