@@ -65,7 +65,9 @@ class SampleReceivePcrController extends Controller
      */
     public function show(SampleReceivePcr $sampleReceivePcr)
     {
-        //
+        return view('pages.sample_receive_pcr.show', [
+            'sampleReceivePcr' => $sampleReceivePcr,
+        ]);
     }
 
     /**
@@ -76,7 +78,9 @@ class SampleReceivePcrController extends Controller
      */
     public function edit(SampleReceivePcr $sampleReceivePcr)
     {
-        //
+        return view('pages.sample_receive_pcr.edit', [
+            'sampleReceivePcr' => $sampleReceivePcr,
+        ]);
     }
 
     /**
@@ -88,17 +92,19 @@ class SampleReceivePcrController extends Controller
      */
     public function update(Request $request, SampleReceivePcr $sampleReceivePcr)
     {
-        //
-    }
+        $data = [];
+        $data = $request->only((new SampleReceivePcr())->getFillable());
+        $data['rna_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('rna_date'))->format('Y-m-d') . ' ' . $request->input('rna_time');
+        $data['check_start_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('check_start_date'))->format('Y-m-d') . ' ' . $request->input('check_start_time');
+        $data['check_finish_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('check_finish_date'))->format('Y-m-d') . ' ' . $request->input('check_finish_time');
+        $data['from_lab'] = $request->input('from_lab') == 'lainnya' ? $request->input('from_lab_other') : $request->input('from_lab');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\SampleReceivePcr  $sampleReceivePcr
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(SampleReceivePcr $sampleReceivePcr)
-    {
-        //
+        $sampleReceivePcr->fill($data);
+
+        if ($sampleReceivePcr->isDirty()) {
+            $sampleReceivePcr->save();
+        }
+
+        return redirect()->route('sample_receive_pcr.show', ['sampleReceivePcr' => $sampleReceivePcr->getKey()]);
     }
 }
