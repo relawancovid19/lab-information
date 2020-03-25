@@ -84,6 +84,12 @@ composer install
 cp .env.example .env
 ```
 
+**Generate App Key**
+
+```bash
+php artisan key:generate
+```
+
 **Database Migration**
 
 Create new database and setup the `.env` file
