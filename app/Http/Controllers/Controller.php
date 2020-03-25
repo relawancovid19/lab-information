@@ -62,7 +62,7 @@ class Controller extends BaseController
                     ]
                 ]
             ],
-            ['name' => 'rna', 'url' => "#", 'label' => 'Ekstraksi RNA', 'icon' => 'fas fa-file-signature', 'active_in' => ['rna'], 'segment_active' => 1, 'submenu' =>
+            ['name' => 'rna', 'url' => "#", 'label' => 'Ekstraksi RNA', 'icon' => 'fas fa-vials', 'active_in' => ['rna'], 'segment_active' => 1, 'submenu' =>
                 [
                     [
                         'name' => 'index', 'url' => url('/rna'),
