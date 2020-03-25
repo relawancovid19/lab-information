@@ -13,18 +13,20 @@ class CreatePatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patients', function (Blueprint $table) {
-            $table->id();
-            $table->string('nik')->nullable();
-            $table->string('fullname');
-            $table->date('date_of_birth');
-            $table->enum('gender', ['Laki-laki', 'Perempuan']);
-            $table->string('address_1');
-            $table->string('address_2');
-            $table->string('phone_number');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('patients')) {
+            Schema::create('patients', function (Blueprint $table) {
+                $table->id();
+                $table->string('nik')->nullable();
+                $table->string('fullname');
+                $table->date('date_of_birth');
+                $table->enum('gender', ['Laki-laki', 'Perempuan']);
+                $table->string('address_1');
+                $table->string('address_2');
+                $table->string('phone_number');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

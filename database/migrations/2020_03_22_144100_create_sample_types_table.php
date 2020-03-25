@@ -13,12 +13,14 @@ class CreateSampleTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sample_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('sample_name');
-            $table->string('slug_sample_name');
-            $table->boolean('is_default')->default(false);
-        });
+        if (!Schema::hasTable('sample_types')) {
+            Schema::create('sample_types', function (Blueprint $table) {
+                $table->id();
+                $table->string('sample_name');
+                $table->string('slug_sample_name');
+                $table->boolean('is_default')->default(false);
+            });
+        }
     }
 
     /**
