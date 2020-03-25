@@ -7,10 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rna extends Model
 {
-
     use SoftDeletes;
-
-    protected $table = 'rna';
 
     /**
      * The attributes that should be mutated to dates.
