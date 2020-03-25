@@ -32,7 +32,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('rna.index') }}">Ekstraksi RNA</a></li>
-                        <li class="breadcrumb-item active">Entri Baru</li>
+                        <li class="breadcrumb-item active">Edit Entri</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -47,14 +47,18 @@
         <div class="container-fluid">
             <div class="card card-default color-palette-box">
                 <div class="card-body">
-                    <form id="pengambilanPenerimaanSampelForm" class="form-horizontal" action="{{ route('rna.store') }}" method="post">
+                    <form action="{{ route('rna.update', $rna->getKey()) }}"
+                          class="form-horizontal"
+                          id="pengambilanPenerimaanSampelForm"
+                          method="POST">
+                        @method("PUT")
                         @csrf
                         <div class="form-group row">
                             <label for="registration_number" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                             <select class="custom-select" name="registration_number_id" required>
                                 @foreach ($registrationNumbers as $registrationNumber)
-                                    <option value="{{ $registrationNumber->id }}">{{ $registrationNumber->registration_number }}</option>
+                                    <option value="{{ $registrationNumber->id }}" {{ $registrationNumber->id == $rna->registration_number_id ? "selected" : "" }}>{{ $registrationNumber->registration_number }}</option>
                                 @endforeach
                             </select>
                             </div>
@@ -65,7 +69,7 @@
                             <div class="col-sm-9">
                             <select class="custom-select" name="sample_receive_taking_id" required>
                                 @foreach ($sampleReceiveTakings as $sampleReceiveTaking)
-                                    <option value="{{ $sampleReceiveTaking->id }}">{{ $sampleReceiveTaking->id }}</option>
+                                    <option value="{{ $sampleReceiveTaking->id }}" {{ $sampleReceiveTaking->id == $rna->sample_receive_taking_id ? "selected" : "" }}>{{ $sampleReceiveTaking->id }}</option>
                                 @endforeach
                             </select>
                             </div>
@@ -76,7 +80,7 @@
                             <div class="col-sm-9">
 
                                 <div class="input-group date" id="timepicker" data-target-input="nearest">
-                                    <input type="text" name="taken_date_time" class="form-control datetimepicker-input" data-target="#timepicker"/>
+                                    <input type="text" name="taken_date_time" class="form-control datetimepicker-input" data-target="#timepicker" value="{{ $rna->taken_date_time }}"/>
                                     <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="far fa-clock"></i></div>
                                     </div>
@@ -88,14 +92,14 @@
                         <div class="form-group row">
                             <label for="receiver_officer" class="col-sm-3 col-form-label">Petugas penerima sampel <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="receiver_officer" id="receiver_officer" placeholder="Petugas penerima sampel" required>
+                                <input type="text" value="{{ $rna->receiver_officer }}" class="form-control" name="receiver_officer" id="receiver_officer" placeholder="Petugas penerima sampel" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="extraction_operator" class="col-sm-3 col-form-label">Operator ekstraksi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="extraction_operator" id="extraction_operator" placeholder="Operator ekstraksi" required>
+                                <input type="text" value="{{ $rna->extraction_operator }}" class="form-control" name="extraction_operator" id="extraction_operator" placeholder="Operator ekstraksi" required>
                             </div>
                         </div>
 
@@ -104,7 +108,7 @@
                             <div class="col-sm-9">
 
                                 <div class="input-group date" id="timepicker_ekstraksi" data-target-input="nearest">
-                                    <input type="text" name="extraction_started_date_time" class="form-control datetimepicker-input" data-target="#timepicker_ekstraksi"/>
+                                    <input type="text" value="{{ $rna->extraction_started_date_time }}" name="extraction_started_date_time" class="form-control datetimepicker-input" data-target="#timepicker_ekstraksi"/>
                                     <div class="input-group-append" data-target="#timepicker_ekstraksi" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="far fa-clock"></i></div>
                                     </div>
@@ -116,14 +120,14 @@
                         <div class="form-group row">
                             <label for="extraction_method" class="col-sm-3 col-form-label">Metode ekstraksi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="extraction_method" id="extraction_method" placeholder="Metode ekstraksi" required>
+                                <input type="text" value="{{ $rna->extraction_method }}" class="form-control" name="extraction_method" id="extraction_method" placeholder="Metode ekstraksi" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="extraction_kit_name" class="col-sm-3 col-form-label">Nama kit ekstraksi <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="extraction_kit_name" id="extraction_kit_name" placeholder="Nama kit ekstraksi" required>
+                                <input type="text" value="{{ $rna->extraction_kit_name }}" class="form-control" name="extraction_kit_name" id="extraction_kit_name" placeholder="Nama kit ekstraksi" required>
                             </div>
                         </div>
 
@@ -132,7 +136,7 @@
                             <div class="col-sm-9">
 
                                 <div class="input-group date" id="timepicker_ekstraksi_end" data-target-input="nearest">
-                                    <input type="text" name="extraction_ended_date_time" class="form-control datetimepicker-input" data-target="#timepicker_ekstraksi_end"/>
+                                    <input type="text" value="{{ $rna->extraction_ended_date_time }}" name="extraction_ended_date_time" class="form-control datetimepicker-input" data-target="#timepicker_ekstraksi_end"/>
                                     <div class="input-group-append" data-target="#timepicker_ekstraksi_end" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="far fa-clock"></i></div>
                                     </div>
@@ -144,14 +148,14 @@
                         <div class="form-group row">
                             <label for="sent_to" class="col-sm-3 col-form-label">Dikirim ke lab <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="sent_to" id="sent_to" placeholder="Dikirim ke lab" required>
+                                <input type="text" value="{{ $rna->sent_to }}" class="form-control" name="sent_to" id="sent_to" placeholder="Dikirim ke lab" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="sender_name" class="col-sm-3 col-form-label">Nama pengirim <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="sender_name" id="sender_name" placeholder="Nama pengirim" required>
+                                <input type="text" value="{{ $rna->sender_name }}" class="form-control" name="sender_name" id="sender_name" placeholder="Nama pengirim" required>
                             </div>
                         </div>
 
@@ -160,7 +164,7 @@
                             <div class="col-sm-9">
 
                                 <div class="input-group date" id="sent_date_time" data-target-input="nearest">
-                                    <input type="text" name="sent_date_time" class="form-control datetimepicker-input" data-target="#sent_date_time" required/>
+                                    <input type="text" value="{{ $rna->sent_date_time }}" name="sent_date_time" class="form-control datetimepicker-input" data-target="#sent_date_time" required/>
                                     <div class="input-group-append" data-target="#sent_date_time" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="far fa-clock"></i></div>
                                     </div>
@@ -172,11 +176,11 @@
                         <div class="row">
                             <label for="notes" class="col-sm-3 col-form-label">Catatan</label>
                             <div class="col-sm-9">
-                                <textarea name="notes" id="notes" form="pengambilanPenerimaanSampelForm" placeholder="Catatan sampel di sini" class="boxSizingBorder form-control"></textarea>
+                                <textarea name="notes" id="notes" form="pengambilanPenerimaanSampelForm" placeholder="Catatan sampel di sini" class="boxSizingBorder form-control">{{ $rna->notes }}</textarea>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-info">Submit</button>
+                        <button type="submit" class="btn btn-info">Update</button>
                     </form>
                 </div>
             </div>

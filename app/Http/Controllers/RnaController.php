@@ -47,4 +47,27 @@ class RnaController extends Controller {
             'rna' => $rna,
         ]);
     }
+
+    public function edit(Rna $rna)
+    {
+        $registrationNumbers = Registration::all();
+        $sampleReceiveTakings = SampleReceiveTaking::all();
+
+        return view('pages.rna.edit', [
+            'rna' => $rna,
+            "sampleReceiveTakings" => $sampleReceiveTakings,
+            'registrationNumbers' => $registrationNumbers,
+        ]);
+    }
+
+    public function update(Request $request, Rna $rna)
+    {
+        $rna->fill($request->all());
+
+        if ($rna->isDirty()) {
+            $rna->save();
+        }
+
+        return redirect()->route('rna.show', ['rna' => $rna->getKey()]);
+    }
 }

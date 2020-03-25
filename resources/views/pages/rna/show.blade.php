@@ -26,18 +26,18 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Pengambilan / Penerimaan Sampel</h1>
+                    <h1 class="m-0 text-dark">Data Ekstraksi RNA</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('sample_receive_taking.index') }}">Pengambilan / Penerimaan Sampel</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('rna.index') }}">Ekstraksi RNA</a></li>
                         <li class="breadcrumb-item active">Detail Data</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <div class="text-right">
-                <a href="{{ route('sample_receive_taking.index') }}" class="btn btn-primary"><i class="fas fa-arrow-left pr-1"></i> Kembali</a>
+                <a href="{{ route('rna.index') }}" class="btn btn-primary"><i class="fas fa-arrow-left pr-1"></i> Kembali</a>
             </div>
         </div><!-- /.container-fluid -->
     </div>
