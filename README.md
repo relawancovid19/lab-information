@@ -6,7 +6,7 @@ This is the repository for the lab information tracker app.
 
 ## Demo
 
-Please visit [WEB UJI SWAB COVID-19](http://35.185.181.25)
+Please visit [WEB UJI SWAB COVID-19](http://34.87.140.203)
 
 ```bash
 # Staff Registrasi
@@ -156,7 +156,7 @@ When contributing to this repository, please note we have a code standards, plea
 
 #### Steps to contribute
 
-1. Clone this repository.
+1. Fork this repository.
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
