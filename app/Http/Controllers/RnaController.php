@@ -7,7 +7,8 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\SampleReceiveTaking;
 
-class RnaController extends Controller {
+class RnaController extends Controller
+{
 
     public function index()
     {
