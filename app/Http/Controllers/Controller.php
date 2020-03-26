@@ -79,6 +79,23 @@ class Controller extends BaseController
                         'segment_active' => 2,
                         'has_submenu' => false,
                         'parent' => 'sample_receive_pcr'
+            ['name' => 'rna', 'url' => "#", 'label' => 'Ekstraksi RNA', 'icon' => 'fas fa-vials', 'active_in' => ['rna'], 'segment_active' => 1, 'submenu' =>
+                [
+                    [
+                        'name' => 'index', 'url' => url('/rna'),
+                        'label' => 'Data RNA', 'icon' => 'fas fa-file-signature',
+                        'active_in' => [''],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'rna'
+                    ],
+                    [
+                        'name' => 'create', 'url' => url('/rna/create'),
+                        'label' => 'Buat Baru', 'icon' => 'fas fa-file-signature',
+                        'active_in' => ['create'],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'rna'
                     ]
                 ]
             ],

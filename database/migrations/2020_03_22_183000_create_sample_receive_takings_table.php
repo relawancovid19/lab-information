@@ -13,14 +13,16 @@ class CreateSampleReceiveTakingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sample_receive_takings', function (Blueprint $table) {
-            $table->id();
-            $table->string('registration_number');
-            $table->boolean('sample_taken');
-            $table->boolean('sample_taken_from_fasyankes');
-            $table->string('sample_receiver_officer');
-            $table->text('notes');
-        });
+        if (!Schema::hasTable('sample_receive_takings')) {
+            Schema::create('sample_receive_takings', function (Blueprint $table) {
+                $table->id();
+                $table->string('registration_number');
+                $table->boolean('sample_taken');
+                $table->boolean('sample_taken_from_fasyankes');
+                $table->string('sample_receiver_officer');
+                $table->text('notes');
+            });
+        }
     }
 
     /**
