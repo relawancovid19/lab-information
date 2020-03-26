@@ -57,5 +57,6 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                 Route::match(['put', 'patch'], "{rna}", "RnaController@update")
                     ->name("update");
             });
+        Route::resource('/rdt_recording', 'RDTController');
     });
 });

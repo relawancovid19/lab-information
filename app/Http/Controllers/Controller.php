@@ -82,6 +82,26 @@ class Controller extends BaseController
                     ]
                 ]
             ],
+            ['name' => 'rdt_recording', 'url' => "#", 'label' => 'Pencatatan RDT', 'icon' => 'fas fa-file-signature', 'active_in' => ['rdt_recording'], 'segment_active' => 1, 'submenu' =>
+                [
+                    [
+                        'name' => 'index', 'url' => url('/rdt_recording'),
+                        'label' => 'Data RDT', 'icon' => 'fas fa-file-signature',
+                        'active_in' => [''],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'rdt_recording'
+                    ],
+                    [
+                        'name' => 'create', 'url' => url('/rdt_recording/create'),
+                        'label' => 'Buat Baru', 'icon' => 'fas fa-file-signature',
+                        'active_in' => ['create'],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'rdt_recording'
+                    ]
+                ]
+            ],
         ];
 
         View::share('mainMenu', $mainMenu);
