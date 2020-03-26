@@ -43,7 +43,6 @@ class SampleReceivePcrController extends Controller
      */
     public function store(Request $request)
     {
-        /** @var SampleReceivePcr $sampleReceivePcr */
         $data = [];
         $data = $request->only((new SampleReceivePcr())->getFillable());
         $data['rna_datetime'] = Carbon::createFromFormat('d/m/Y', $request->input('rna_date'))->format('Y-m-d') . ' ' . $request->input('rna_time');
