@@ -80,4 +80,9 @@ class SampleReceivePcr extends Model
             2 => 'Tidak dapat ditentukan',
         ];
     }
+
+    public function getConclusionLabelAttribute()
+    {
+        return $this->getConclusionLabel()[$this->conclusion];
+    }
 }

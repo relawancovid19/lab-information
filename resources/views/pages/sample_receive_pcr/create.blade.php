@@ -189,24 +189,14 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kesimpulan pemeriksaan <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
+                                @foreach(\App\Models\SampleReceivePcr::getConclusionLabel() as $key => $conclusion)
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input col-sm-4" name="conclusion" value="0" id="conclusion_negative" required>
-                                    <label for="conclusion_negative" class="custom-control-label">
-                                        Negatif
+                                    <input type="radio" class="custom-control-input col-sm-4" name="conclusion" value="{{$key}}" id="conclusion_{{$conclusion}}" required>
+                                    <label for="conclusion_{{$conclusion}}" class="custom-control-label">
+                                        {{ $conclusion }}
                                     </label>
                                 </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input col-sm-4" name="conclusion" value="1" id="conclusion_positive" required>
-                                    <label for="conclusion_positive" class="custom-control-label">
-                                        Positif
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input col-sm-4" name="conclusion" value="2" id="conclusion_unknown" required>
-                                    <label for="conclusion_unknown" class="custom-control-label">
-                                        Tidak dapat ditentukan
-                                    </label>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
 

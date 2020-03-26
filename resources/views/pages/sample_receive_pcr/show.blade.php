@@ -143,7 +143,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kesimpulan pemeriksaan</label>
                             <div class="col-sm-9">
-                                {{ \App\Models\SampleReceivePcr::getConclusionLabel()[$sampleReceivePcr->conclusion] }}
+                                {{ $sampleReceivePcr->conclusionLabel }}
                             </div>
                         </div>
 

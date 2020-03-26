@@ -54,7 +54,7 @@
                                 <td class="align-middle">{{ $sampleReceivePcr->sampling_officer }}</td>
                                 <td class="align-middle">{{ $sampleReceivePcr->pcr_operator }}</td>
                                 <td class="align-middle">{{ $sampleReceivePcr->result }}</td>
-                                <td class="align-middle text-center">{{ \App\Models\SampleReceivePcr::getConclusionLabel()[$sampleReceivePcr->conclusion] }}</td>
+                                <td class="align-middle text-center">{{ $sampleReceivePcr->conclusionLabel }}</td>
                                 <td class="align-middle text-center">
                                     <a href="{{ route('sample_receive_pcr.show', $sampleReceivePcr->getKey()) }}" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Data"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('sample_receive_pcr.edit', $sampleReceivePcr->getKey()) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i></a>
