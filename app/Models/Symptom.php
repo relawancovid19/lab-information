@@ -38,7 +38,19 @@ class Symptom extends Model
         'other_symptoms',
         'pulmonary_xray',
         'using_ventilator',
-        'registration_id'
+        'registration_id',
+        'leukosit',
+        'xray_result',
+        'limfosit',
+        'trombosit',
+        'health_status',
+        'hipertensi',
+        'diabetes_mellitus',
+        'liver',
+        'neurologi',
+        'hiv',
+        'kidney',
+        'chronic_lung'
     ];
 
     /**

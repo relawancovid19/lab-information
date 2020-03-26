@@ -60,12 +60,21 @@ class RegistrationController extends Controller
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
+        $dataTreatmentHistoryPdps = [];
+        foreach ($data['explanation'] as $key => $value) {
+            $dataTreatmentHistoryPdps[$key]['explanation'] = $value;
+            $dataTreatmentHistoryPdps[$key]['date_treated'] = $data['date_treated'][$key];
+            $dataTreatmentHistoryPdps[$key]['fasyankes_name'] = $data['fasyankes_name'][$key];
+        }
+
         // Insert Patient
         $patient = Patient::firstOrCreate(['id' => $data['patient_id']], $data);
         // Insert Registration
         $registration = $patient->registration()->create($data);
         // Insert Symptom
         $registration->symptom()->create($data);
+        // insert treatmentHistoryPdp
+        $patient->treatmentHistoryPdp()->saveMany($dataTreatmentHistoryPdps);
 
         return redirect()->route('registrations.index')->with('alert', [
             'color' => 'success',
@@ -152,7 +161,7 @@ class RegistrationController extends Controller
         // Add the string in front and higher up the number.
         // the %06d part makes sure that there are always 6 numbers in the string.
         // so it adds the missing zero's when needed.
-    
+
         return Carbon::now()->format('Ymd') . sprintf('%06d', intval($number) + 1);
     }
 }
