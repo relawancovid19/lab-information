@@ -6,7 +6,7 @@ This is the repository for the lab information tracker app.
 
 ## Demo
 
-Please visit [WEB UJI SWAB COVID-19](http://35.185.181.25)
+Please visit [WEB UJI SWAB COVID-19](http://34.87.140.203)
 
 ```bash
 # Staff Registrasi
@@ -125,9 +125,9 @@ docker run -d --name <container_name> -p <the_port_you_want>:80 covid19id_lab:la
 
 * Make sure mysql and project container are in 1 docker network, so they can communicate with each other
 
-## Testing
+## Check Code
 
-**Run Testing**
+**Run Check Code**
 
 ```bash
 # Check code metric
@@ -136,8 +136,6 @@ vendor/bin/phpmd tests text phpmd_rulesets.xml
 # Check code standard
 vendor/bin/phpcs app --standard=PSR2 -n
 vendor/bin/phpcs tests --standard=PSR2 -n
-# Unit testing
-vendor/bin/phpunit --debug --stop-on-failure --stop-on-error
 ```
 
 or you can run all of these commands with the `make` command
@@ -156,15 +154,14 @@ When contributing to this repository, please note we have a code standards, plea
 
 #### Steps to contribute
 
-1. Clone this repository.
+1. Fork this repository.
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Submit pull request.
 
 **Note** :
-* Please make sure to update tests as appropriate.
-* It's recommended to run **Testing** command before submit a pull request.
+* It's recommended to run **Check Code** command before submit a pull request.
 
 ## Contributors
 
