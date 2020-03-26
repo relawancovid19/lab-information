@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Models\Registration;
+use App\Models\Symptom;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -163,5 +164,19 @@ class RegistrationController extends Controller
         // so it adds the missing zero's when needed.
 
         return Carbon::now()->format('Ymd') . sprintf('%06d', intval($number) + 1);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $idRegistration
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($idRegistration)
+    {
+        Symptom::whereRegistrationId($idRegistration)->delete();
+        Registration::findOrFail($idRegistration)->delete();
+
+        return redirect()->route('registrations.index')->with('msg', 'Registrasi berhasil dihapus!');
     }
 }
