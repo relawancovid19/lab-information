@@ -829,61 +829,31 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label">Jika ya, urutkan berdasarkan tanggal kunjungan:</label>
                             <div class="col-sm-9 mt-2">
-                                <div class="form-group row">
-
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control  datemask" name="" value="" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal kunjungan">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Tanggal</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kota</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Negara</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                <div class="row">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Tanggal kunjungan:</th>
+                                        <th scope="col">Kota:</th>
+                                        <th scope="col">Negara:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td><input class="form-control" type="date"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 </div>
-                                <div class="form-group row">
-
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control  datemask" name="" value="" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal kunjungan">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Tanggal</span>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default"><i class="fas fa-minus"></i></button>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Kota</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" name="" value="">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Negara</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -905,6 +875,7 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label">Jika ya, isi tabel berikut:</label>
                             <div class="col-sm-9 mt-2">
+                                <div class="row">
                                 <table class="table table-borderless">
                                     <thead>
                                         <tr>
@@ -919,28 +890,19 @@
                                         <td><input class="form-control" type="text"></td>
                                         <td><input class="form-control" type="text"></td>
                                         <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        </tr>
-                                        <tr>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        </tr>
-                                        <tr>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        </tr>
-                                        <tr>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="date"></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
