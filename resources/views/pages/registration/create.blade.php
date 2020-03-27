@@ -40,6 +40,18 @@
     <div class="container-fluid">
         <div class="card card-default color-palette-box">
             <div class="card-body">
+                <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="nik" class="col-sm-3 col-form-label">Import File</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control-file" name="upload_file">
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </div>
+                </form>
                 <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.store') }}" method="post">
                     @csrf
                     <div class="form-group row">

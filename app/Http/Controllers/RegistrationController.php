@@ -8,6 +8,8 @@ use App\Models\Symptom;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class RegistrationController extends Controller
 {
@@ -178,5 +180,102 @@ class RegistrationController extends Controller
         Registration::findOrFail($idRegistration)->delete();
 
         return redirect()->route('registrations.index')->with('msg', 'Registrasi berhasil dihapus!');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'upload_file' => 'required|mimes:csv,txt'
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $importFile = $request->file('upload_file');
+            $archive = public_path().'/import/registration/';
+
+            $date = date('YmdH24is');
+            $newFileName = "IMPORT_REGISTRATION_$date.csv";
+
+            $lines = file($importFile, FILE_IGNORE_NEW_LINES);
+            foreach ($lines as $line) {
+                $arrayCSV[] = str_getcsv($line, ";");
+            }
+
+            $dataRegistrations = array();
+            $dataPatients = array();
+            foreach ($arrayCSV as $key => $value) {
+                // Get data patient from file csv
+                $nik = addslashes($value[6]);
+                $fullname = addslashes($value[5]);
+                $dateOfBirth = addslashes($value[7]);
+                $ageYear = addslashes($value[8]);
+                $gender = addslashes($value[9]);
+                $address = addslashes($value[11]);
+                $phoneNumber = addslashes($value[12]);
+                $answer = addslashes($value[10]);
+
+                $explodeDateOfBirth = explode('/', $dateOfBirth);
+                $convertDateOfBirth = $explodeDateOfBirth[2]."-".$explodeDateOfBirth[1]."-".$explodeDateOfBirth[0];
+
+
+                $dataPatients['nik'] = $nik;
+                $dataPatients['fullname'] = $fullname;
+                $dataPatients['date_of_birth'] = $convertDateOfBirth;
+                $dataPatients['age_year'] = $ageYear;
+                $dataPatients['gender'] = $gender;
+                $dataPatients['address_1'] = $address;
+                $dataPatients['phone_number'] = $phoneNumber;
+                $dataPatients['answer'] = $answer;
+
+                // Get data registration from file csv
+                $dinkesSender = addslashes($value[0]);
+                $fasyankesSender = addslashes($value[2]);
+                $fasyankesPhone = addslashes($value[4]);
+                $doctor = addslashes($value[3]);
+                $medicalRecordNumber = addslashes($value[2]);
+
+                $dataRegistrations['dinkes_sender'] = $dinkesSender;
+                $dataRegistrations['fasyankes_sender'] = $fasyankesSender;
+                $dataRegistrations['fasyankes_phone'] = $fasyankesPhone;
+                $dataRegistrations['doctor'] = $doctor;
+                $dataRegistrations['medical_record_number'] = $medicalRecordNumber;
+
+                $rules = [
+                    'fullname' => 'required',
+                    'phone_number' => 'max:15',
+                    'fasyankes_phone' => 'max:15'
+                ];
+
+                $baris = $key + 1;
+
+                $messages = [
+                    'required' => 'The :attribute field is required in line '.$baris.'.',
+                    'max' => 'The :attribute field digit max 15 in line '.$baris.'.',
+                ];
+
+                $validator = Validator::make($dataPatients, $rules, $messages);
+
+                if ($validator->fails()) {
+                    return redirect()->route('registrations.index')->with('msg', $validator->messages());
+                }
+
+                $patient = Patient::create($dataPatients);
+                Registration::create(array_merge($dataRegistrations, [
+                    'patient_id' => $patient->id,
+                    'registration_number' => $this->nextRegistrationNumber()
+                ]));
+            }
+
+            DB::commit();
+
+            $request->file('upload_file')->move($archive, $newFileName);
+
+            return redirect()->route('registrations.index')->with('msg', 'Import registrasi berhasil!');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return redirect()->route('registrations.index')->with('msg', $th->getMessage());
+        }
     }
 }
