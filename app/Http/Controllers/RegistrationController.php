@@ -204,44 +204,44 @@ class RegistrationController extends Controller
 
             $dataRegistrations = array();
             $dataPatients = array();
-            $error = array();
-            $registrationNumber = $this->nextRegistrationNumber();
+            // $error = array();
+            // $registrationNumber = $this->nextRegistrationNumber();
             foreach ($arrayCSV as $key => $value) {
                 // Get data patient from file csv
                 $nik = addslashes($value[6]);
                 $fullname = addslashes($value[5]);
-                $date_of_birth = addslashes($value[7]);
-                $age_year = addslashes($value[8]);
+                $dob = addslashes($value[7]);
+                $ageYear = addslashes($value[8]);
                 $gender = addslashes($value[9]);
-                $address_1 = addslashes($value[11]);
-                $phone_number = addslashes($value[12]);
+                $address1 = addslashes($value[11]);
+                $phoneNumber = addslashes($value[12]);
                 $answer = addslashes($value[10]);
 
-                $explodeDateOfBirth = explode('/', $date_of_birth);
+                $explodeDateOfBirth = explode('/', $dob);
                 $convertDateOfBirth = $explodeDateOfBirth[2]."-".$explodeDateOfBirth[1]."-".$explodeDateOfBirth[0];
 
 
                 $dataPatients['nik'] = $nik;
                 $dataPatients['fullname'] = $fullname;
                 $dataPatients['date_of_birth'] = $convertDateOfBirth;
-                $dataPatients['age_year'] = $age_year;
+                $dataPatients['age_year'] = $ageYear;
                 $dataPatients['gender'] = $gender;
-                $dataPatients['address_1'] = $address_1;
-                $dataPatients['phone_number'] = $phone_number;
+                $dataPatients['address_1'] = $address1;
+                $dataPatients['phone_number'] = $phoneNumber;
                 $dataPatients['answer'] = $answer;
 
                 // Get data registration from file csv
-                $dinkes_sender = addslashes($value[0]);
-                $fasyankes_sender = addslashes($value[2]);
-                $fasyankes_phone = addslashes($value[4]);
+                $dinkesSender = addslashes($value[0]);
+                $fasyankesSender = addslashes($value[2]);
+                $fasyankesPhone = addslashes($value[4]);
                 $doctor = addslashes($value[3]);
-                $medical_record_number = addslashes($value[2]);
+                $medicalRecordNumber = addslashes($value[2]);
 
-                $dataRegistrations['dinkes_sender'] = $dinkes_sender;
-                $dataRegistrations['fasyankes_sender'] = $fasyankes_sender;
-                $dataRegistrations['fasyankes_phone'] = $fasyankes_phone;
+                $dataRegistrations['dinkes_sender'] = $dinkesSender;
+                $dataRegistrations['fasyankes_sender'] = $fasyankesSender;
+                $dataRegistrations['fasyankes_phone'] = $fasyankesPhone;
                 $dataRegistrations['doctor'] = $doctor;
-                $dataRegistrations['medical_record_number'] = $medical_record_number;
+                $dataRegistrations['medical_record_number'] = $medicalRecordNumber;
 
                 $rules = [
                     'fullname' => 'required',
