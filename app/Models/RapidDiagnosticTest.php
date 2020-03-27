@@ -24,7 +24,8 @@ class RapidDiagnosticTest extends Model
         'second_analyst',
         'second_notes'
     ];
-    public function patient() {
+    public function patient()
+    {
         return $this->belongsTo(Patient::class, 'patient_id');
     }
 }
