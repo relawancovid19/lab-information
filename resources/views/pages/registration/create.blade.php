@@ -815,13 +815,13 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien melakukan perjalanan ke luar negeri?</label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_travel" id="trave_1" value="1">
+                                    <label class="form-check-label" for="trave_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_travel" id="trave_0" value="0">
+                                    <label class="form-check-label" for="trave_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -842,7 +842,7 @@
                                         <tr>
                                             <td><input name="travel[date_of_visit][]" class="form-control" type="date"></td>
                                             <td><input name="travel[city][]" class="form-control" type="text"></td>
-                                            <td><input name="travel[country[]" class="form-control" type="text"></td>
+                                            <td><input name="travel[country][]" class="form-control" type="text"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -861,13 +861,13 @@
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien kontak dengan orang yang sakit?</label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input name="check_contact_sick_people" type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input name="check_contact_sick_people" type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_contact_sick_people" id="contact_sick_people_1" value="1">
+                                    <label class="form-check-label" for="contact_sick_people_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_contact_sick_people" id="contact_sick_people_0" value="0">
+                                    <label class="form-check-label" for="contact_sick_people_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -911,13 +911,13 @@
                                 Apakah orang tersebut tersangka/terinfeksi Covid-19?
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_1" value="1">
+                                    <label class="form-check-label" for="contact_with_suspect_covid19_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_0" value="0">
+                                    <label class="form-check-label" for="contact_with_suspect_covid19_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -927,13 +927,13 @@
                                 Apakah ada anggota keluarga pasien yang sakitnya sama?
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="check_family_members_infected" id="check_family_members_infected_1" value="1">
+                                    <label class="form-check-label" for="check_family_members_infected_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="check_family_members_infected" id="check_family_members_infected_0" value="0">
+                                    <label class="form-check-label" for="check_family_members_infected_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -943,13 +943,13 @@
                                 Penyakit kardiovaskuler/hipertensi
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="hipertensi" id="hipertensi_1" value="1">
+                                    <label class="form-check-label" for="hipertensi_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="hipertensi" id="hipertensi_0" value="0">
+                                    <label class="form-check-label" for="hipertensi_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -959,13 +959,13 @@
                                 Diabetes mellitus
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="diabetes_mellitus" id="diabetes_mellitus_1" value="1">
+                                    <label class="form-check-label" for="diabetes_mellitus_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="diabetes_mellitus" id="diabetes_mellitus_0" value="0">
+                                    <label class="form-check-label" for="diabetes_mellitus_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -975,13 +975,13 @@
                                 Liver
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="liver" id="liver_1" value="1">
+                                    <label class="form-check-label" for="liver_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="liver" id="liver_0" value="0">
+                                    <label class="form-check-label" for="liver_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -991,13 +991,13 @@
                                 Kronik neurologi / neuromuskular
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="neurologi" id="neurologi_1" value="1">
+                                    <label class="form-check-label" for="neurologi_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="neurologi" id="neurologi_0" value="0">
+                                    <label class="form-check-label" for="neurologi_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -1007,13 +1007,13 @@
                                 Imunodefisiensi / HIV
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="hiv" id="hiv_1" value="1">
+                                    <label class="form-check-label" for="hiv_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="hiv" id="hiv_0" value="0">
+                                    <label class="form-check-label" for="hiv_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -1023,13 +1023,13 @@
                                 Penyakit paru kronik
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="chronic_lung" id="chronic_lung_1" value="1">
+                                    <label class="form-check-label" for="chronic_lung_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="chronic_lung" id="chronic_lung_0" value="0">
+                                    <label class="form-check-label" for="chronic_lung_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -1039,13 +1039,13 @@
                                 Penyakit ginjal
                             </label>
                             <div class="col-sm-9 mt-2">
-                                <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
-                                    <label>Iya</label>
-                                </div>
-                                <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
-                                    <label>Tidak</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="kidney" id="kidney_1" value="1">
+                                    <label class="form-check-label" for="kidney_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="kidney" id="kidney_0" value="0">
+                                    <label class="form-check-label" for="kidney_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
@@ -1195,7 +1195,7 @@
     $('.btn.btn-default.plus').click((event) => {
         const parentObj = $( event.target ).closest(".form-group.row");
         const tbl = parentObj.find('table');
-        const tr = tbl.find('tbody > tr').clone();
+        const tr = tbl.find('tbody > tr').first().clone();
         tr.appendTo( tbl.find('tbody') );
     });
     $('.btn.btn-default.minus').click((event) => {

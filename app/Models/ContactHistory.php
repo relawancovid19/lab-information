@@ -28,4 +28,9 @@ class ContactHistory extends Model
         'check_family_members_infected',
         'other',
     ];
+
+    public function registration()
+    {
+        return $this->belongsTo(Registration::class);
+    }
 }

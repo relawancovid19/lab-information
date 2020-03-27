@@ -35,7 +35,7 @@ class Registration extends FormRequest
             'phone_number' => 'nullable|digits_between:10,15',
             // Registration
             'registration_number' => 'required|integer|unique:registrations,registration_number,'.$this->registration,
-            'medical_record_number' => 'required',
+            'medical_record_number' => 'nullable',
             'dinkes_sender' => 'nullable',
             'fasyankes_sender' => 'nullable',
             'fasyankes_phone' => 'nullable|digits_between:10,15',
