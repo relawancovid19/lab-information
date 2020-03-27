@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                 Route::get("{sampleReceivePcr}/edit", "SampleReceivePcrController@edit")
                     ->name("edit");
                 Route::match(['put', 'patch'], "{sampleReceivePcr}", "SampleReceivePcrController@update")
+                    ->name("update");
             });
         $router->prefix("rna")
             ->name("rna.")
