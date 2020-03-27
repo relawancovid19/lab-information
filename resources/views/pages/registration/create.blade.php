@@ -805,6 +805,300 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- RIWAYAT KONTAK/PAPARAN -->
+                    <div class="tab">
+                        <div class="form-group row">
+                            <label class="col col-form-label">4. RIWAYAT KONTAK/PAPARAN</label>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien melakukan perjalanan ke luar negeri?</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Jika ya, urutkan berdasarkan tanggal kunjungan:</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="form-group row">
+
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control  datemask" name="" value="" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal kunjungan">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Tanggal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="" value="">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kota</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="" value="">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Negara</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control  datemask" name="" value="" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal kunjungan">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Tanggal</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="" value="">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Kota</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="" value="">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Negara</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien kontak dengan orang yang sakit?</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Jika ya, isi tabel berikut:</label>
+                            <div class="col-sm-9 mt-2">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Nama:</th>
+                                        <th scope="col">Alamat:</th>
+                                        <th scope="col">Hubungan:</th>
+                                        <th scope="col">Tanggal kontak:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        </tr>
+                                        <tr>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        </tr>
+                                        <tr>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        </tr>
+                                        <tr>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        <td><input class="form-control" type="text"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Apakah orang tersebut tersangka/terinfeksi Covid-19?
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Apakah ada anggota keluarga pasien yang sakitnya sama?
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Penyakit kardiovaskuler/hipertensi
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Diabetes mellitus
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Liver
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Kronik neurologi / neuromuskular
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Imunodefisiensi / HIV
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Penyakit paru kronik
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Penyakit ginjal
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1">
+                                    <input type="radio" value="1"}>
+                                    <label>Iya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1">
+                                    <input type="radio" value="0">
+                                    <label>Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Keterangan lainnya: (sebutkan informasi yang dianggap penting)
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                            <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-9 offset-sm-3">
                             <input type="hidden" name="patient_id" id="patientID">
