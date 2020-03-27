@@ -55,6 +55,7 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $data = $request->all();
+
         // Change date format to Y-m-d
         $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
         $data['registration_date'] = ($data['registration_date'] != null) ? Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d') : null;

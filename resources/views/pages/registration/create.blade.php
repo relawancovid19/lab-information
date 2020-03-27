@@ -840,9 +840,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input class="form-control" type="date"></td>
-                                            <td><input class="form-control" type="text"></td>
-                                            <td><input class="form-control" type="text"></td>
+                                            <td><input name="travel[date_of_visit][]" class="form-control" type="date"></td>
+                                            <td><input name="travel[city][]" class="form-control" type="text"></td>
+                                            <td><input name="travel[country[]" class="form-control" type="text"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -862,11 +862,11 @@
                             <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien kontak dengan orang yang sakit?</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" value="1"}>
+                                    <input name="check_contact_sick_people" type="radio" value="1"}>
                                     <label>Iya</label>
                                 </div>
                                 <div class="icheck-primary d-inline ml-1">
-                                    <input type="radio" value="0">
+                                    <input name="check_contact_sick_people" type="radio" value="0">
                                     <label>Tidak</label>
                                 </div>
                             </div>
@@ -887,10 +887,10 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input class="form-control" type="text"></td>
-                                            <td><input class="form-control" type="text"></td>
-                                            <td><input class="form-control" type="text"></td>
-                                            <td><input class="form-control" type="date"></td>
+                                            <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
+                                            <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
+                                            <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
+                                            <td><input name="contact_sick_people[contact_date][]" class="form-control" type="date"></td>
                                         </tr>
                                     </tbody>
                                 </table>
