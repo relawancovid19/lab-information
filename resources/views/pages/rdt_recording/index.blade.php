@@ -68,7 +68,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($list??[] as $rdt)
+                            @foreach ($list??[] as $key => $rdt)
                             <tr>
                                 <td class="align-middle text-center">{{ $key+1 }}</td>
                                 <td class="align-middle">{{ $rdt->patient->fullname }}</td>

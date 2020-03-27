@@ -16,7 +16,7 @@ class RDTController extends Controller
      */
     public function index()
     {
-        $data['key'] = 0;
+        $data = [];
         $data['list'] = RapidDiagnosticTest::with('patient')->get();
         $data['convert'] = function($value){
             switch ($value) {
@@ -100,10 +100,10 @@ class RDTController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(RapidDiagnosticTest $rdt_recording)
+    public function show(RapidDiagnosticTest $rdtRecording)
     {
-        $rdt_recording->load('patient');
-        $data['data'] = $rdt_recording;
+        $rdtRecording->load('patient');
+        $data['data'] = $rdtRecording;
         return view('pages.rdt_recording.show',$data);
     }
 
@@ -113,9 +113,9 @@ class RDTController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(RapidDiagnosticTest $rdt_recording)
+    public function edit(RapidDiagnosticTest $rdtRecording)
     {
-        $data['data'] = $rdt_recording;
+        $data['data'] = $rdtRecording;
         return view('pages.rdt_recording.edit',$data);
     }
 
@@ -126,7 +126,7 @@ class RDTController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RapidDiagnosticTest $rdt_recording)
+    public function update(Request $request, RapidDiagnosticTest $rdtRecording)
     {
         $update = $request->except(['_token','_method']);
         $update['date_fever_first'] = date('Y-m-d H:i:s',strtotime($request->post('date_fever_first')));
@@ -136,9 +136,9 @@ class RDTController extends Controller
         $update['first_whole_blood_sample_number'] = $request->post('first_whole_blood_sample_number');
         $update['second_serum_sample_number'] = $request->post('second_serum_sample_number');
         $update['second_whole_blood_sample_number'] = $request->post('second_whole_blood_sample_number');
-        $do = $rdt_recording->update($update);
+        $do = $rdtRecording->update($update);
         if($do){
-            return redirect(route('rdt_recording.show',$rdt_recording->id))->with('success',['Berhasil memperbarui']);
+            return redirect(route('rdt_recording.show',$rdtRecording->id))->with('success',['Berhasil memperbarui']);
         }else{
             return back()->withErrors(['Gagal memperbarui']);
         }
@@ -150,9 +150,9 @@ class RDTController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RapidDiagnosticTest $rdt_recording)
+    public function destroy(RapidDiagnosticTest $rdtRecording)
     {
-        $destroy = $rdt_recording->delete();
+        $destroy = $rdtRecording->delete();
         if($destroy){
             return back()->with('success',['Berhasil menghapus']);
         }else{
