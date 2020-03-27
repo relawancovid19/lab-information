@@ -21,20 +21,20 @@ class RDTController extends Controller
         $data['convert'] = function($value){
             switch ($value) {
                 case 'negative':
-                    return 'Negatif';
-                    break;
+                return 'Negatif';
+                break;
 
                 case 'positive':
-                    return 'Positif';
-                    break;
+                return 'Positif';
+                break;
 
                 case 'unknown':
-                    return 'Tidak dapat ditentukan';
-                    break;
+                return 'Tidak dapat ditentukan';
+                break;
                 
                 default:
-                    return $value;
-                    break;
+                return $value;
+                break;
             }
         };
         return view('pages.rdt_recording.index',$data);
