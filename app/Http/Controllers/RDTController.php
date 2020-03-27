@@ -18,23 +18,23 @@ class RDTController extends Controller
     {
         $data = [];
         $data['list'] = RapidDiagnosticTest::with('patient')->get();
-        $data['convert'] = function($value){
+        $data['convert'] = function ($value) {
             switch ($value) {
                 case 'negative':
-                return 'Negatif';
-                break;
+                    return 'Negatif';
+                    break;
 
                 case 'positive':
-                return 'Positif';
-                break;
+                    return 'Positif';
+                    break;
 
                 case 'unknown':
-                return 'Tidak dapat ditentukan';
-                break;
+                    return 'Tidak dapat ditentukan';
+                    break;
                 
                 default:
-                return $value;
-                break;
+                    return $value;
+                    break;
             }
         };
         return view('pages.rdt_recording.index',$data);
@@ -59,25 +59,25 @@ class RDTController extends Controller
     public function store(Request $request)
     {
         $post = $request->post();
-        if($post['id_type'] == 'nik'){
-            $patientId = Patient::select('id')->where('nik',$post['registration_number'])->pluck('id')->first();
+        if($post['id_type'] == 'nik') {
+            $patientId = Patient::select('id')->where('nik', $post['registration_number'])->pluck('id')->first();
         }else{
-            $patientId = Registration::select('patient_id')->where('registration_number',$post['registration_number'])->pluck('patient_id')->first();
+            $patientId = Registration::select('patient_id')->where('registration_number', $post['registration_number'])->pluck('patient_id')->first();
         }
-        if(!$patientId){
+        if (!$patientId) {
             return back()->withInput()->withErrors(['Data pasien tidak ditemukan']);
         }
         $insert = [
             'patient_id' => $patientId,
-            'date_fever_first' => date('Y-m-d H:i:s',strtotime($request->post('date_fever_first'))),
-            'first_test_date' => date('Y-m-d H:i:s',strtotime($request->post('first_test_date').' '.$request->post('first_test_time'))),
+            'date_fever_first' => date('Y-m-d H:i:s', strtotime($request->post('date_fever_first'))),
+            'first_test_date' => date('Y-m-d H:i:s', strtotime($request->post('first_test_date').' '.$request->post('first_test_time'))),
             'first_serum_sample_number' => $request->post('first_serum_sample_number'),
             'first_whole_blood_sample_number' => $request->post('first_whole_blood_sample_number'),
             'first_serum_result' => $request->post('first_serum_result'),
             'first_whole_blood_result' => $request->post('first_whole_blood_result'),
             'first_analyst' => $request->post('first_analyst'),
             'first_notes' => $request->post('first_notes'),
-            'second_test_date' => date('Y-m-d H:i:s',strtotime($request->post('second_test_date').' '.$request->post('second_test_time'))),
+            'second_test_date' => date('Y-m-d H:i:s', strtotime($request->post('second_test_date').' '.$request->post('second_test_time'))),
             'second_serum_sample_number' => $request->post('second_serum_sample_number'),
             'second_whole_blood_sample_number' => $request->post('second_whole_blood_sample_number'),
             'second_serum_result' => $request->post('second_serum_result'),
@@ -86,11 +86,11 @@ class RDTController extends Controller
             'second_notes' => $request->post('second_notes')
         ];
         $create = RapidDiagnosticTest::create($insert);
-        if(!$create){
+        if (!$create) {
             return $create;
             return back()->withInput()->withErrors(['Gagal menyimpan data']);
-        }else{
-            return redirect(route('rdt_recording.show',$create->id))->with('success',['Berhasil menyimpan data']);
+        } else {
+            return redirect(route('rdt_recording.show', $create->id))->with('success', ['Berhasil menyimpan data']);
         }
     }
 
@@ -104,7 +104,7 @@ class RDTController extends Controller
     {
         $rdtRecording->load('patient');
         $data = ['data'=>$rdtRecording];
-        return view('pages.rdt_recording.show',$data);
+        return view('pages.rdt_recording.show', $data);
     }
 
     /**
@@ -116,7 +116,7 @@ class RDTController extends Controller
     public function edit(RapidDiagnosticTest $rdtRecording)
     {
         $data = ['data'=>$rdtRecording];
-        return view('pages.rdt_recording.edit',$data);
+        return view('pages.rdt_recording.edit', $data);
     }
 
     /**
@@ -129,17 +129,17 @@ class RDTController extends Controller
     public function update(Request $request, RapidDiagnosticTest $rdtRecording)
     {
         $update = $request->except(['_token','_method']);
-        $update['date_fever_first'] = date('Y-m-d H:i:s',strtotime($request->post('date_fever_first')));
-        $update['first_test_date'] = date('Y-m-d H:i:s',strtotime($request->post('first_test_date').' '.$request->post('first_test_time')));
-        $update['second_test_date'] = date('Y-m-d H:i:s',strtotime($request->post('second_test_date').' '.$request->post('second_test_time')));
+        $update['date_fever_first'] = date('Y-m-d H:i:s', strtotime($request->post('date_fever_first')));
+        $update['first_test_date'] = date('Y-m-d H:i:s', strtotime($request->post('first_test_date').' '.$request->post('first_test_time')));
+        $update['second_test_date'] = date('Y-m-d H:i:s', strtotime($request->post('second_test_date').' '.$request->post('second_test_time')));
         $update['first_serum_sample_number'] = $request->post('first_serum_sample_number');
         $update['first_whole_blood_sample_number'] = $request->post('first_whole_blood_sample_number');
         $update['second_serum_sample_number'] = $request->post('second_serum_sample_number');
         $update['second_whole_blood_sample_number'] = $request->post('second_whole_blood_sample_number');
         $todo = $rdtRecording->update($update);
-        if($todo){
-            return redirect(route('rdt_recording.show',$rdtRecording->id))->with('success',['Berhasil memperbarui']);
-        }else{
+        if ($todo) {
+            return redirect(route('rdt_recording.show', $rdtRecording->id))->with('success', ['Berhasil memperbarui']);
+        } else {
             return back()->withErrors(['Gagal memperbarui']);
         }
     }
@@ -153,9 +153,9 @@ class RDTController extends Controller
     public function destroy(RapidDiagnosticTest $rdtRecording)
     {
         $destroy = $rdtRecording->delete();
-        if($destroy){
-            return back()->with('success',['Berhasil menghapus']);
-        }else{
+        if ($destroy) {
+            return back()->with('success', ['Berhasil menghapus']);
+        } else {
             return back()->withErrors(['Gagal menghapus']);
         }
     }
