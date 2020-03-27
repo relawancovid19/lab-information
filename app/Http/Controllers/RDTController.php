@@ -37,7 +37,7 @@ class RDTController extends Controller
                     break;
             }
         };
-        return view('pages.rdt_recording.index',$data);
+        return view('pages.rdt_recording.index', $data);
     }
 
     /**
@@ -59,9 +59,9 @@ class RDTController extends Controller
     public function store(Request $request)
     {
         $post = $request->post();
-        if($post['id_type'] == 'nik') {
+        if ($post['id_type'] == 'nik') {
             $patientId = Patient::select('id')->where('nik', $post['registration_number'])->pluck('id')->first();
-        }else{
+        } else {
             $patientId = Registration::select('patient_id')->where('registration_number', $post['registration_number'])->pluck('patient_id')->first();
         }
         if (!$patientId) {
