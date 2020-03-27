@@ -25,7 +25,6 @@ class Registration extends Model
      */
     protected $fillable = [
        'registration_number',
-       'sample_number',
        'dinkes_sender',
        'fasyankes_sender',
        'fasyankes_phone',
@@ -33,6 +32,7 @@ class Registration extends Model
        'registration_date',
        'reference_number',
        'patient_id',
+       'medical_record_number',
     ];
 
     /**

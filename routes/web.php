@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Registration
-    Route::resource('/registrations', 'RegistrationController')->except('destroy');
+    Route::resource('/registrations', 'RegistrationController');
 
     $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
         $router->prefix("sample_receive_taking")

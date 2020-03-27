@@ -43,21 +43,21 @@
                 <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
-                        <label for="registration_number" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
+                        <label for="nik" class="col-sm-3 col-form-label">NIK <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ old('registration_number', $registrationNumber) }}" placeholder="Nomor registrasi">
+                            <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK">
 
-                            @error('registration_number')
+                            @error('nik')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="sample_number" class="col-sm-3 col-form-label">No. Sampel <span class="text-danger">*</span></label>
+                        <label for="registration_number" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control @error('sample_number') is-invalid @enderror" name="sample_number" value="{{ old('sample_number') }}" placeholder="Nomor sampel">
+                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ old('registration_number', $registrationNumber) }}" placeholder="Nomor registrasi">
 
-                            @error('sample_number')
+                            @error('registration_number')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
@@ -92,7 +92,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="doctor" class="col-sm-3 col-form-label">Dokter Penanggung Jawab</label>
+                            <label for="medical_record_number" class="col-sm-3 col-form-label">No Rekam Medis<span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('medical_record_number') is-invalid @enderror" name="medical_record_number" value="{{ old('medical_record_number') }}" placeholder="No Rekam Medis">
+
+                                @error('medical_record_number')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="doctor" class="col-sm-3 col-form-label">Dokter Penanggung Jawab <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('doctor') is-invalid @enderror" name="doctor" value="{{ old('doctor') }}" placeholder="Dokter penanggung jawab">
 
@@ -132,17 +142,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nik" class="col-sm-3 col-form-label">NIK</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="Nomor induk kependudukan">
-
-                                @error('nik')
-                                    <span class="error invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="reference_number" class="col-sm-3 col-form-label">No. Rujukan</label>
+                            <label for="reference_number" class="col-sm-3 col-form-label">No. Rujukan <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('reference_number') is-invalid @enderror" name="reference_number" value="{{ old('reference_number') }}" placeholder="Nomor rujukan">
 
@@ -234,10 +234,100 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Step 2: Tanda dan Gejala -->
+                    <!-- Step 2: Riwayat Perawatan Pasien Dalam Pengawasan -->
                     <div class="tab">
                         <div class="form-group row">
-                            <label class="col col-form-label">2. TANDA DAN GEJALA</label>
+                            <label class="col col-form-label">2. Riwayat Perawatan Pasien Dalam Pengawasan</label>
+                        </div>
+                        <div class="form-group row">
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Pertama <span class="text-danger">*</span></label>
+                            <div class="col-sm-5">
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="explanation[]" value="pertama">
+                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Tanggal</span>
+                                    </div>
+
+                                    @error('date_treated[]')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">RS/Fasyankes</span>
+                                    </div>
+
+                                    @error('fasyankes_name[]')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Kedua <span class="text-danger">*</span></label>
+                            <div class="col-sm-5">
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="explanation[]" value="kedua">
+                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Tanggal</span>
+                                    </div>
+
+                                    @error('date_treated[]')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">RS/Fasyankes</span>
+                                    </div>
+
+                                    @error('fasyankes_name[]')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Ketiga <span class="text-danger">*</span></label>
+                            <div class="col-sm-5">
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="explanation[]" value="ketiga">
+                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Tanggal</span>
+                                    </div>
+
+                                    @error('date_treated[]')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[] ') }}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">RS/Fasyankes</span>
+                                    </div>
+
+                                    @error('fasyankes_name[]')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 3: Tanda dan Gejala -->
+                    <div class="tab">
+                        <div class="form-group row">
+                            <label class="col col-form-label">3. TANDA DAN GEJALA</label>
                         </div>
                         <div class="form-group row">
                             <label for="fever" class="col-sm-3 col-form-label">Panas atau Riwayat Panas</label>
@@ -480,6 +570,139 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="hipertensi" class="col-sm-3 col-form-label">Hipertensi <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('hipertensi') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaHipertensi" name="hipertensi" value="1" {{ old('hipertensi') == true ? 'checked' : '' }}>
+                                        <label for="iyaHipertensi">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakHipertensi" name="hipertensi" value="0" {{ old('hipertensi') == false ? 'checked' : '' }}>
+                                        <label for="tidakHipertensi">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('hipertensi')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="diabetes_mellitus" class="col-sm-3 col-form-label">Diabetes Mellitus <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('diabetes_mellitus') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaDiabetesMellitus" name="diabetes_mellitus" value="1" {{ old('diabetes_mellitus') == true ? 'checked' : '' }}>
+                                        <label for="iyaDiabetesMellitus">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakDiabetesMellitus" name="diabetes_mellitus" value="0" {{ old('diabetes_mellitus') == false ? 'checked' : '' }}>
+                                        <label for="tidakDiabetesMellitus">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('diabetes_mellitus')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="liver" class="col-sm-3 col-form-label">Liver <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('liver') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaLiver" name="liver" value="1" {{ old('liver') == true ? 'checked' : '' }}>
+                                        <label for="iyaLiver">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakLiver" name="liver" value="0" {{ old('liver') == false ? 'checked' : '' }}>
+                                        <label for="tidakLiver">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('liver')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="neurologi" class="col-sm-3 col-form-label">Neurologi <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('neurologi') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaNeurologi" name="neurologi" value="1" {{ old('neurologi') == true ? 'checked' : '' }}>
+                                        <label for="iyaneurologi">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakneurologi" name="neurologi" value="0" {{ old('neurologi') == false ? 'checked' : '' }}>
+                                        <label for="tidakNeurologi">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('neurologi')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="hiv" class="col-sm-3 col-form-label">HIV <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('hiv') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaHiv" name="hiv" value="1" {{ old('hiv') == true ? 'checked' : '' }}>
+                                        <label for="iyaHiv">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakHiv" name="hiv" value="0" {{ old('hiv') == false ? 'checked' : '' }}>
+                                        <label for="tidakHiv">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('hiv')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="kidney" class="col-sm-3 col-form-label">Ginjal <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('kidney') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaKidney" name="kidney" value="1" {{ old('kidney') == true ? 'checked' : '' }}>
+                                        <label for="iyaLiver">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakKidney" name="kidney" value="0" {{ old('kidney') == false ? 'checked' : '' }}>
+                                        <label for="tidakKidney">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('kidney')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="chronic_lung" class="col-sm-3 col-form-label">Paru Knonik <span class="text-danger">*</span></label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('chronic_lung') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaChronicLung" name="chronic_lung" value="1" {{ old('chronic_lung') == true ? 'checked' : '' }}>
+                                        <label for="iyaChronicLung">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidakChronicLung" name="chronic_lung" value="0" {{ old('chronic_lung') == false ? 'checked' : '' }}>
+                                        <label for="tidakChronicLung">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('chronic_lung')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="other_symptoms" class="col-sm-3 col-form-label">Gejala Lainnya (Jelaskan)</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="other_symptoms" value="{{ old('other_symptoms') }}" placeholder="Gejala lainnya">
@@ -509,7 +732,57 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="using_ventilator" class="col-sm-3 col-form-label">Menggunakan Ventilator</label>
+                            <label for="xray_result" class="col-sm-3 col-form-label">Hasil X Ray Paru</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('xray_result') is-invalid @enderror" name="xray_result" value="{{ old('xray_result') }}" placeholder="Hasil X Ray Paru">
+
+                                @error('xray_result')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="leukosit" class="col-sm-3 col-form-label">Perhitungan Leukosit</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('leukosit') is-invalid @enderror" name="leukosit" value="{{ old('leukosit') }}" placeholder="Perhitungan Leukosit">
+
+                                @error('leukosit')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="limfosit" class="col-sm-3 col-form-label">Perhitungan Limfosit</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('limfosit') is-invalid @enderror" name="limfosit" value="{{ old('limfosit') }}" placeholder="Perhitungan Limfosit">
+
+                                @error('limfosit')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="trombosit" class="col-sm-3 col-form-label">Perhitungan Trombosit</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('trombosit') is-invalid @enderror" name="trombosit" value="{{ old('trombosit') }}" placeholder="Perhitungan Trombosit">
+
+                                @error('trombosit')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="health_status" class="col-sm-3 col-form-label">Status Kesehatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control @error('health_status') is-invalid @enderror" name="health_status" value="{{ old('health_status') }}" placeholder="Status Kesehatan">
+
+                                @error('health_status')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="using_ventilator" class="col-sm-3 col-form-label">Menggunakan Ventilator <span class="text-danger">*</span></label>
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('using_ventilator') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
