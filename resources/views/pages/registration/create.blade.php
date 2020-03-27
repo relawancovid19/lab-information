@@ -840,9 +840,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td><input class="form-control" type="date"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
+                                            <td><input class="form-control" type="date"></td>
+                                            <td><input class="form-control" type="text"></td>
+                                            <td><input class="form-control" type="text"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -850,8 +850,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                                            <button type="button" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                            <button type="button" class="btn btn-default plus"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default minus"><i class="fas fa-minus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -887,10 +887,10 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="text"></td>
-                                        <td><input class="form-control" type="date"></td>
+                                            <td><input class="form-control" type="text"></td>
+                                            <td><input class="form-control" type="text"></td>
+                                            <td><input class="form-control" type="text"></td>
+                                            <td><input class="form-control" type="date"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -898,8 +898,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                                            <button type="button" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                                            <button type="button" class="btn btn-default plus"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default minus"><i class="fas fa-minus"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1190,6 +1190,24 @@
         $("input[name='address_2']").val(obj.address_2);
         $("input[name='phone_number']").val(obj.phone_number);
         $("input[name='patient_id']").val(obj.id);
+    });
+
+    $('.btn.btn-default.plus').click((event) => {
+        const parentObj = $( event.target ).closest(".form-group.row");
+        const tbl = parentObj.find('table');
+        const tr = tbl.find('tbody > tr').clone();
+        tr.appendTo( tbl.find('tbody') );
+    });
+    $('.btn.btn-default.minus').click((event) => {
+        const parentObj = $( event.target ).closest(".form-group.row");
+        const tbl = parentObj.find('table');
+        const tr = tbl.find('tbody > tr');
+
+        if(tr.length < 2){
+            return false;
+        }
+
+        tr.last().remove();
     });
 </script>
 @endsection
