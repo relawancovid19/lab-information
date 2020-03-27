@@ -60,15 +60,15 @@ class RDTController extends Controller
     {
         $post = $request->post();
         if($post['id_type'] == 'nik'){
-            $patient_id = Patient::select('id')->where('nik',$post['registration_number'])->pluck('id')->first();
+            $patientId = Patient::select('id')->where('nik',$post['registration_number'])->pluck('id')->first();
         }else{
-            $patient_id = Registration::select('patient_id')->where('registration_number',$post['registration_number'])->pluck('patient_id')->first();
+            $patientId = Registration::select('patient_id')->where('registration_number',$post['registration_number'])->pluck('patient_id')->first();
         }
-        if(!$patient_id){
+        if(!$patientId){
             return back()->withInput()->withErrors(['Data pasien tidak ditemukan']);
         }
         $insert = [
-            'patient_id' => $patient_id,
+            'patient_id' => $patientId,
             'date_fever_first' => date('Y-m-d H:i:s',strtotime($request->post('date_fever_first'))),
             'first_test_date' => date('Y-m-d H:i:s',strtotime($request->post('first_test_date').' '.$request->post('first_test_time'))),
             'first_serum_sample_number' => $request->post('first_serum_sample_number'),
@@ -103,7 +103,7 @@ class RDTController extends Controller
     public function show(RapidDiagnosticTest $rdtRecording)
     {
         $rdtRecording->load('patient');
-        $data['data'] = $rdtRecording;
+        $data = ['data'=>$rdtRecording];
         return view('pages.rdt_recording.show',$data);
     }
 
@@ -115,7 +115,7 @@ class RDTController extends Controller
      */
     public function edit(RapidDiagnosticTest $rdtRecording)
     {
-        $data['data'] = $rdtRecording;
+        $data = ['data'=>$rdtRecording];
         return view('pages.rdt_recording.edit',$data);
     }
 
@@ -136,8 +136,8 @@ class RDTController extends Controller
         $update['first_whole_blood_sample_number'] = $request->post('first_whole_blood_sample_number');
         $update['second_serum_sample_number'] = $request->post('second_serum_sample_number');
         $update['second_whole_blood_sample_number'] = $request->post('second_whole_blood_sample_number');
-        $do = $rdtRecording->update($update);
-        if($do){
+        $todo = $rdtRecording->update($update);
+        if($todo){
             return redirect(route('rdt_recording.show',$rdtRecording->id))->with('success',['Berhasil memperbarui']);
         }else{
             return back()->withErrors(['Gagal memperbarui']);
