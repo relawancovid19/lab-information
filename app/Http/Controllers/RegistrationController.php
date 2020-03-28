@@ -8,6 +8,7 @@ use App\Models\Symptom;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class RegistrationController extends Controller
 {
@@ -49,7 +50,7 @@ class RegistrationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Registration  $request
+     * @param \App\Http\Requests\Registration $request
      * @return \Illuminate\Http\Response
      */
     public function store(RegistrationRequest $request)
@@ -58,7 +59,7 @@ class RegistrationController extends Controller
 
         // Change date format to Y-m-d
         $data['date_of_birth'] = ($data['date_of_birth'] != null) ? $data['date_of_birth'] : null;
-        $data['registration_date'] = ($data['registration_date'] != null) ? $data['registration_date'] : null;
+        $data['registration_date'] = Arr::get($data, 'registration_date') != null ? $data['registration_date'] : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -70,7 +71,7 @@ class RegistrationController extends Controller
         }
 
         $travels = [];
-        foreach($data['travel']['date_of_visit'] as $key => $value) {
+        foreach ($data['travel']['date_of_visit'] as $key => $value) {
             $travels[$key] = [
                 'date_of_visit' => $value,
                 'city' => $data['travel']['city'][$key],
@@ -79,7 +80,7 @@ class RegistrationController extends Controller
         }
 
         $contactWithPatients = [];
-        foreach($data['contact_sick_people']['name_people_sick'] as $key => $value) {
+        foreach ($data['contact_sick_people']['name_people_sick'] as $key => $value) {
             $contactWithPatients[$key] = [
                 'name_people_sick' => $value,
                 'address' => $data['contact_sick_people']['address'][$key],
@@ -110,7 +111,7 @@ class RegistrationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function show($idRegistration)
@@ -123,21 +124,23 @@ class RegistrationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function edit($idRegistration)
     {
+        $patients = Patient::all();
         $registration = Registration::findOrFail($idRegistration);
+        $registrationNumber = $registration->registration_number;
 
-        return view('pages.registration.edit', compact('registration'));
+        return view('pages.registration.edit', compact('registration', 'patients', 'registrationNumber'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Registration  $request
-     * @param  int  $idRegistration
+     * @param \App\Http\Requests\Registration $request
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function update(RegistrationRequest $request, $idRegistration)
@@ -166,7 +169,7 @@ class RegistrationController extends Controller
     /**
      * Generate registraion number.
      *
-     * @return void
+     * @return string
      */
     private function nextRegistrationNumber()
     {
@@ -193,7 +196,7 @@ class RegistrationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function destroy($idRegistration)
