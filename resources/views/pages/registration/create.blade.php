@@ -329,6 +329,14 @@
                         <div class="form-group row">
                             <label class="col col-form-label">3. TANDA DAN GEJALA</label>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="comorbid_description" class="col-sm-3 col-form-label">Tanggal onset gejala (panas)</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="date_onset" placeholder="Tanggal onset gejala (panas)">
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="fever" class="col-sm-3 col-form-label">Panas atau Riwayat Panas</label>
                             <div class="col-sm-9 mt-2">
@@ -943,7 +951,7 @@
                                 Keterangan lainnya: (sebutkan informasi yang dianggap penting)
                             </label>
                             <div class="col-sm-9 mt-2">
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea name="note" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
 
