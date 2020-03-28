@@ -3,6 +3,10 @@
 This is the repository for the lab information tracker app.
 
 ![Builds](https://github.com/relawancovid19/lab-information/workflows/Builds/badge.svg?branch=develop)
+![php ^7.2](https://img.shields.io/badge/PHP-^7.2-7377AD?style=flat-square&logo=php)
+![MySQL 5.7](https://img.shields.io/badge/MySQL-5.7-42759C?style=flat-square&logo=mysql)
+![Laravel 7.*](https://img.shields.io/badge/Laravel-7.*-red?style=flat-square&logo=laravel)
+![Relawan COVID-19](https://img.shields.io/badge/By-Relawan%20COVID--19-brightgreen?style=flat-square)
 
 ## Prerequisites
 
