@@ -20,6 +20,13 @@
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
+        <div>
+            @if(session('msg'))
+                <div class="alert alert-info" role="alert">
+                    {{ session('msg') }}
+                </div>
+            @endif
+        </div>
         <div class="text-right">
             <a href="{{ route('registrations.create') }}" class="btn btn-primary"><i class="fas fa-plus pr-1"></i> Registrasi Baru</a>
         </div>

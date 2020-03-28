@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Models\Registration;
 use App\Models\Symptom;
+use App\Models\ContactHistory;
+use App\Models\TravelHistories;
 use App\Models\TreatmentHistoryPdp;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
@@ -229,7 +231,15 @@ class RegistrationController extends Controller
 
             $dataRegistrations = array();
             $dataPatients = array();
+            $dataSymptoms = array();
+            $dataContact = array();
+                $dataTravel = array();
             foreach ($arrayCSV as $key => $value) {
+                // Skip header row
+                if ($key < 2) {
+                    continue;
+                }
+
                 // Get data patient from file csv
                 $nik = addslashes($value[6]);
                 $fullname = addslashes($value[5]);
@@ -242,7 +252,6 @@ class RegistrationController extends Controller
 
                 $explodeDateOfBirth = explode('/', $dateOfBirth);
                 $convertDateOfBirth = $explodeDateOfBirth[2]."-".$explodeDateOfBirth[1]."-".$explodeDateOfBirth[0];
-
 
                 $dataPatients['nik'] = $nik;
                 $dataPatients['fullname'] = $fullname;
@@ -266,6 +275,113 @@ class RegistrationController extends Controller
                 $dataRegistrations['doctor'] = $doctor;
                 $dataRegistrations['medical_record_number'] = $medicalRecordNumber;
 
+                // F1.4 TANDA DAN GEJALA
+                $dataSymptoms['date_onset'] = !empty($value[19]) ? addslashes(Carbon::createFromFormat('d/m/Y', $value[19])->format('Y-m-d')) : null;
+                $dataSymptoms['fever'] = addslashes($value[20]);
+                $dataSymptoms['cough'] = addslashes($value[21]);
+                $dataSymptoms['sore_throat'] = addslashes($value[22]);
+                $dataSymptoms['shortness_of_breath'] = addslashes($value[23]);
+                $dataSymptoms['flu'] = addslashes($value[24]);
+                $dataSymptoms['fatigue'] = addslashes($value[25]);
+                $dataSymptoms['headache'] = addslashes($value[26]);
+                $dataSymptoms['diarrhea'] = addslashes($value[27]);
+                $dataSymptoms['nausea_or_vomiting'] = addslashes($value[28]);
+                $dataSymptoms['other_symptoms'] = addslashes($value[29]);
+
+                // F1.5 PEMERIKSAAN PENUNJANG
+                $dataSymptoms['pulmonary_xray'] = addslashes($value[30]);
+                $dataSymptoms['xray_result'] = addslashes($value[31]);
+                $dataSymptoms['leukosit'] = addslashes($value[32]);
+                $dataSymptoms['limfosit'] = addslashes($value[33]);
+                $dataSymptoms['trombosit'] = addslashes($value[34]);
+                $dataSymptoms['using_ventilator'] = addslashes($value[35]);
+                $dataSymptoms['health_status'] = addslashes($value[36]);
+
+                // F1.6 RIWAYAT KONTAK/PAPARAN
+                $dataContact[1]['check_patient_journey'] = addslashes($value[37]);
+                $dataContact[1]['date_of_visit'] = !empty($value[38]) ? Carbon::createFromFormat('d/m/Y', $value[38])->format('Y-m-d') : null;
+                $dataContact[1]['city'] = addslashes($value[39]);
+                $dataContact[1]['country'] = addslashes($value[40]);
+                $dataContact[1]['check_contact_sick_people'] = addslashes($value[44]);
+                $dataContact[1]['name_people_sick'] = addslashes($value[45]);
+                $dataContact[1]['address'] = addslashes($value[46]);
+                $dataContact[1]['relation'] = addslashes($value[47]);
+                $dataContact[1]['contact_date'] = !empty($value[48]) ? Carbon::createFromFormat('d/m/Y', $value[48])->format('Y-m-d') : null;
+                $dataContact[1]['check_people_infected'] = addslashes($value[65]);
+                $dataContact[1]['check_family_members_infected'] = addslashes($value[66]);
+                $dataContact[1]['other'] = addslashes($value[74]);
+
+                $dataContact[2]['check_patient_journey'] = addslashes($value[37]);
+                $dataContact[2]['date_of_visit'] = !empty($value[38]) ? Carbon::createFromFormat('d/m/Y', $value[38])->format('Y-m-d') : null;
+                $dataContact[2]['city'] = addslashes($value[42]);
+                $dataContact[2]['country'] = addslashes($value[43]);
+                $dataContact[2]['check_contact_sick_people'] = addslashes($value[44]);
+                $dataContact[2]['name_people_sick'] = addslashes($value[49]);
+                $dataContact[2]['address'] = addslashes($value[50]);
+                $dataContact[2]['relation'] = addslashes($value[51]);
+                $dataContact[2]['contact_date'] = !empty($value[52]) ? Carbon::createFromFormat('d/m/Y', $value[52])->format('Y-m-d') : null;
+                $dataContact[2]['check_people_infected'] = addslashes($value[65]);
+                $dataContact[2]['check_family_members_infected'] = addslashes($value[66]);
+                $dataContact[2]['other'] = addslashes($value[74]);
+
+                $dataContact[3]['check_patient_journey'] = addslashes($value[37]);
+                $dataContact[3]['date_of_visit'] = !empty($value[38]) ? Carbon::createFromFormat('d/m/Y', $value[38])->format('Y-m-d') : null;
+                $dataContact[3]['city'] = addslashes($value[39]);
+                $dataContact[3]['country'] = addslashes($value[40]);
+                $dataContact[3]['check_contact_sick_people'] = addslashes($value[44]);
+                $dataContact[3]['name_people_sick'] = addslashes($value[53]);
+                $dataContact[3]['address'] = addslashes($value[54]);
+                $dataContact[3]['relation'] = addslashes($value[55]);
+                $dataContact[3]['contact_date'] = !empty($value[56]) ? Carbon::createFromFormat('d/m/Y', $value[56])->format('Y-m-d') : null;
+                $dataContact[3]['check_people_infected'] = addslashes($value[65]);
+                $dataContact[3]['check_family_members_infected'] = addslashes($value[66]);
+                $dataContact[3]['other'] = addslashes($value[74]);
+
+                $dataContact[4]['check_patient_journey'] = addslashes($value[37]);
+                $dataContact[4]['date_of_visit'] = !empty($value[38]) ? Carbon::createFromFormat('d/m/Y', $value[38])->format('Y-m-d') : null;
+                $dataContact[4]['city'] = addslashes($value[39]);
+                $dataContact[4]['country'] = addslashes($value[40]);
+                $dataContact[4]['check_contact_sick_people'] = addslashes($value[44]);
+                $dataContact[4]['name_people_sick'] = addslashes($value[57]);
+                $dataContact[4]['address'] = addslashes($value[58]);
+                $dataContact[4]['relation'] = addslashes($value[59]);
+                $dataContact[4]['contact_date'] = !empty($value[60]) ? Carbon::createFromFormat('d/m/Y', $value[60])->format('Y-m-d') : null;
+                $dataContact[4]['check_people_infected'] = addslashes($value[65]);
+                $dataContact[4]['check_family_members_infected'] = addslashes($value[66]);
+                $dataContact[4]['other'] = addslashes($value[74]);
+
+                $dataContact[5]['check_patient_journey'] = addslashes($value[37]);
+                $dataContact[5]['date_of_visit'] = !empty($value[38]) ? Carbon::createFromFormat('d/m/Y', $value[38])->format('Y-m-d') : null;
+                $dataContact[5]['city'] = addslashes($value[39]);
+                $dataContact[5]['country'] = addslashes($value[40]);
+                $dataContact[5]['check_contact_sick_people'] = addslashes($value[44]);
+                $dataContact[5]['name_people_sick'] = addslashes($value[61]);
+                $dataContact[5]['address'] = addslashes($value[62]);
+                $dataContact[5]['relation'] = addslashes($value[63]);
+                $dataContact[5]['contact_date'] = !empty($value[64]) ? Carbon::createFromFormat('d/m/Y', $value[64])->format('Y-m-d') : null;
+                $dataContact[5]['check_people_infected'] = addslashes($value[65]);
+                $dataContact[5]['check_family_members_infected'] = addslashes($value[66]);
+                $dataContact[5]['other'] = addslashes($value[74]);
+
+                $dataTravel[1]['date_of_visit'] = !empty($value[38]) ? Carbon::createFromFormat('d/m/Y', $value[38])->format('Y-m-d') : null;
+                $dataTravel[1]['city'] = addslashes($value[39]);
+                $dataTravel[1]['country'] = addslashes($value[40]);
+                $dataTravel[2]['date_of_visit'] = !empty($value[41]) ? Carbon::createFromFormat('d/m/Y', $value[41])->format('Y-m-d') : null;
+                $dataTravel[2]['city'] = addslashes($value[42]);
+                $dataTravel[2]['country'] = addslashes($value[43]);
+
+                $dataSymptoms['hipertensi'] = addslashes($value[67]);
+                $dataSymptoms['diabetes_mellitus'] = addslashes($value[68]);
+                $dataSymptoms['liver'] = addslashes($value[69]);
+                $dataSymptoms['neurologi'] = addslashes($value[70]);
+                $dataSymptoms['hiv'] = addslashes($value[71]);
+                $dataSymptoms['kidney'] = addslashes($value[72]);
+                $dataSymptoms['chronic_lung'] = addslashes($value[73]);
+                $dataSymptoms['check_people_infected'] = addslashes($value[44]);
+                $dataSymptoms['check_family_members_infected'] = addslashes($value[66]);
+                $dataSymptoms['contact_with_suspect_covid19'] = addslashes($value[65]);
+                $dataSymptoms['other'] = addslashes($value[74]);
+
                 $rules = [
                     'fullname' => 'required',
                     'phone_number' => 'max:15',
@@ -286,11 +402,27 @@ class RegistrationController extends Controller
                 }
 
                 $patient = Patient::create($dataPatients);
-                Registration::create(array_merge($dataRegistrations, [
+                $registration = Registration::create(array_merge($dataRegistrations, [
                     'patient_id' => $patient->id,
                     'registration_number' => $this->nextRegistrationNumber()
                 ]));
                 $this->setDataTreatementHistoryPdp($value, $patient->id);
+
+                $symptom = Symptom::create(array_merge([
+                    'registration_id' => $registration->id
+                ], $dataSymptoms));
+                foreach ($dataContact as $key => $value) {
+                    $contact = ContactHistory::create(array_merge([
+                        'patient_id' => $patient->id,
+                        'registration_id' => $registration->id
+                    ], $value));
+                }
+                foreach ($dataTravel as $key => $value) {
+                    $travel = TravelHistories::create(array_merge([
+                        'registration_id' => $registration->id
+                    ], $value));
+                }
+
             }
 
             DB::commit();
