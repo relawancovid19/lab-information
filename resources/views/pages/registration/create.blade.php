@@ -43,7 +43,7 @@
                 <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
-                        <label for="nik" class="col-sm-3 col-form-label">NIK <span class="text-danger">*</span></label>
+                        <label for="nik" class="col-sm-3 col-form-label">NIK</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK">
 
@@ -55,7 +55,7 @@
                     <div class="form-group row">
                         <label for="registration_number" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ old('registration_number', $registrationNumber) }}" placeholder="Nomor registrasi">
+                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ old('registration_number', $registrationNumber) }}" placeholder="Nomor registrasi" required>
 
                             @error('registration_number')
                                 <span class="error invalid-feedback">{{ $message }}</span>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="medical_record_number" class="col-sm-3 col-form-label">No Rekam Medis<span class="text-danger">*</span></label>
+                            <label for="medical_record_number" class="col-sm-3 col-form-label">No Rekam Medis</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('medical_record_number') is-invalid @enderror" name="medical_record_number" value="{{ old('medical_record_number') }}" placeholder="No Rekam Medis">
 
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="doctor" class="col-sm-3 col-form-label">Dokter Penanggung Jawab <span class="text-danger">*</span></label>
+                            <label for="doctor" class="col-sm-3 col-form-label">Dokter Penanggung Jawab</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('doctor') is-invalid @enderror" name="doctor" value="{{ old('doctor') }}" placeholder="Dokter penanggung jawab">
 
@@ -134,7 +134,7 @@
                         <div class="form-group row">
                             <label for="fullname" class="col-sm-3 col-form-label">Nama Pasien <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" placeholder="Nama pasien">
+                                <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" placeholder="Nama pasien" required>
 
                                 @error('fullname')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -142,7 +142,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="reference_number" class="col-sm-3 col-form-label">No. Rujukan <span class="text-danger">*</span></label>
+                            <label for="reference_number" class="col-sm-3 col-form-label">No. Rujukan</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('reference_number') is-invalid @enderror" name="reference_number" value="{{ old('reference_number') }}" placeholder="Nomor rujukan">
 
@@ -240,7 +240,7 @@
                             <label class="col col-form-label">2. Riwayat Perawatan Pasien Dalam Pengawasan</label>
                         </div>
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Pertama <span class="text-danger">*</span></label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Pertama</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="pertama">
@@ -268,7 +268,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Kedua <span class="text-danger">*</span></label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Kedua</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="kedua">
@@ -296,7 +296,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Ketiga <span class="text-danger">*</span></label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Ketiga</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="ketiga">
@@ -934,118 +934,6 @@
                                     <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="check_family_members_infected" id="check_family_members_infected_0" value="0">
                                     <label class="form-check-label" for="check_family_members_infected_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Penyakit kardiovaskuler/hipertensi
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="hipertensi" id="hipertensi_1" value="1">
-                                    <label class="form-check-label" for="hipertensi_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="hipertensi" id="hipertensi_0" value="0">
-                                    <label class="form-check-label" for="hipertensi_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Diabetes mellitus
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="diabetes_mellitus" id="diabetes_mellitus_1" value="1">
-                                    <label class="form-check-label" for="diabetes_mellitus_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="diabetes_mellitus" id="diabetes_mellitus_0" value="0">
-                                    <label class="form-check-label" for="diabetes_mellitus_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Liver
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="liver" id="liver_1" value="1">
-                                    <label class="form-check-label" for="liver_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="liver" id="liver_0" value="0">
-                                    <label class="form-check-label" for="liver_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Kronik neurologi / neuromuskular
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="neurologi" id="neurologi_1" value="1">
-                                    <label class="form-check-label" for="neurologi_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="neurologi" id="neurologi_0" value="0">
-                                    <label class="form-check-label" for="neurologi_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Imunodefisiensi / HIV
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="hiv" id="hiv_1" value="1">
-                                    <label class="form-check-label" for="hiv_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="hiv" id="hiv_0" value="0">
-                                    <label class="form-check-label" for="hiv_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Penyakit paru kronik
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="chronic_lung" id="chronic_lung_1" value="1">
-                                    <label class="form-check-label" for="chronic_lung_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="chronic_lung" id="chronic_lung_0" value="0">
-                                    <label class="form-check-label" for="chronic_lung_0">Tidak</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="" class="col-sm-3 col-form-label">
-                                Penyakit ginjal
-                            </label>
-                            <div class="col-sm-9 mt-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="kidney" id="kidney_1" value="1">
-                                    <label class="form-check-label" for="kidney_1">Ya</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="kidney" id="kidney_0" value="0">
-                                    <label class="form-check-label" for="kidney_0">Tidak</label>
                                 </div>
                             </div>
                         </div>
