@@ -2,13 +2,26 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasPermissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasPermissions;
+
+    /**
+     * @var bool
+     */
+    private $cacheRole = true;
+
+    /**
+     * @var bool
+     */
+    private $cachePermission = true;
 
     /**
      * The attributes that are mass assignable.
@@ -38,8 +51,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @deprecated
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
     }
 }
