@@ -2,25 +2,7 @@
 
 This is the repository for the lab information tracker app.
 
-![CI](https://github.com/relawancovid19/lab-information/workflows/CI/badge.svg)
-
-## Demo
-
-Please visit [WEB UJI SWAB COVID-19](http://34.87.140.203)
-
-```bash
-# Staff Registrasi
-username: registrasi
-password: relawancovid19id
-
-# Kepala Lab
-username: kepala_lab
-password: relawancovid19id
-
-# Staff Lab
-username: petugas_lab
-password: relawancovid19id
-```
+![Builds](https://github.com/relawancovid19/lab-information/workflows/Builds/badge.svg?branch=develop)
 
 ## Prerequisites
 
@@ -174,8 +156,11 @@ When contributing to this repository, please note we have a code standards, plea
 Thanks goes to these wonderful people:
 
 * [Relawan COVID-19 Indonesia](https://relawancovid19.id)
-* Septian Hari [@LIQRGV](https://github.com/LIQRGV)
 * Andi Siswanto [@andisis](https://github.com/andisis)
+* Arya Kusuma [@localhost94](https://github.com/localhost94)
+* Humam Al Amin [@humamalamin](https://github.com/humamalamin)
+* Iskandar Soesman [@ikandars](https://github.com/ikandars)
+* Septian Hari [@LIQRGV](https://github.com/LIQRGV)
 
 ## Deployment
 
