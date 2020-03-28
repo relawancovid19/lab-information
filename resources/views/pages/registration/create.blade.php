@@ -124,7 +124,7 @@
                         <div class="form-group row">
                             <label for="registration_date" class="col-sm-3 col-form-label">Tanggal Registrasi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control datemask @error('registration_date') is-invalid @enderror" name="registration_date" value="{{ old('registration_date') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal registrasi">
+                                <input type="date" class="form-control datemask @error('registration_date') is-invalid @enderror" name="registration_date" value="{{ old('registration_date') }}" data-mask placeholder="Tanggal registrasi">
 
                                 @error('registration_date')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -154,7 +154,7 @@
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal lahir">
+                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" data-mask placeholder="Tanggal lahir">
 
                                 @error('date_of_birth')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -244,7 +244,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="pertama">
-                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -272,7 +272,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="kedua">
-                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -300,7 +300,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="ketiga">
-                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
