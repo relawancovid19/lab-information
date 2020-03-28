@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Models\Registration;
 use App\Models\Symptom;
+use App\Models\TreatmentHistoryPdp;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -204,20 +205,18 @@ class RegistrationController extends Controller
 
             $dataRegistrations = array();
             $dataPatients = array();
-            // $error = array();
-            // $registrationNumber = $this->nextRegistrationNumber();
             foreach ($arrayCSV as $key => $value) {
                 // Get data patient from file csv
                 $nik = addslashes($value[6]);
                 $fullname = addslashes($value[5]);
-                $dob = addslashes($value[7]);
+                $dateOfBirth = addslashes($value[7]);
                 $ageYear = addslashes($value[8]);
                 $gender = addslashes($value[9]);
-                $address1 = addslashes($value[11]);
+                $address = addslashes($value[11]);
                 $phoneNumber = addslashes($value[12]);
                 $answer = addslashes($value[10]);
 
-                $explodeDateOfBirth = explode('/', $dob);
+                $explodeDateOfBirth = explode('/', $dateOfBirth);
                 $convertDateOfBirth = $explodeDateOfBirth[2]."-".$explodeDateOfBirth[1]."-".$explodeDateOfBirth[0];
 
 
@@ -226,7 +225,7 @@ class RegistrationController extends Controller
                 $dataPatients['date_of_birth'] = $convertDateOfBirth;
                 $dataPatients['age_year'] = $ageYear;
                 $dataPatients['gender'] = $gender;
-                $dataPatients['address_1'] = $address1;
+                $dataPatients['address_1'] = $address;
                 $dataPatients['phone_number'] = $phoneNumber;
                 $dataPatients['answer'] = $answer;
 
@@ -267,6 +266,7 @@ class RegistrationController extends Controller
                     'patient_id' => $patient->id,
                     'registration_number' => $this->nextRegistrationNumber()
                 ]));
+                $this->setDataTreatementHistoryPdp($value, $patient->id);
             }
 
             DB::commit();
@@ -279,5 +279,59 @@ class RegistrationController extends Controller
 
             return redirect()->route('registrations.index')->with('msg', $th->getMessage());
         }
+    }
+
+    private function setDataTreatementHistoryPdp($data, $patientId)
+    {
+        $dataTreatmentHistoryPdps = array();
+        // Get data treatment history pdp
+        $dateTreatmentFirst = addslashes($data[13]);
+        $fasyankesNameFirst = addslashes($data[14]);
+        $dateTreatmentSecond = addslashes($data[15]);
+        $fasyankesNameSecond = addslashes($data[16]);
+        $dateTreatmentThird = addslashes($data[17]);
+        $fasyankesNameThird = addslashes($data[18]);
+
+        if (!empty($dateTreatmentFirst)) {
+            $explodeTreatmentFirst = explode("/", $dateTreatmentFirst);
+            $convertTreatmentFirst = $explodeTreatmentFirst[2]."-".$explodeTreatmentFirst[1]."-".$explodeTreatmentFirst[0];
+            $dataTreatmentHistoryPdps[0]["date_treated"] = $convertTreatmentFirst;
+        } else {
+            $dataTreatmentHistoryPdps[0]["date_treated"] = null;
+        }
+
+        if (!empty($dateTreatmentSecond)) {
+            $explodeTreatmentSecond = explode("/", $dateTreatmentSecond);
+            $convertTreatmentSecond = $explodeTreatmentSecond[2]."-".$explodeTreatmentSecond[1]."-".$explodeTreatmentSecond[0];
+            $dataTreatmentHistoryPdps[1]["date_treated"] = $convertTreatmentSecond;
+        } else {
+            $dataTreatmentHistoryPdps[1]["date_treated"] = null;
+        }
+
+        if (!empty($dateTreatmentThird)) {
+            $explodeTreatmentThird = explode("/", $dateTreatmentThird);
+            $convertTreatmentThird = $explodeTreatmentThird[2]."-".$explodeTreatmentThird[1]."-".$explodeTreatmentThird[0];
+            $dataTreatmentHistoryPdps[2]["date_treated"] = $convertTreatmentThird;
+        } else {
+            $dataTreatmentHistoryPdps[2]["date_treated"] = null;
+        }
+
+        $dataTreatmentHistoryPdps[0]["fasyankes_name"] = $fasyankesNameFirst;
+        $dataTreatmentHistoryPdps[0]["explanation"] = "first";
+
+        $dataTreatmentHistoryPdps[1]["fasyankes_name"] = $fasyankesNameSecond;
+        $dataTreatmentHistoryPdps[1]["explanation"] = "second";
+
+
+        $dataTreatmentHistoryPdps[2]["fasyankes_name"] = $fasyankesNameThird;
+        $dataTreatmentHistoryPdps[2]["explanation"] = "third";
+
+        $dataTreatmentHistoryPdps[0]["patient_id"] = $patientId;
+        $dataTreatmentHistoryPdps[1]["patient_id"] = $patientId;
+        $dataTreatmentHistoryPdps[2]["patient_id"] = $patientId;
+
+        TreatmentHistoryPdp::insert($dataTreatmentHistoryPdps);
+
+        return true;
     }
 }
