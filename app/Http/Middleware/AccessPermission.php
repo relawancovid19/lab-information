@@ -9,13 +9,14 @@ class AccessPermission
     /**
      * @param Request $request
      * @param \Closure $next
-     * @param $permission
+     * @param array $permissions
      * @return mixed
      */
-    public function handle(Request $request, \Closure $next, $permission)
+    public function handle(Request $request, \Closure $next, ...$permissions)
     {
-        if (!in_array($permission, auth()->user()->getPermissions())) {
-            abort(401, sprintf('Anda tidak punya akses untuk membuka :%s.', $permission));
+        $permissions = array_map('trim', $permissions);
+        if (!auth()->user()->hasPermission(...$permissions)) {
+            abort(401, 'Anda tidak punya akses untuk membuka halaman ini.');
         }
 
         return $next($request);
