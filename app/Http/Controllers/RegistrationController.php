@@ -58,9 +58,10 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request)
     {
         $data = $request->all();
+
         // Change date format to Y-m-d
-        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
-        $data['registration_date'] = ($data['registration_date'] != null) ? Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d') : null;
+        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? $data['date_of_birth'] : null;
+        $data['registration_date'] = ($data['registration_date'] != null) ? $data['registration_date'] : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -71,6 +72,25 @@ class RegistrationController extends Controller
             $dataTreatmentHistoryPdps[$key]['fasyankes_name'] = $data['fasyankes_name'][$key];
         }
 
+        $travels = [];
+        foreach($data['travel']['date_of_visit'] as $key => $value) {
+            $travels[$key] = [
+                'date_of_visit' => $value,
+                'city' => $data['travel']['city'][$key],
+                'country' => $data['travel']['country'][$key]
+            ];
+        }
+
+        $contactWithPatients = [];
+        foreach($data['contact_sick_people']['name_people_sick'] as $key => $value) {
+            $contactWithPatients[$key] = [
+                'name_people_sick' => $value,
+                'address' => $data['contact_sick_people']['address'][$key],
+                'relation' => $data['contact_sick_people']['relation'][$key],
+                'contact_date' => $data['contact_sick_people']['contact_date'][$key]
+            ];
+        }
+
         // Insert Patient
         $patient = Patient::firstOrCreate(['id' => $data['patient_id']], $data);
         // Insert Registration
@@ -78,7 +98,11 @@ class RegistrationController extends Controller
         // Insert Symptom
         $registration->symptom()->create($data);
         // insert treatmentHistoryPdp
-        $patient->treatmentHistoryPdp()->saveMany($dataTreatmentHistoryPdps);
+        $patient->treatmentHistoryPdps()->createMany($dataTreatmentHistoryPdps);
+        // Insert travel histories
+        $registration->travelHistory()->createMany($travels);
+        // Insert contact histories
+        $registration->contactlHistory()->createMany($contactWithPatients);
 
         return redirect()->route('registrations.index')->with('alert', [
             'color' => 'success',

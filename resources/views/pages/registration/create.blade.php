@@ -55,7 +55,7 @@
                 <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
-                        <label for="nik" class="col-sm-3 col-form-label">NIK <span class="text-danger">*</span></label>
+                        <label for="nik" class="col-sm-3 col-form-label">NIK</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" placeholder="NIK">
 
@@ -67,7 +67,7 @@
                     <div class="form-group row">
                         <label for="registration_number" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ old('registration_number', $registrationNumber) }}" placeholder="Nomor registrasi">
+                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ old('registration_number', $registrationNumber) }}" placeholder="Nomor registrasi" required>
 
                             @error('registration_number')
                                 <span class="error invalid-feedback">{{ $message }}</span>
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="medical_record_number" class="col-sm-3 col-form-label">No Rekam Medis<span class="text-danger">*</span></label>
+                            <label for="medical_record_number" class="col-sm-3 col-form-label">No Rekam Medis</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('medical_record_number') is-invalid @enderror" name="medical_record_number" value="{{ old('medical_record_number') }}" placeholder="No Rekam Medis">
 
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="doctor" class="col-sm-3 col-form-label">Dokter Penanggung Jawab <span class="text-danger">*</span></label>
+                            <label for="doctor" class="col-sm-3 col-form-label">Dokter Penanggung Jawab</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('doctor') is-invalid @enderror" name="doctor" value="{{ old('doctor') }}" placeholder="Dokter penanggung jawab">
 
@@ -136,7 +136,7 @@
                         <div class="form-group row">
                             <label for="registration_date" class="col-sm-3 col-form-label">Tanggal Registrasi</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control datemask @error('registration_date') is-invalid @enderror" name="registration_date" value="{{ old('registration_date') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal registrasi">
+                                <input type="date" class="form-control datemask @error('registration_date') is-invalid @enderror" name="registration_date" value="{{ old('registration_date') }}" data-mask placeholder="Tanggal registrasi">
 
                                 @error('registration_date')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -146,7 +146,7 @@
                         <div class="form-group row">
                             <label for="fullname" class="col-sm-3 col-form-label">Nama Pasien <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" placeholder="Nama pasien">
+                                <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" placeholder="Nama pasien" required>
 
                                 @error('fullname')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -154,7 +154,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="reference_number" class="col-sm-3 col-form-label">No. Rujukan <span class="text-danger">*</span></label>
+                            <label for="reference_number" class="col-sm-3 col-form-label">No. Rujukan</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('reference_number') is-invalid @enderror" name="reference_number" value="{{ old('reference_number') }}" placeholder="Nomor rujukan">
 
@@ -166,7 +166,7 @@
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal lahir">
+                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" data-mask placeholder="Tanggal lahir">
 
                                 @error('date_of_birth')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -252,11 +252,11 @@
                             <label class="col col-form-label">2. Riwayat Perawatan Pasien Dalam Pengawasan</label>
                         </div>
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Pertama <span class="text-danger">*</span></label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Pertama</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="pertama">
-                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -280,11 +280,11 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Kedua <span class="text-danger">*</span></label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Kedua</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="kedua">
-                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -308,11 +308,11 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Ketiga <span class="text-danger">*</span></label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Ketiga</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="ketiga">
-                                    <input type="text" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Tanggal Dirawat">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -817,6 +817,150 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- RIWAYAT KONTAK/PAPARAN -->
+                    <div class="tab">
+                        <div class="form-group row">
+                            <label class="col col-form-label">4. RIWAYAT KONTAK/PAPARAN</label>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien melakukan perjalanan ke luar negeri?</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_travel" id="trave_1" value="1">
+                                    <label class="form-check-label" for="trave_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_travel" id="trave_0" value="0">
+                                    <label class="form-check-label" for="trave_0">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Jika ya, urutkan berdasarkan tanggal kunjungan:</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="row">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Tanggal kunjungan:</th>
+                                        <th scope="col">Kota:</th>
+                                        <th scope="col">Negara:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input name="travel[date_of_visit][]" class="form-control" type="date"></td>
+                                            <td><input name="travel[city][]" class="form-control" type="text"></td>
+                                            <td><input name="travel[country][]" class="form-control" type="text"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default plus"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default minus"><i class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Dalam 14 hari sebelum sakit, apakah pasien kontak dengan orang yang sakit?</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_contact_sick_people" id="contact_sick_people_1" value="1">
+                                    <label class="form-check-label" for="contact_sick_people_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="is_contact_sick_people" id="contact_sick_people_0" value="0">
+                                    <label class="form-check-label" for="contact_sick_people_0">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">Jika ya, isi tabel berikut:</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="row">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Nama:</th>
+                                        <th scope="col">Alamat:</th>
+                                        <th scope="col">Hubungan:</th>
+                                        <th scope="col">Tanggal kontak:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
+                                            <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
+                                            <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
+                                            <td><input name="contact_sick_people[contact_date][]" class="form-control" type="date"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default plus"><i class="fas fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default minus"><i class="fas fa-minus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Apakah orang tersebut tersangka/terinfeksi Covid-19?
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_1" value="1">
+                                    <label class="form-check-label" for="contact_with_suspect_covid19_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_0" value="0">
+                                    <label class="form-check-label" for="contact_with_suspect_covid19_0">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Apakah ada anggota keluarga pasien yang sakitnya sama?
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="check_family_members_infected" id="check_family_members_infected_1" value="1">
+                                    <label class="form-check-label" for="check_family_members_infected_1">Ya</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="check_family_members_infected" id="check_family_members_infected_0" value="0">
+                                    <label class="form-check-label" for="check_family_members_infected_0">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="" class="col-sm-3 col-form-label">
+                                Keterangan lainnya: (sebutkan informasi yang dianggap penting)
+                            </label>
+                            <div class="col-sm-9 mt-2">
+                            <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-9 offset-sm-3">
                             <input type="hidden" name="patient_id" id="patientID">
@@ -946,6 +1090,24 @@
         $("input[name='address_2']").val(obj.address_2);
         $("input[name='phone_number']").val(obj.phone_number);
         $("input[name='patient_id']").val(obj.id);
+    });
+
+    $('.btn.btn-default.plus').click((event) => {
+        const parentObj = $( event.target ).closest(".form-group.row");
+        const tbl = parentObj.find('table');
+        const tr = tbl.find('tbody > tr').first().clone();
+        tr.appendTo( tbl.find('tbody') );
+    });
+    $('.btn.btn-default.minus').click((event) => {
+        const parentObj = $( event.target ).closest(".form-group.row");
+        const tbl = parentObj.find('table');
+        const tr = tbl.find('tbody > tr');
+
+        if(tr.length < 2){
+            return false;
+        }
+
+        tr.last().remove();
     });
 </script>
 @endsection

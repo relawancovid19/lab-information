@@ -50,4 +50,14 @@ class Registration extends Model
     {
         return $this->hasOne(Symptom::class);
     }
+
+    public function travelHistory()
+    {
+        return $this->hasMany(TravelHistories::class);
+    }
+
+    public function contactlHistory()
+    {
+        return $this->hasMany(ContactHistory::class);
+    }
 }
