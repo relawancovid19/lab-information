@@ -39,4 +39,12 @@ class Role extends Authenticatable
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 }
