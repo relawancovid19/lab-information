@@ -266,11 +266,7 @@ class RegistrationController extends Controller
                     'patient_id' => $patient->id,
                     'registration_number' => $this->nextRegistrationNumber()
                 ]));
-<<<<<<< HEAD
-=======
-
                 $this->setDataTreatementHistoryPdp($value, $patient->id);
->>>>>>> LI-15
             }
 
             DB::commit();
@@ -284,8 +280,6 @@ class RegistrationController extends Controller
             return redirect()->route('registrations.index')->with('msg', $th->getMessage());
         }
     }
-<<<<<<< HEAD
-=======
 
     private function setDataTreatementHistoryPdp($data, $patientId)
     {
@@ -340,5 +334,4 @@ class RegistrationController extends Controller
 
         return true;
     }
->>>>>>> LI-15
 }
