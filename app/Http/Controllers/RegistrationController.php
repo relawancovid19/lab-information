@@ -129,11 +129,10 @@ class RegistrationController extends Controller
      */
     public function edit($idRegistration)
     {
-        $patients = Patient::all();
         $registration = Registration::findOrFail($idRegistration);
         $registrationNumber = $registration->registration_number;
 
-        return view('pages.registration.edit', compact('registration', 'patients', 'registrationNumber'));
+        return view('pages.registration.edit', compact('registration', 'registrationNumber'));
     }
 
     /**
