@@ -482,7 +482,7 @@ class RegistrationController extends Controller
         $dataContact[5]['check_family_members_infected'] = addslashes($data[66]);
         $dataContact[5]['other'] = addslashes($data[74]);
 
-        foreach ($dataContact as $key => $value) {
+        foreach ($dataContact as $value) {
             ContactHistory::create(array_merge([
                 'patient_id' => $patient->id,
                 'registration_id' => $registration->id
@@ -502,7 +502,7 @@ class RegistrationController extends Controller
         $dataTravel[2]['city'] = addslashes($data[42]);
         $dataTravel[2]['country'] = addslashes($data[43]);
 
-        foreach ($dataTravel as $key => $value) {
+        foreach ($dataTravel as $value) {
             TravelHistories::create(array_merge([
                 'registration_id' => $registration->id
             ], $value));
