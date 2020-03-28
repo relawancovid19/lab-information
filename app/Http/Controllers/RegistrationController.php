@@ -97,9 +97,9 @@ class RegistrationController extends Controller
         // insert treatmentHistoryPdp
         $patient->treatmentHistoryPdps()->createMany($dataTreatmentHistoryPdps);
         // Insert travel histories
-        $registration->travelHistory()->createMany($travels);
+        $registration->travelHistories()->createMany($travels);
         // Insert contact histories
-        $registration->contactlHistory()->createMany($contactWithPatients);
+        $registration->contactHistories()->createMany($contactWithPatients);
 
         return redirect()->route('registrations.index')->with('alert', [
             'color' => 'success',
