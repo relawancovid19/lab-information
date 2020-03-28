@@ -2,25 +2,11 @@
 
 This is the repository for the lab information tracker app.
 
-![CI](https://github.com/relawancovid19/lab-information/workflows/CI/badge.svg)
-
-## Demo
-
-Please visit [WEB UJI SWAB COVID-19](http://35.185.181.25)
-
-```bash
-# Staff Registrasi
-username: registrasi
-password: relawancovid19id
-
-# Kepala Lab
-username: kepala_lab
-password: relawancovid19id
-
-# Staff Lab
-username: petugas_lab
-password: relawancovid19id
-```
+![Builds](https://github.com/relawancovid19/lab-information/workflows/Builds/badge.svg?branch=develop)
+![php ^7.2](https://img.shields.io/badge/PHP-^7.2-7377AD?style=flat-square&logo=php)
+![MySQL 5.7](https://img.shields.io/badge/MySQL-5.7-42759C?style=flat-square&logo=mysql)
+![Laravel 7.*](https://img.shields.io/badge/Laravel-7.*-red?style=flat-square&logo=laravel)
+![Relawan COVID-19](https://img.shields.io/badge/By-Relawan%20COVID--19-brightgreen?style=flat-square)
 
 ## Prerequisites
 
@@ -84,6 +70,12 @@ composer install
 cp .env.example .env
 ```
 
+**Generate App Key**
+
+```bash
+php artisan key:generate
+```
+
 **Database Migration**
 
 Create new database and setup the `.env` file
@@ -125,9 +117,9 @@ docker run -d --name <container_name> -p <the_port_you_want>:80 covid19id_lab:la
 
 * Make sure mysql and project container are in 1 docker network, so they can communicate with each other
 
-## Testing
+## Check Code
 
-**Run Testing**
+**Run Check Code**
 
 ```bash
 # Check code metric
@@ -136,8 +128,6 @@ vendor/bin/phpmd tests text phpmd_rulesets.xml
 # Check code standard
 vendor/bin/phpcs app --standard=PSR2 -n
 vendor/bin/phpcs tests --standard=PSR2 -n
-# Unit testing
-vendor/bin/phpunit --debug --stop-on-failure --stop-on-error
 ```
 
 or you can run all of these commands with the `make` command
@@ -156,23 +146,25 @@ When contributing to this repository, please note we have a code standards, plea
 
 #### Steps to contribute
 
-1. Clone this repository.
+1. Fork this repository.
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Submit pull request.
 
 **Note** :
-* Please make sure to update tests as appropriate.
-* It's recommended to run **Testing** command before submit a pull request.
+* It's recommended to run **Check Code** command before submit a pull request.
 
 ## Contributors
 
 Thanks goes to these wonderful people:
 
 * [Relawan COVID-19 Indonesia](https://relawancovid19.id)
-* Septian Hari [@LIQRGV](https://github.com/LIQRGV)
 * Andi Siswanto [@andisis](https://github.com/andisis)
+* Arya Kusuma [@localhost94](https://github.com/localhost94)
+* Humam Al Amin [@humamalamin](https://github.com/humamalamin)
+* Iskandar Soesman [@ikandars](https://github.com/ikandars)
+* Septian Hari [@LIQRGV](https://github.com/LIQRGV)
 
 ## Deployment
 

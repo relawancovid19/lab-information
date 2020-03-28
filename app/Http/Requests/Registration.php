@@ -25,37 +25,24 @@ class Registration extends FormRequest
     {
         return [
             // Patient
-            'nik' => 'required|integer',
+            'nik' => 'nullable|integer',
             'fullname' => 'required',
-            'date_of_birth' => 'required|date_format:d/m/Y',
-            'age_year' => 'required|integer',
+            'date_of_birth' => 'nullable|date_format:d/m/Y',
+            'age_year' => 'nullable|integer',
             'age_month' => 'nullable|integer',
-            'gender' => 'required',
-            'address_1' => 'required',
-            'phone_number' => 'required|digits_between:10,15',
+            'gender' => 'nullable',
+            'address_1' => 'nullable',
+            'phone_number' => 'nullable|digits_between:10,15',
             // Registration
             'registration_number' => 'required|integer|unique:registrations,registration_number,'.$this->registration,
-            'sample_number' => 'required',
-            'dinkes_sender' => 'required',
-            'fasyankes_sender' => 'required',
-            'fasyankes_phone' => 'required|digits_between:10,15',
-            'doctor' => 'required',
-            'registration_date' => 'required|date_format:d/m/Y',
-            'reference_number' => 'required',
+            'medical_record_number' => 'required',
+            'dinkes_sender' => 'nullable',
+            'fasyankes_sender' => 'nullable',
+            'fasyankes_phone' => 'nullable|digits_between:10,15',
+            'doctor' => 'nullable',
+            'registration_date' => 'nullable|date_format:d/m/Y',
             // Symptoms
-            'fever' => 'required|boolean',
-            'cough' => 'required|boolean',
-            'sore_throat' => 'required|boolean',
-            'shortness_of_breath' => 'required|boolean',
-            'flu' => 'required|boolean',
-            'fatigue' => 'required|boolean',
-            'headache' => 'required|boolean',
-            'diarrhea' => 'required|boolean',
-            'nausea_or_vomiting' => 'required|boolean',
-            'comorbid' => 'required|boolean',
             'comorbid_description' => 'required_if:comorbid,true',
-            'pulmonary_xray' => 'required',
-            'using_ventilator' => 'required|boolean'
         ];
     }
 
@@ -77,7 +64,7 @@ class Registration extends FormRequest
             'phone_number' => 'nomor telepon / nomor hp',
             // Registration
             'registration_number' => 'nomor registrasi',
-            'sample_number' => 'nomor sampel',
+            'medical_record_number' => 'medical record number',
             'dinkes_sender' => 'dinkes pengirim',
             'fasyankes_sender' => 'fasyankes pengirim',
             'fasyankes_phone' => 'nomor telepon fasyankes',
@@ -97,7 +84,36 @@ class Registration extends FormRequest
             'comorbid' => 'penyakit penyerta',
             'comorbid_description' => 'penjelasan penyakit penyerta',
             'pulmonary_xray' => 'x-ray paru',
-            'using_ventilator' => 'menggunakan ventilator'
+            'using_ventilator' => 'menggunakan ventilator',
+            'leukosit' => 'leukosit',
+            'xray_result' => 'hasil x ray paru',
+            'limfosit' => 'limfosit',
+            'trombosit' => 'trombosit',
+            'health_status' => 'status kesehatan',
+            'hipertensi' => 'hipertensi',
+            'diabetes_mellitus' => 'diabetes mellitus',
+            'liver' => 'liver',
+            'neurologi' => 'neurologi',
+            'hiv' => 'hiv',
+            'kidney' => 'ginjal',
+            'chronic_lung' => 'paru kronik',
+            // TreatmentHistoryPdp
+            'explanation' => 'rawat keberapa',
+            'fasyankes_name' => 'nama rumah sakit',
+            'date_treated' => 'tanggal rawat',
+            // ContactHistory
+            'check_patient_journey' => 'cek perjalanan pasien',
+            'date_of_visit' => 'tanggal kunjungan',
+            'city' => 'kota',
+            'country' => 'negara',
+            'check_contact_sick_people' => 'kontak langsung dengan orang sakit',
+            'name_people_sick' => 'nama orang yang sakit',
+            'address' => 'alamat',
+            'relation' => 'hubungan',
+            'contact_date' => 'tanggal kontak',
+            'check_people_infected' => 'cek orang yang terinfeksi',
+            'check_family_members_infected' => 'cek anggota keluarga yang terinfeksi',
+            'other' => 'lain-lain',
         ];
     }
 }

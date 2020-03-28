@@ -1,10 +1,6 @@
-name: CI
+name: Builds
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   testing:
@@ -22,7 +18,7 @@ jobs:
 
     - name: Prepare Laravel Application
       run: |
-        cp .env.ci .env
+        cp .env.actions .env
         php artisan key:generate
 
     - name: Check code metric
@@ -34,7 +30,3 @@ jobs:
       run: |
         vendor/bin/phpcs app --standard=PSR2 -n
         vendor/bin/phpcs tests --standard=PSR2 -n
-
-    - name: Testing
-      run: |
-        vendor/bin/phpunit --debug --stop-on-failure --stop-on-error

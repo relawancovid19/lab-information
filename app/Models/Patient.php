@@ -32,7 +32,8 @@ class Patient extends Model
         'gender',
         'address_1',
         'address_2',
-        'phone_number'
+        'phone_number',
+        'answer'
     ];
 
     /**
@@ -41,5 +42,10 @@ class Patient extends Model
     public function registration()
     {
         return $this->hasMany(Registration::class);
+    }
+
+    public function treatmentHistoryPdps()
+    {
+        return $this->hasMany(TreatmentHistoryPdp::class);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRoleIdOnUser extends Migration
+class AddNewFieldForWomenPatientTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddRoleIdOnUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('role_id', false, true);
-            $table->foreign(['role_id'])->references('id')->on('roles');
+        Schema::table('patients', function (Blueprint $table) {
+            $table->string('answer')->nullable();
         });
     }
 
@@ -26,9 +25,8 @@ class AddRoleIdOnUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['role_id']);
-            $table->dropColumn('role_id');
+        Schema::table('patients', function (Blueprint $table) {
+            $table->dropColumn('answer');
         });
     }
 }

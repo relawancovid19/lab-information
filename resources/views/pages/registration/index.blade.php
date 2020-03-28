@@ -52,8 +52,13 @@
                                 <td class="align-middle">{{ $register->sample_number }}</td>
                                 <td class="align-middle">{{ \Carbon\Carbon::parse($register->registration_date)->format('d/m/Y') }}</td>
                                 <td class="align-middle text-center">
-                                    <a href="{{ route('registrations.show', $register->id) }}" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Data"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('registrations.edit', $register->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i></a>
+                                    <form action="{{ route('registrations.destroy', $register->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="{{ route('registrations.show', $register->id) }}" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Lihat Data"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('registrations.edit', $register->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Edit Data"><i class="fas fa-edit"></i></a>
+                                        <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete Data"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

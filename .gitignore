@@ -14,3 +14,4 @@ yarn-error.log
 docker-compose.yml
 coverage.txt
 .idea
+/docker
