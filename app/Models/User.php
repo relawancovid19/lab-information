@@ -16,12 +16,12 @@ class User extends Authenticatable
     /**
      * @var bool
      */
-    private $cacheRole = true;
+    protected $cacheRole = true;
 
     /**
      * @var bool
      */
-    private $cachePermission = true;
+    protected $cachePermission = true;
 
     /**
      * The attributes that are mass assignable.
