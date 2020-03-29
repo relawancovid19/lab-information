@@ -57,9 +57,6 @@
                     <div class="tab">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">1. IDENTITAS PENGIRIM SPESIMEN</label>
-                            <div class="col-sm-9">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalPatient" title="Cari Pasien"><i class="fas fa-search mr-1"></i> Cari Pasien</button>
-                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="dinkes_sender" class="col-sm-3 col-form-label">Dinkes Pengirim</label>
@@ -114,7 +111,10 @@
                     </div>
                     <div class="tab">
                         <div class="form-group row">
-                            <label class="col col-form-label">2. IDENTITAS PASIEN</label>
+                            <label class="col-sm-3 col-form-label">2. IDENTITAS PASIEN</label>
+                            <div class="col-sm-9">
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalPatient" title="Cari Pasien"><i class="fas fa-search mr-1"></i> Cari Pasien</button>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="fullname" class="col-sm-3 col-form-label">Nama Pasien <span class="text-danger">*</span></label>
@@ -996,7 +996,7 @@
                                 <tr>
                                     <td>{{ $patient->nik }}</td>
                                     <td>{{ $patient->fullname }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($patient->date_of_birth)->format('d/m/Y') }}</td>
+                                    <td>{{ !is_null($patient->date_of_birth) ? \Carbon\Carbon::parse($patient->date_of_birth)->format('d/m/Y') : '' }}</td>
                                     <td>{{ $patient->gender }}</td>
                                     <td class="text-center">
                                         <button data-dismiss="modal" type="button" class="btn btn-primary btn-xs selectPatient" value="{{ $patient }}"><i class="fas fa-check mr-1"></i> Pilih</button>

@@ -36,10 +36,9 @@
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center">No.</th>
-                                <th class="text-center">NIK</th>
                                 <th class="text-center">No. Registrasi</th>
-                                <th class="text-center">No. Sample</th>
-                                <th class="text-center">Tanggal Registrasi</th>
+                                <th class="text-center">NIK</th>
+                                <th class="text-center">Nama Pasien</th>
                                 <th class="text-center">#</th>
                             </tr>
                         </thead>
@@ -47,10 +46,8 @@
                             @foreach ($registrations as $key => $register)
                             <tr>
                                 <td class="align-middle text-center">{{ $key+1 }}</td>
-                                <td class="align-middle">{{ $register->patient->nik }}</td>
                                 <td class="align-middle">{{ $register->registration_number }}</td>
-                                <td class="align-middle">{{ $register->sample_number }}</td>
-                                <td class="align-middle">{{ \Carbon\Carbon::parse($register->registration_date)->format('d/m/Y') }}</td>
+                                <td class="align-middle">{{ $register->patient->nik }}</td>
                                 <td class="align-middle text-center">
                                     <form action="{{ route('registrations.destroy', $register->id) }}" method="POST">
                                         @csrf
