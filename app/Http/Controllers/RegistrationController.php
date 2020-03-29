@@ -73,7 +73,7 @@ class RegistrationController extends Controller
         }
 
         $travels = [];
-        foreach($data['travel']['date_of_visit'] as $key => $value) {
+        foreach ($data['travel']['date_of_visit'] as $key => $value) {
             $travels[$key] = [
                 'date_of_visit' => $value,
                 'city' => $data['travel']['city'][$key],
@@ -82,7 +82,7 @@ class RegistrationController extends Controller
         }
 
         $contactWithPatients = [];
-        foreach($data['contact_sick_people']['name_people_sick'] as $key => $value) {
+        foreach ($data['contact_sick_people']['name_people_sick'] as $key => $value) {
             $contactWithPatients[$key] = [
                 'name_people_sick' => $value,
                 'address' => $data['contact_sick_people']['address'][$key],
