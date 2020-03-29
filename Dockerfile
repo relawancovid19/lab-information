@@ -2,6 +2,9 @@ FROM andisis/nginx-php-fpm:latest
 
 LABEL maintainer="Andi Siswanto <andisis92@gmail.com> | https://andisiswanto.com"
 
+# Install database driver
+RUN apk --no-cache --update php7-mysqli php7-pdo_mysql
+
 # Config server root
 ENV SERVER_ROOT=/var/www/html/public
 

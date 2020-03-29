@@ -50,7 +50,12 @@ class Symptom extends Model
         'neurologi',
         'hiv',
         'kidney',
-        'chronic_lung'
+        'chronic_lung',
+        'check_people_infected',
+        'check_family_members_infected',
+        'contact_with_suspect_covid19',
+        'date_onset',
+        'note'
     ];
 
     /**
