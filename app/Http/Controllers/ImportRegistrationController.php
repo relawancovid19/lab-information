@@ -15,14 +15,14 @@ use DB;
 class ImportRegistrationController extends Controller
 {
     private $csvColumnMapPatient = [
-        6 => 'nik',
         5 => 'fullname',
+        6 => 'nik',
         7 => 'date_of_birth',
         8 => 'age_year',
         9 => 'gender',
+        10 => 'answer',
         11 => 'address_1',
         12 => 'phone_number',
-        10 => 'answer',
     ];
 
     private $csvColumnMapRegistration = [
@@ -305,6 +305,10 @@ class ImportRegistrationController extends Controller
         $dataSymptoms = [];
         foreach ($this->csvColumnMapSymptom as $key => $value) {
             $dataSymptoms[$value] = $this->formatData($data[$key]);
+            if ($value == 'pulmonary_xray') {
+                // type data enum required string or number index
+                $dataSymptoms[$value] = (string) $this->formatData($data[$key]);
+            }
         }
 
         return $dataSymptoms;
@@ -336,8 +340,28 @@ class ImportRegistrationController extends Controller
 
     private function formatData($data)
     {
-        if (!isset($data)) {
+        if (empty($data)) {
             return null;
+        }
+
+        if (preg_match("/^Ya$/", $data)) {
+            return 1;
+        }
+
+        if (preg_match("/^Tidak/", $data)) {
+            return 0;
+        }
+
+        if (preg_match("/^pulang$/", $data)) {
+            return 0;
+        }
+
+        if (preg_match("/^dirawat$/", $data)) {
+            return 1;
+        }
+
+        if (preg_match("/^meninggal/", $data)) {
+            return 2;
         }
 
         if (preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1])\/(0[1-9]|1[0-2])\/[0-9]{4}$/", $data)) {
