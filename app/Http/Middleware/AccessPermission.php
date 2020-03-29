@@ -16,7 +16,7 @@ class AccessPermission
     {
         $permissions = array_map('trim', $permissions);
         if (!auth()->user()->hasPermission(...$permissions)) {
-            abort(401, 'Anda tidak punya akses untuk membuka halaman ini.');
+            abort(403, 'Anda tidak punya akses untuk membuka halaman ini.');
         }
 
         return $next($request);
