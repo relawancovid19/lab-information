@@ -38,7 +38,8 @@ class MigrateCommand extends Command
      */
     public function handle()
     {
-        if (!Schema::hasTable($table = 'permission_role')) {
+        $table = 'permission_role';
+        if (!Schema::hasTable($table)) {
             $this->error(sprintf('Table %s does not exists. Please run "php artisan migrate" first.', $table));
 
             return 1;
