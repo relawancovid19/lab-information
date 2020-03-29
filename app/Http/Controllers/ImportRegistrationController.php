@@ -344,23 +344,23 @@ class ImportRegistrationController extends Controller
             return null;
         }
 
-        if (preg_match("/^Ya$/", $data)) {
+        if (preg_match("/^[yY]a$/", $data)) {
             return 1;
         }
 
-        if (preg_match("/^Tidak/", $data)) {
+        if (preg_match("/^[tT]idak/", $data)) {
             return 0;
         }
 
-        if (preg_match("/^pulang$/", $data)) {
+        if (preg_match("/^[pP]ulang$/", $data)) {
             return 0;
         }
 
-        if (preg_match("/^dirawat$/", $data)) {
+        if (preg_match("/^[dD]irawat$/", $data)) {
             return 1;
         }
 
-        if (preg_match("/^meninggal/", $data)) {
+        if (preg_match("/^[mM]eninggal/", $data)) {
             return 2;
         }
 
