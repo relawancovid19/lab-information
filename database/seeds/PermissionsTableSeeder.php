@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Route;
+use App\Models\Permission;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -11,12 +13,14 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = [
-            // define available permissions here
-        ];
+        $routes = Route::getRoutes();
 
-        foreach ($permissions as $permission) {
-            \App\Models\Permission::firstOrCreate(['name' => $permission]);
+        foreach ($routes as $route) {
+            $isAuth = in_array('auth', $route->action['middleware']);
+            $name = $route->action['as'] ?? null;
+            if ($isAuth && !empty($name)) {
+                Permission::firstOrCreate(['name' => $name]);
+            }
         }
     }
 }
