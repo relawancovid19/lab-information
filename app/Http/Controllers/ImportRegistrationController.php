@@ -212,7 +212,7 @@ class ImportRegistrationController extends Controller
                     return redirect()->route('registrations.index')->with('msg', $validator->messages());
                 }
 
-                $this->processRow($value, $key);
+                $this->processRow($value);
             }
 
             DB::commit();
@@ -349,10 +349,9 @@ class ImportRegistrationController extends Controller
 
     /**
      * @param $value
-     * @param $key
      * @return void
      */
-    private function processRow($value, $key)
+    private function processRow($value)
     {
         // Get data patient from file csv
         $dataPatients = $this->extractDataPatient($value);
