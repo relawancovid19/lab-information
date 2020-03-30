@@ -46,7 +46,7 @@
                     <div class="form-group row">
                         <label for="registration_number" class="col-sm-3 col-form-label">No. Registrasi <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ $registrationNumber }}" placeholder="Nomor registrasi" required>
+                            <input type="text" class="form-control @error('registration_number') is-invalid @enderror" name="registration_number" value="{{ $registration->registration_number }}" placeholder="Nomor registrasi" required>
 
                             @error('registration_number')
                                 <span class="error invalid-feedback">{{ $message }}</span>

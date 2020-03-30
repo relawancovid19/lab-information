@@ -59,7 +59,7 @@ class RegistrationController extends Controller
 
         // Change date format to Y-m-d
         $data['date_of_birth'] = ($data['date_of_birth'] != null) ? $data['date_of_birth'] : null;
-        $data['registration_date'] = Arr::get($data, 'registration_date') != null ? $data['registration_date'] : null;
+        $data['registration_date'] = isset($data['registration_date']) && $data['registration_date'] != null ? $data['registration_date'] : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -130,7 +130,6 @@ class RegistrationController extends Controller
     public function edit($idRegistration)
     {
         $registration = Registration::findOrFail($idRegistration);
-        $registrationNumber = $registration->registration_number;
 
         return view('pages.registration.edit', compact('registration', 'registrationNumber'));
     }
