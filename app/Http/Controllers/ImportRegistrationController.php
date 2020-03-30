@@ -1,16 +1,14 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
 use App\Models\Registration;
-use App\Models\Symptom;
-use App\Models\ContactHistory;
 use App\Models\TravelHistories;
-use App\Models\TreatmentHistoryPdp;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use DB;
 
 class ImportRegistrationController extends Controller
 {
@@ -27,10 +25,10 @@ class ImportRegistrationController extends Controller
 
     private $csvColumnMapRegistration = [
         0 => 'dinkes_sender',
-        2 => 'fasyankes_sender',
-        4 => 'fasyankes_phone',
-        3 => 'doctor',
+        1 => 'fasyankes_sender',
         2 => 'medical_record_number',
+        3 => 'doctor',
+        4 => 'fasyankes_phone',
     ];
 
     private $csvColumnMapTreatment = [
@@ -178,41 +176,24 @@ class ImportRegistrationController extends Controller
 
         try {
             $importFile = $request->file('upload_file');
-            $archive = public_path().'/import/registration/';
+            $archive = public_path() . '/import/registration/';
 
             $date = date('YmdH24is');
             $newFileName = "IMPORT_REGISTRATION_$date.csv";
 
             $lines = file($importFile, FILE_IGNORE_NEW_LINES);
+            $arrayCSV[] = array();
             foreach ($lines as $line) {
                 $arrayCSV[] = str_getcsv($line, ";");
             }
 
-            $dataRegistrations = array();
-            $dataPatients = array();
             foreach ($arrayCSV as $key => $value) {
                 // Skip header row
                 if ($key < 2) {
                     continue;
                 }
 
-                // Get data patient from file csv
                 $dataPatients = $this->extractDataPatient($value);
-
-                // Get data registration from file csv
-                $dataRegistrations = $this->extractDataRegistration($value);
-
-                // Get data symptom from file csv
-                $dataSymptoms = $this->extractDataSymptom($value);
-
-                // Get data treatment history from file csv
-                $dataTreatmentHistoryPdps = $this->extractDataTreatementHistoryPdp($value);
-
-                // Get data travel history from file csv
-                $dataTravel = $this->extractDataTravel($value);
-
-                // Get data contact history from file csv
-                $dataContact = $this->extractDataContact($value);
 
                 $rules = [
                     'fullname' => 'required',
@@ -220,11 +201,9 @@ class ImportRegistrationController extends Controller
                     'fasyankes_phone' => 'max:15'
                 ];
 
-                $baris = $key + 1;
-
                 $messages = [
-                    'required' => 'The :attribute field is required in line '.$baris.'.',
-                    'max' => 'The :attribute field digit max 15 in line '.$baris.'.',
+                    'required' => 'The :attribute field is required in line ' . ($key + 1) . '.',
+                    'max' => 'The :attribute field digit max 15 in line ' . ($key + 1) . '.',
                 ];
 
                 $validator = Validator::make($dataPatients, $rules, $messages);
@@ -233,28 +212,7 @@ class ImportRegistrationController extends Controller
                     return redirect()->route('registrations.index')->with('msg', $validator->messages());
                 }
 
-                // Insert Patient
-                /** @var Patient $patient */
-                $patient = Patient::create($dataPatients);
-
-                // Insert Registration
-                /** @var Registration $registration */
-                $registration = Registration::create(array_merge($dataRegistrations, [
-                    'patient_id' => $patient->id,
-                    'registration_number' => Registration::nextRegistrationNumber()
-                ]));
-
-                // Insert Symptom
-                $registration->symptom()->create($dataSymptoms);
-
-                // insert treatmentHistoryPdp
-                $patient->treatmentHistoryPdps()->createMany($dataTreatmentHistoryPdps);
-
-                // Insert travel histories
-                $registration->travelHistories()->createMany($dataTravel);
-
-                // Insert contact histories
-                $registration->contactHistories()->createMany($dataContact);
+                $this->processRow($value, $key);
             }
 
             DB::commit();
@@ -309,7 +267,7 @@ class ImportRegistrationController extends Controller
             $dataSymptoms[$value] = $this->formatData($data[$key]);
             if ($value == 'pulmonary_xray') {
                 // type data enum required string or number index
-                $dataSymptoms[$value] = (string) $this->formatData($data[$key]);
+                $dataSymptoms[$value] = (string)$this->formatData($data[$key]);
             }
         }
 
@@ -387,5 +345,54 @@ class ImportRegistrationController extends Controller
         ];
 
         return $arrayOrder[$key];
+    }
+
+    /**
+     * @param $value
+     * @param $key
+     * @return void
+     */
+    private function processRow($value, $key)
+    {
+        // Get data patient from file csv
+        $dataPatients = $this->extractDataPatient($value);
+
+        // Get data registration from file csv
+        $dataRegistrations = $this->extractDataRegistration($value);
+
+        // Get data symptom from file csv
+        $dataSymptoms = $this->extractDataSymptom($value);
+
+        // Get data treatment history from file csv
+        $dataTreatmentHistoryPdps = $this->extractDataTreatementHistoryPdp($value);
+
+        // Get data travel history from file csv
+        $dataTravel = $this->extractDataTravel($value);
+
+        // Get data contact history from file csv
+        $dataContact = $this->extractDataContact($value);
+
+        // Insert Patient
+        /** @var Patient $patient */
+        $patient = Patient::create($dataPatients);
+
+        // Insert Registration
+        /** @var Registration $registration */
+        $registration = Registration::create(array_merge($dataRegistrations, [
+            'patient_id' => $patient->id,
+            'registration_number' => Registration::nextRegistrationNumber()
+        ]));
+
+        // Insert Symptom
+        $registration->symptom()->create($dataSymptoms);
+
+        // insert treatmentHistoryPdp
+        $patient->treatmentHistoryPdps()->createMany($dataTreatmentHistoryPdps);
+
+        // Insert travel histories
+        $registration->travelHistories()->createMany($dataTravel);
+
+        // Insert contact histories
+        $registration->contactHistories()->createMany($dataContact);
     }
 }
