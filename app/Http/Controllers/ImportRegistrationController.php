@@ -252,7 +252,7 @@ class ImportRegistrationController extends Controller
                 $registration->travelHistories()->createMany($dataTravel);
 
                 // Insert contact histories
-                $registration->contactlHistory()->createMany($dataContact);
+                $registration->contactHistories()->createMany($dataContact);
             }
 
             DB::commit();
