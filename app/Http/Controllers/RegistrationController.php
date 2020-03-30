@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Models\Registration;
 use App\Models\Symptom;
+use App\Models\TreatmentHistoryPdp;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class RegistrationController extends Controller
 {
@@ -42,7 +44,7 @@ class RegistrationController extends Controller
     public function create()
     {
         $patients = Patient::get();
-        $registrationNumber = $this->nextRegistrationNumber();
+        $registrationNumber = Registration::nextRegistrationNumber();
 
         return view('pages.registration.create', compact('patients', 'registrationNumber'));
     }
@@ -59,7 +61,6 @@ class RegistrationController extends Controller
 
         // Change date format to Y-m-d
         $data['date_of_birth'] = ($data['date_of_birth'] != null) ? $data['date_of_birth'] : null;
-        $data['registration_date'] = isset($data['registration_date']) && $data['registration_date'] != null ? $data['registration_date'] : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -162,33 +163,6 @@ class RegistrationController extends Controller
             'color' => 'success',
             'message' => 'Registrasi berhasil diubah!',
         ]);
-    }
-
-    /**
-     * Generate registraion number.
-     *
-     * @return string
-     */
-    private function nextRegistrationNumber()
-    {
-        // Get the last created registration
-        $lastRegistration = Registration::orderBy('created_at', 'desc')->first();
-
-        if (!$lastRegistration) {
-            // We get here if there is no registration at all
-            // If there is no number set it to 0, which will be 1 at the end.
-            $number = 0;
-        } else {
-            $number = substr($lastRegistration->registration_number, 8);
-        }
-        // If we have YYYYMMDD000001 in the database then we only want the number
-        // So the substr returns this 000001
-
-        // Add the string in front and higher up the number.
-        // the %06d part makes sure that there are always 6 numbers in the string.
-        // so it adds the missing zero's when needed.
-
-        return Carbon::now()->format('Ymd') . sprintf('%06d', intval($number) + 1);
     }
 
     /**

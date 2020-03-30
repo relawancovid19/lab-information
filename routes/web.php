@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
 
     // Registration
     Route::resource('/registrations', 'RegistrationController');
+    Route::post('/registrations/import', 'ImportRegistrationController@import')->name('registrations.import');
 
     $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
         $router->prefix("sample_receive_taking")
