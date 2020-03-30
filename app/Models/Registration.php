@@ -65,7 +65,7 @@ class Registration extends Model
     /**
      * Generate registration number.
      *
-     * @return void
+     * @return string
      */
     public static function nextRegistrationNumber()
     {

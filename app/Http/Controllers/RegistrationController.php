@@ -52,7 +52,7 @@ class RegistrationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Registration  $request
+     * @param \App\Http\Requests\Registration $request
      * @return \Illuminate\Http\Response
      */
     public function store(RegistrationRequest $request)
@@ -112,7 +112,7 @@ class RegistrationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function show($idRegistration)
@@ -125,7 +125,7 @@ class RegistrationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function edit($idRegistration)
@@ -138,16 +138,13 @@ class RegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Registration  $request
-     * @param  int  $idRegistration
+     * @param \App\Http\Requests\Registration $request
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function update(RegistrationRequest $request, $idRegistration)
     {
         $data = $request->all();
-        // Change date format to Y-m-d
-        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
-        $data['registration_date'] = ($data['registration_date'] != null) ? Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d') : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -156,6 +153,13 @@ class RegistrationController extends Controller
         $registration->update($data);
         // Update patient
         $registration->patient->update($data);
+        // clean up symptom data
+        $symptomFillables = (new Symptom())->getFillable();
+        foreach ($symptomFillables as $symptomFillable) {
+            if (isset($data[$symptomFillable]) && !in_array($data[$symptomFillable], ["0", "1"])) {
+                $data[$symptomFillable] = null;
+            }
+        }
         // Update symptom
         $registration->symptom->update($data);
 
@@ -168,7 +172,7 @@ class RegistrationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function destroy($idRegistration)

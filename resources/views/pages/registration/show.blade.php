@@ -131,6 +131,22 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if ($registration->patient->gender == 'Perempuan' && !is_null($registration->patient->maternity_status))
+                        <div class="form-group row">
+                            <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="icheck-primary d-inline mr-1 disabled">
+                                    <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ $registration->patient->maternity_status == '1' ? 'checked' : '' }}>
+                                    <label for="hamil-melahirkan">Ya</label>
+                                </div>
+                                <div class="icheck-primary d-inline ml-1 disabled">
+                                    <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ $registration->patient->maternity_status == '0' ? 'checked' : '' }}>
+                                    <label for="tidak-hamil-melahirkan">Tidak</label>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="form-group row">
                             <label for="address_1" class="col-sm-3 col-form-label">Alamat</label>
                             <div class="col-sm-9">

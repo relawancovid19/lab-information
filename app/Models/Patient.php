@@ -33,7 +33,7 @@ class Patient extends Model
         'address_1',
         'address_2',
         'phone_number',
-        'answer'
+        'maternity_status'
     ];
 
     /**

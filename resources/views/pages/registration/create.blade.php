@@ -40,7 +40,7 @@
     <div class="container-fluid">
         <div class="card card-default color-palette-box">
             <div class="card-body">
-                <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.import') }}" method="post" enctype="multipart/form-data">
+                <form id="registrationImport" class="form-horizontal" action="{{ route('registrations.import') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <label for="nik" class="col-sm-3 col-form-label">Import File</label>
@@ -201,6 +201,25 @@
 
                                 @error('gender')
                                     <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row" style="display: none">
+                            <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('maternity_status') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ old('maternity_status') == '1' ? 'checked' : '' }}>
+                                        <label for="hamil-melahirkan">Ya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ old('maternity_status') == '0' ? 'checked' : '' }}>
+                                        <label for="tidak-hamil-melahirkan">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('maternity_status')
+                                <span class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -1117,6 +1136,21 @@
         }
 
         tr.last().remove();
+    });
+
+    $('input[name=gender]').each((index, elem) => {
+        $(elem).click((event) => {
+            const { value } = event.currentTarget;
+            const maternityStatusSection = $('label[for=maternity_status]').parent();
+            if(value === "Laki-laki") {
+                maternityStatusSection.hide();
+                $('input[name=maternity_status]').each((index, elem) => {
+                    elem.checked = false;
+                });
+            } else if (value === "Perempuan") {
+                maternityStatusSection.show();
+            }
+        })
     });
 </script>
 @endsection
