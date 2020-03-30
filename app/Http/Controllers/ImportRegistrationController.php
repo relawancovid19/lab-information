@@ -20,7 +20,7 @@ class ImportRegistrationController extends Controller
         7 => 'date_of_birth',
         8 => 'age_year',
         9 => 'gender',
-        10 => 'answer',
+        10 => 'maternity_status',
         11 => 'address_1',
         12 => 'phone_number',
     ];
@@ -234,9 +234,11 @@ class ImportRegistrationController extends Controller
                 }
 
                 // Insert Patient
+                /** @var Patient $patient */
                 $patient = Patient::create($dataPatients);
 
                 // Insert Registration
+                /** @var Registration $registration */
                 $registration = Registration::create(array_merge($dataRegistrations, [
                     'patient_id' => $patient->id,
                     'registration_number' => Registration::nextRegistrationNumber()
@@ -249,10 +251,10 @@ class ImportRegistrationController extends Controller
                 $patient->treatmentHistoryPdps()->createMany($dataTreatmentHistoryPdps);
 
                 // Insert travel histories
-                $registration->travelHistory()->createMany($dataTravel);
+                $registration->travelHistories()->createMany($dataTravel);
 
                 // Insert contact histories
-                $registration->contactlHistory()->createMany($dataContact);
+                $registration->contactHistories()->createMany($dataContact);
             }
 
             DB::commit();
