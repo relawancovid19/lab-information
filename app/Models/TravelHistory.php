@@ -5,28 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContactHistory extends Model
+class TravelHistory extends Model
 {
     use SoftDeletes;
 
     protected $dates = [
-        'deleted_at'
+        'deleted_at',
+        'created_at',
+        'updated_at',
+        'date_of_visit',
     ];
 
     protected $fillable = [
-        'patient_id',
-        'check_patient_journey',
+        'registration_id',
         'date_of_visit',
         'city',
         'country',
-        'check_contact_sick_people',
-        'name_people_sick',
-        'address',
-        'relation',
-        'contact_date',
-        'check_people_infected',
-        'check_family_members_infected',
-        'other',
     ];
 
     public function registration()
