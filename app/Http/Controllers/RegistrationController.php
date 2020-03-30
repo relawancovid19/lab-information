@@ -132,7 +132,7 @@ class RegistrationController extends Controller
     {
         $registration = Registration::findOrFail($idRegistration);
 
-        return view('pages.registration.edit', compact('registration', 'registrationNumber'));
+        return view('pages.registration.edit', compact('registration'));
     }
 
     /**
