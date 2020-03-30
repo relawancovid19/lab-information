@@ -117,7 +117,7 @@
                         <div class="form-group row">
                             <label for="fullname" class="col-sm-3 col-form-label">Nama Pasien <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ $registration->fullname }}" placeholder="Nama pasien" required>
+                                <input type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ $registration->patient->fullname }}" placeholder="Nama pasien" required>
 
                                 @error('fullname')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -127,7 +127,7 @@
                         <div class="form-group row">
                             <label for="nik" class="col-sm-3 col-form-label">NIK</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ $registration->nik }}" placeholder="NIK">
+                                <input type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ $registration->patient->nik }}" placeholder="NIK">
 
                                 @error('nik')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -137,7 +137,7 @@
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ $registration->date_of_birth }}" data-mask placeholder="Tanggal lahir">
+                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ !is_null($registration->patient->date_of_birth) ? \Carbon\Carbon::createFromFormat('Y-m-d', $registration->patient->date_of_birth)->format('d/m/Y') : null }}" data-mask placeholder="Tanggal lahir">
 
                                 @error('date_of_birth')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -148,7 +148,7 @@
                             <label for="age_year" class="col-sm-3 col-form-label">Usia</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('age_year') is-invalid @enderror" name="age_year" value="{{ $registration->age_year }}">
+                                    <input type="text" class="form-control @error('age_year') is-invalid @enderror" name="age_year" value="{{ $registration->patient->age_year }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tahun</span>
                                     </div>
@@ -160,7 +160,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('age_month') is-invalid @enderror" name="age_month" value="{{ $registration->age_month }}">
+                                    <input type="text" class="form-control @error('age_month') is-invalid @enderror" name="age_month" value="{{ $registration->patient->age_month }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Bulan</span>
                                     </div>
@@ -176,11 +176,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('gender') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="laki_laki" name="gender" value="Laki-laki" {{ $registration->gender == 'Laki-laki' ? 'checked' : '' }}>
+                                        <input type="radio" id="laki_laki" name="gender" value="Laki-laki" {{ $registration->patient->gender == 'Laki-laki' ? 'checked' : '' }}>
                                         <label for="laki_laki">Laki-laki</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="perempuan" name="gender" value="Perempuan" {{ $registration->gender == 'Perempuan' ? 'checked' : '' }}>
+                                        <input type="radio" id="perempuan" name="gender" value="Perempuan" {{ $registration->patient->gender == 'Perempuan' ? 'checked' : '' }}>
                                         <label for="perempuan">Perempuan</label>
                                     </div>
                                 </div>
@@ -190,10 +190,29 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row" style="display: none">
+                            <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('maternity_status') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ $registration->patient->maternity_status == '1' ? 'checked' : '' }}>
+                                        <label for="hamil-melahirkan">Ya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ $registration->patient->maternity_status == '0' ? 'checked' : '' }}>
+                                        <label for="tidak-hamil-melahirkan">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('maternity_status')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="address_1" class="col-sm-3 col-form-label">Alamat</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('address_1') is-invalid @enderror" name="address_1" value="{{ old('address_1') }}" placeholder="Alamat">
+                                <input type="text" class="form-control @error('address_1') is-invalid @enderror" name="address_1" value="{{ $registration->patient->address_1 }}" placeholder="Alamat">
 
                                 @error('address_1')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -203,13 +222,13 @@
                         <div class="form-group row">
                             <label for="address_2" class="col-sm-3 col-form-label">&nbsp;</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="address_2" value="{{ old('address_2') }}" placeholder="(optional)">
+                                <input type="text" class="form-control" name="address_2" value="{{ $registration->patient->address_2 }}" placeholder="(optional)">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="phone_number" class="col-sm-3 col-form-label">No. Telp / HP</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ $registration->phone_number }}" placeholder="Nomor telepon atau nomor handphone">
+                                <input type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ $registration->patient->phone_number }}" placeholder="Nomor telepon atau nomor handphone">
 
                                 @error('phone_number')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -958,7 +977,7 @@
 
                     <div class="row">
                         <div class="col-sm-9 offset-sm-3">
-                            <input type="hidden" name="patient_id" id="patientID">
+                            <input type="hidden" name="patient_id" id="patientID" value="{{ $registration->patient_id }}">
                             <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Sebelumnya</button>
                             <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)">Berikutnya</button>
                         </div>
@@ -1062,6 +1081,21 @@
         }
 
         tr.last().remove();
+    });
+
+    $('input[name=gender]').each((index, elem) => {
+        $(elem).click((event) => {
+            const { value } = event.currentTarget;
+            const maternityStatusSection = $('label[for=maternity_status]').parent();
+            if(value === "Laki-laki") {
+                maternityStatusSection.hide();
+                $('input[name=maternity_status]').each((index, elem) => {
+                    elem.checked = false;
+                });
+            } else if (value === "Perempuan") {
+                maternityStatusSection.show();
+            }
+        })
     });
 </script>
 @endsection

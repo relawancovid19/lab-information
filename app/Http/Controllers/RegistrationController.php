@@ -145,9 +145,6 @@ class RegistrationController extends Controller
     public function update(RegistrationRequest $request, $idRegistration)
     {
         $data = $request->all();
-        // Change date format to Y-m-d
-        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
-        $data['registration_date'] = ($data['registration_date'] != null) ? Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d') : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -156,6 +153,13 @@ class RegistrationController extends Controller
         $registration->update($data);
         // Update patient
         $registration->patient->update($data);
+        // clean up symptom data
+        $symptomFillables = (new Symptom())->getFillable();
+        foreach ($symptomFillables as $symptomFillable) {
+            if (isset($data[$symptomFillable]) && !in_array($data[$symptomFillable], ["0", "1"])) {
+                $data[$symptomFillable] = null;
+            }
+        }
         // Update symptom
         $registration->symptom->update($data);
 
