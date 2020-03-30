@@ -14,6 +14,7 @@ class ContactHistory extends Model
     ];
 
     protected $fillable = [
+        'registration_id',
         'patient_id',
         'check_patient_journey',
         'date_of_visit',
