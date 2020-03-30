@@ -249,7 +249,7 @@ class ImportRegistrationController extends Controller
                 $patient->treatmentHistoryPdps()->createMany($dataTreatmentHistoryPdps);
 
                 // Insert travel histories
-                $registration->travelHistory()->createMany($dataTravel);
+                $registration->travelHistories()->createMany($dataTravel);
 
                 // Insert contact histories
                 $registration->contactlHistory()->createMany($dataContact);
