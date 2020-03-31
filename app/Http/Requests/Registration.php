@@ -32,15 +32,14 @@ class Registration extends FormRequest
             'age_month' => 'nullable|integer',
             'gender' => 'nullable',
             'address_1' => 'nullable',
-            'phone_number' => 'nullable|digits_between:10,15',
+            'phone_number' => 'nullable|digits_between:5,15',
             // Registration
             'registration_number' => 'required|integer|unique:registrations,registration_number,'.$this->registration,
-            'medical_record_number' => 'required',
+            'medical_record_number' => 'nullable',
             'dinkes_sender' => 'nullable',
             'fasyankes_sender' => 'nullable',
-            'fasyankes_phone' => 'nullable|digits_between:10,15',
+            'fasyankes_phone' => 'nullable|digits_between:5,15',
             'doctor' => 'nullable',
-            'registration_date' => 'nullable|date_format:d/m/Y',
             // Symptoms
             'comorbid_description' => 'required_if:comorbid,true',
         ];
