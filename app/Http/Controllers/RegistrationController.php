@@ -158,8 +158,6 @@ class RegistrationController extends Controller
         $registration->update($data);
         // Update patient
         $registration->patient->update($data);
-        // clean up symptom data
-        $symptomFillables = (new Symptom())->getFillable();
         // Update symptom
         $registration->symptom->update($data);
 
