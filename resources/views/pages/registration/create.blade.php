@@ -580,13 +580,17 @@
                             <label for="pulmonary_xray" class="col-sm-3 col-form-label">X-Ray Paru</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('pulmonary_xray') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ old('pulmonary_xray') == 0 ? 'checked' : '' }}>
+                                        <label for="tidakXray">Tidak dilakukan</label>
+                                    </div>
                                     <div class="icheck-primary d-inline ml-1 mr-1">
-                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ old('pulmonary_xray') == true ? 'checked' : '' }}>
-                                        <label for="gambaranPneumonia">Iya</label>
+                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ old('pulmonary_xray') == 1 ? 'checked' : '' }}>
+                                        <label for="gambaranPneumonia">Gambaran Pneumonia</label>
                                     </div>
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ old('pulmonary_xray') == false ? 'checked' : '' }}>
-                                        <label for="tidakXray">Tidak</label>
+                                        <input type="radio" id="tidakAdaGambaran" name="pulmonary_xray" value="2" {{ old('pulmonary_xray') == 2 ? 'checked' : '' }}>
+                                        <label for="tidakAdaGambaran">Tidak Ada Gambaran Pneumonia</label>
                                     </div>
                                 </div>
 
@@ -664,11 +668,11 @@
                         <div class="form-group row">
                             <label for="health_status" class="col-sm-3 col-form-label">Status Kesehatan</label>
                             <div class="col-sm-9">
-                                <select name="healt_status" class="form-control select2 @error('health_status') is-invalid @enderror">
+                                <select name="health_status" class="form-control select2 @error('health_status') is-invalid @enderror">
                                     <option>== Pilih Status Kesehatan ==</option>
-                                    <option {{ old('health_status') == 'Pulang' ? 'selected' : '' }} value="Pulang">Pulang</option>
-                                    <option {{ old('health_status') == 'Dirawat' ? 'selected' : '' }} value="Dirawat">Dirawat</option>
-                                    <option {{ old('health_status') == 'Meninggal' ? 'selected' : '' }} value="Meninggal">Meninggal</option>
+                                    <option {{ old('health_status') == 0 ? 'selected' : '' }} value="0">Pulang</option>
+                                    <option {{ old('health_status') == 1 ? 'selected' : '' }} value="1">Dirawat</option>
+                                    <option {{ old('health_status') == 2 ? 'selected' : '' }} value="2">Meninggal</option>
                                 </select>
 
                                 @error('health_status')

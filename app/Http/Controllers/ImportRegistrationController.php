@@ -189,7 +189,7 @@ class ImportRegistrationController extends Controller
 
             foreach ($arrayCSV as $key => $value) {
                 // Skip header row
-                if ($key < 2) {
+                if ($key < 3) {
                     continue;
                 }
 
