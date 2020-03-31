@@ -54,6 +54,8 @@ class RegistrationController extends Controller
      *
      * @param \App\Http\Requests\Registration $request
      * @return \Illuminate\Http\Response
+     *
+     * @SuppressWarnings("PHPMD")
      */
     public function store(RegistrationRequest $request)
     {
@@ -75,7 +77,7 @@ class RegistrationController extends Controller
         $travels = [];
         foreach ($data['travel']['date_of_visit'] as $key => $value) {
             $travels[$key] = [
-                'date_of_visit' => $value,
+                'date_of_visit' => ($value != null) ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d') : null,
                 'city' => $data['travel']['city'][$key],
                 'country' => $data['travel']['country'][$key]
             ];
@@ -147,10 +149,14 @@ class RegistrationController extends Controller
      * @param \App\Http\Requests\Registration $request
      * @param int $idRegistration
      * @return \Illuminate\Http\Response
+     *
+     * @SuppressWarnings("PHPMD")
      */
     public function update(RegistrationRequest $request, $idRegistration)
     {
         $data = $request->all();
+        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
+        $data['date_onset'] = ($data['date_onset'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_onset'])->format('Y-m-d') : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -161,6 +167,47 @@ class RegistrationController extends Controller
         $registration->patient->update($data);
         // Update symptom
         $registration->symptom->update($data);
+
+        // Update treatmentHistoryPdp
+        $patient = Patient::find($data['patient_id']);
+        for ($i=0; $i < count($data['treatment']['id']); $i++) {
+            $patient->treatmentHistoryPdps()->where('id', $data['treatment']['id'][$i])->update([
+                'explanation' => $data['treatment']['explanation'][$i],
+                'date_treated' => ($data['treatment']['date_treated'][$i] != null) ? Carbon::createFromFormat('d/m/Y', $data['treatment']['date_treated'][$i])->format('Y-m-d') : null,
+                'fasyankes_name' => $data['treatment']['fasyankes_name'][$i],
+            ]);
+        }
+
+        // Update or create travel histories
+        for ($j = 0; $j < count($data['travel']['id']); $j++) {
+            $registration->travelHistories()->updateOrCreate(
+                [
+                    'id' => $data['travel']['id'][$j],
+                    'date_of_visit' => Carbon::createFromFormat('d/m/Y', $data['travel']['date_of_visit'][$j])->format('Y-m-d'),
+                ],
+                [
+                    'date_of_visit' => ($data['travel']['date_of_visit'][$j] != null) ? Carbon::createFromFormat('d/m/Y', $data['travel']['date_of_visit'][$j])->format('Y-m-d') : null,
+                    'city' => $data['travel']['city'][$j],
+                    'country' => $data['travel']['country'][$j]
+                ]
+            );
+        }
+
+        // Update contact histories
+        for ($k = 0; $k < count($data['contact_sick_people']['id']); $k++) {
+            $registration->contactHistories()->updateOrCreate(
+                [
+                    'id' => $data['contact_sick_people']['id'][$k],
+                    'name_people_sick' => $data['contact_sick_people']['name_people_sick'][$k],
+                ],
+                [
+                    'name_people_sick' => $data['contact_sick_people']['name_people_sick'][$k],
+                    'address' => $data['contact_sick_people']['address'][$k],
+                    'relation' => $data['contact_sick_people']['relation'][$k],
+                    'contact_date' => ($data['contact_sick_people']['contact_date'][$k] != null) ? Carbon::createFromFormat('d/m/Y', $data['contact_sick_people']['contact_date'][$k])->format('Y-m-d') : null
+                ]
+            );
+        }
 
         return redirect()->route('registrations.index')->with('alert', [
             'color' => 'success',

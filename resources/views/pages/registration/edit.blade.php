@@ -10,6 +10,9 @@
     .tab {
         display: none;
     }
+    .hidden {
+        display: none;
+    }
 </style>
 @endsection
 
@@ -190,7 +193,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row" style="display: none">
+                        <div class="form-group row {{ ($registration->patient->gender == 'Perempuan') ? '' : 'hidden' }}">
                             <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('maternity_status') form-control is-invalid @enderror">
@@ -246,8 +249,9 @@
                             <label for="First" class="col-sm-3 col-form-label">Kunjungan {{ ucwords($treatment->explanation) }}</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
-                                    <input type="hidden" name="explanation[]" value="{{ $treatment->explanation }}">
-                                    <input type="text" class="form-control @error('date_treated[]') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.'.$key, !is_null($treatment->date_treated) ? \Carbon\Carbon::parse($treatment->date_treated)->format('d/m/Y') : '') }}" placeholder="Tanggal Dirawat">
+                                    <input type="hidden" name="treatment[id][]" value="{{ $treatment->id }}">
+                                    <input type="hidden" name="treatment[explanation][]" value="{{ $treatment->explanation }}">
+                                    <input type="text" class="form-control @error('date_treated[]') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="treatment[date_treated][]" value="{{ old('date_treated.'.$key, !is_null($treatment->date_treated) ? \Carbon\Carbon::parse($treatment->date_treated)->format('d/m/Y') : '') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -255,7 +259,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.'.$key, $treatment->fasyankes_name) }}">
+                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="treatment[fasyankes_name][]" value="{{ old('fasyankes_name.'.$key, $treatment->fasyankes_name) }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -505,15 +509,11 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('pulmonary_xray') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaXray" name="pulmonary_xray" value="1" {{ old('pulmonary_xray', $registration->symptom->pulmonary_xray) == true ? 'checked' : '' }}>
+                                        <label for="iyaXray">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
                                         <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ $registration->symptom->pulmonary_xray == 0 ? 'checked' : '' }}>
-                                        <label for="tidakXray">Tidak Dilakukan</label>
-                                    </div>
-                                    <div class="icheck-primary d-inline ml-1 mr-1">
-                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ old('pulmonary_xray', $registration->symptom->pulmonary_xray) == true ? 'checked' : '' }}>
-                                        <label for="gambaranPneumonia">Iya</label>
-                                    </div>
-                                    <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ old('pulmonary_xray', $registration->symptom->pulmonary_xray) == false ? 'checked' : '' }}>
                                         <label for="tidakXray">Tidak</label>
                                     </div>
                                 </div>
@@ -640,7 +640,7 @@
                                         <tbody>
                                             @if(count($registration->travelHistories) < 0)
                                                 <tr>
-                                                    <td><input name="travel[date_of_visit][]" class="form-control datemask" type="date"></td>
+                                                    <td><input name="travel[date_of_visit][]" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask type="text" placeholder="DD/MM/YYYY"></td>
                                                     <td><input name="travel[city][]" class="form-control" type="text"></td>
                                                     <td><input name="travel[country][]" class="form-control" type="text"></td>
                                                 </tr>
@@ -648,13 +648,14 @@
                                                 @foreach ($registration->travelHistories as $travel)
                                                 <tr>
                                                     <td>
-                                                        <input class="form-control" type="text" value="{{ !is_null($travel->date_of_visit) ? \Carbon\Carbon::parse($travel->date_of_visit)->format('d/m/Y') : '' }}">
+                                                        <input name="travel[date_of_visit][]" class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask value="{{ !is_null($travel->date_of_visit) ? \Carbon\Carbon::parse($travel->date_of_visit)->format('d/m/Y') : '' }}" placeholder="DD/MM/YYYY">
                                                     </td>
                                                     <td>
                                                         <input name="travel[city][]" class="form-control" type="text" value="{{ $travel->city }}">
                                                     </td>
                                                     <td>
                                                         <input name="travel[country][]" class="form-control" type="text" value="{{ $travel->country }}">
+                                                        <input name="travel[id][]" type="hidden" value="{{ $travel->id }}">
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -706,7 +707,7 @@
                                                     <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
                                                     <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
                                                     <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
-                                                    <td><input name="contact_sick_people[contact_date][]" class="form-control datemask" type="date"></td>
+                                                    <td><input name="contact_sick_people[contact_date][]" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask type="text" placeholder="DD/MM/YYYY"></td>
                                                 </tr>
                                             @else
                                                 @foreach ($registration->contactHistories as $contact)
@@ -721,7 +722,8 @@
                                                         <input name="contact_sick_people[relation][]" class="form-control" value="{{ $contact->relation }}" type="text">
                                                     </td>
                                                     <td>
-                                                        <input name="contact_sick_people[contact_date][]" class="form-control" value="{{ !is_null($contact->contact_date) ? \Carbon\Carbon::parse($contact->contact_date)->format('d/m/Y') : '' }}" type="text">
+                                                        <input name="contact_sick_people[contact_date][]" class="form-control" value="{{ !is_null($contact->contact_date) ? \Carbon\Carbon::parse($contact->contact_date)->format('d/m/Y') : '' }}" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask type="text" placeholder="DD/MM/YYYY">
+                                                        <input name="contact_sick_people[id][]" value="{{ $contact->id }}" type="hidden">
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -792,7 +794,7 @@
                                         <label for="tidakHipertensi">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullHipertensi" name="hipertensi" {{ is_null($registration->symptom->hipertensi) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullHipertensi" name="hipertensi" {{ is_null($registration->symptom->hipertensi) ? 'checked' : '' }} value="">
                                         <label for="nullHipertensi">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -815,7 +817,7 @@
                                         <label for="tidakDiabetesMellitus">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullDiabetes" name="diabetes_mellitus" {{ is_null($registration->symptom->diabetes_mellitus) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullDiabetes" name="diabetes_mellitus" {{ is_null($registration->symptom->diabetes_mellitus) ? 'checked' : '' }} value="">
                                         <label for="nullDiabetes">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -838,7 +840,7 @@
                                         <label for="tidakLiver">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullLiver" name="liver" {{ is_null($registration->symptom->liver) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullLiver" name="liver" {{ is_null($registration->symptom->liver) ? 'checked' : '' }} value="">
                                         <label for="nullLiver">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -861,7 +863,7 @@
                                         <label for="tidakNeurologi">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullNeurologi" name="neurologi" {{ is_null($registration->symptom->neurologi) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullNeurologi" name="neurologi" {{ is_null($registration->symptom->neurologi) ? 'checked' : '' }} value="">
                                         <label for="nullNeurologi">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -884,7 +886,7 @@
                                         <label for="tidakHiv">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullHiv" name="hiv" {{ is_null($registration->symptom->hiv) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullHiv" name="hiv" {{ is_null($registration->symptom->hiv) ? 'checked' : '' }} value="">
                                         <label for="nullHiv">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -907,7 +909,7 @@
                                         <label for="tidakKidney">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullKidney" name="kidney" {{ is_null($registration->symptom->kidney) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullKidney" name="kidney" {{ is_null($registration->symptom->kidney) ? 'checked' : '' }} value="">
                                         <label for="nullKidney">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -930,7 +932,7 @@
                                         <label for="tidakChronicLung">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullChronicLung" name="chronic_lung" {{ is_null($registration->symptom->chronic_lung) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullChronicLung" name="chronic_lung" {{ is_null($registration->symptom->chronic_lung) ? 'checked' : '' }} value="">
                                         <label for="nullChronicLung">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -1046,7 +1048,9 @@
         const parentObj = $( event.target ).closest(".form-group.row");
         const tbl = parentObj.find('table');
         const tr = tbl.find('tbody > tr').first().clone();
-        tr.appendTo( tbl.find('tbody') );
+        tr.appendTo( tbl.find('tbody') ).find("input[type='text']").val("");
+        // Datemask dd/mm/yyyy
+        $('[data-mask]').inputmask();
     });
     $('.btn.btn-default.minus').click((event) => {
         const parentObj = $( event.target ).closest(".form-group.row");

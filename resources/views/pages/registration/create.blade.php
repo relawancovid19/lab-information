@@ -581,16 +581,12 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('pulmonary_xray') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="iyaXray" name="pulmonary_xray" value="1" {{ old('pulmonary_xray') == 1 ? 'checked' : '' }}>
+                                        <label for="iyaXray">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
                                         <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ old('pulmonary_xray') == 0 ? 'checked' : '' }}>
-                                        <label for="tidakXray">Tidak dilakukan</label>
-                                    </div>
-                                    <div class="icheck-primary d-inline ml-1 mr-1">
-                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ old('pulmonary_xray') == 1 ? 'checked' : '' }}>
-                                        <label for="gambaranPneumonia">Gambaran Pneumonia</label>
-                                    </div>
-                                    <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="tidakAdaGambaran" name="pulmonary_xray" value="2" {{ old('pulmonary_xray') == 2 ? 'checked' : '' }}>
-                                        <label for="tidakAdaGambaran">Tidak Ada Gambaran Pneumonia</label>
+                                        <label for="tidakXray">Tidak</label>
                                     </div>
                                 </div>
 

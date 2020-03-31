@@ -3,6 +3,11 @@
 @section('extend-css')
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -132,21 +137,20 @@
                             </div>
                         </div>
 
-                        @if ($registration->patient->gender == 'Perempuan' && !is_null($registration->patient->maternity_status))
-                        <div class="form-group row">
+                        <div class="form-group row {{ ($registration->patient->gender == 'Perempuan' && !is_null($registration->patient->maternity_status)) ? '' : 'hidden' }}">
                             <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan?</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="icheck-primary d-inline mr-1 disabled">
-                                    <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ $registration->patient->maternity_status == true ? 'checked' : '' }}>
+                                    <input type="radio" {{ $registration->patient->maternity_status == true ? 'checked' : '' }}>
                                     <label for="hamil-melahirkan">Ya</label>
                                 </div>
                                 <div class="icheck-primary d-inline ml-1 disabled">
-                                    <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ $registration->patient->maternity_status == false ? 'checked' : '' }}>
+                                    <input type="radio" {{ $registration->patient->maternity_status == false ? 'checked' : '' }}>
                                     <label for="tidak-hamil-melahirkan">Tidak</label>
                                 </div>
                             </div>
                         </div>
-                        @endif
+
                         <div class="form-group row">
                             <label for="address_1" class="col-sm-3 col-form-label">Alamat</label>
                             <div class="col-sm-9">
@@ -395,16 +399,12 @@
                             <div class="col-sm-9 mt-2">
                                 <div>
                                     <div class="icheck-primary d-inline mr-1 disabled">
-                                        <input type="radio" {{ $registration->symptom->pulmonary_xray == '0' ? 'checked' : '' }}>
-                                        <label for="tidakXray">Tidak Dilakukan</label>
+                                        <input type="radio" id="iyaXray" name="pulmonary_xray" value="1" {{ old('pulmonary_xray', $registration->symptom->pulmonary_xray) == true ? 'checked' : '' }}>
+                                        <label for="iyaXray">Iya</label>
                                     </div>
-                                    <div class="icheck-primary d-inline ml-1 mr-1">
-                                        <input type="radio" {{ $registration->symptom->pulmonary_xray == '1' ? 'checked' : '' }}>
-                                        <label for="gambaranPneumonia">Gambaran Pneumonia</label>
-                                    </div>
-                                    <div class="icheck-primary d-inline ml-1 disabled">
-                                        <input type="radio" {{ $registration->symptom->pulmonary_xray == '2' ? 'checked' : '' }}>
-                                        <label for="tidakAdaGambaran">Tidak Ada Gambaran Pneumonia</label>
+                                    <div class="icheck-primary d-inline">
+                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ $registration->symptom->pulmonary_xray == 0 ? 'checked' : '' }}>
+                                        <label for="tidakXray">Tidak</label>
                                     </div>
                                 </div>
                             </div>
@@ -460,9 +460,9 @@
                             <div class="col-sm-9">
                                 <select name="healt_status" class="form-control select2" disabled="">
                                     <option>== Pilih Status Kesehatan ==</option>
-                                    <option {{ $registration->symptom->health_status == '1' ? 'selected' : '' }} value="1">Pulang</option>
-                                    <option {{ $registration->symptom->health_status == '2' ? 'selected' : '' }} value="2">Dirawat</option>
-                                    <option {{ $registration->symptom->health_status == '0' ? 'selected' : '' }} value="0">Meninggal</option>
+                                    <option {{ $registration->symptom->health_status == 0 ? 'selected' : '' }} value="0">Pulang</option>
+                                    <option {{ $registration->symptom->health_status == 1 ? 'selected' : '' }} value="1">Dirawat</option>
+                                    <option {{ $registration->symptom->health_status == 2 ? 'selected' : '' }} value="2">Meninggal</option>
                                 </select>
                             </div>
                         </div>
@@ -501,19 +501,33 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($registration->travelHistories as $travel)
-                                            <tr>
-                                                <td>
-                                                    <input class="form-control" type="text" value="{{ !is_null($travel->date_of_visit) ? \Carbon\Carbon::parse($travel->date_of_visit)->format('d/m/Y') : '' }}" readonly="">
-                                                </td>
-                                                <td>
-                                                    <input name="travel[city][]" class="form-control" type="text" value="{{ $travel->city }}" readonly="">
-                                                </td>
-                                                <td>
-                                                    <input name="travel[country][]" class="form-control" type="text" value="{{ $travel->country }}" readonly="">
-                                                </td>
-                                            </tr>
-                                            @endforeach
+                                            @if (count($registration->travelHistories) > 0)
+                                                @foreach ($registration->travelHistories as $travel)
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control" type="text" value="{{ !is_null($travel->date_of_visit) ? \Carbon\Carbon::parse($travel->date_of_visit)->format('d/m/Y') : '' }}" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="travel[city][]" class="form-control" type="text" value="{{ $travel->city }}" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="travel[country][]" class="form-control" type="text" value="{{ $travel->country }}" readonly="">
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control" type="text" value="" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="travel[city][]" class="form-control" type="text" value="" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="travel[country][]" class="form-control" type="text" value="" readonly="">
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -550,22 +564,39 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($registration->contactHistories as $contact)
-                                            <tr>
-                                                <td>
-                                                    <input name="contact_sick_people[name_people_sick][]" class="form-control" value="{{ $contact->name_people_sick }}" type="text" readonly="">
-                                                </td>
-                                                <td>
-                                                    <input name="contact_sick_people[address][]" class="form-control" value="{{ $contact->address }}" type="text" readonly="">
-                                                </td>
-                                                <td>
-                                                    <input name="contact_sick_people[relation][]" class="form-control" value="{{ $contact->relation }}" type="text" readonly="">
-                                                </td>
-                                                <td>
-                                                    <input name="contact_sick_people[contact_date][]" class="form-control" value="{{ !is_null($contact->contact_date) ? \Carbon\Carbon::parse($contact->contact_date)->format('d/m/Y') : '' }}" type="text" readonly="">
-                                                </td>
-                                            </tr>
-                                            @endforeach
+                                            @if (count($registration->contactHistories))
+                                                @foreach ($registration->contactHistories as $contact)
+                                                <tr>
+                                                    <td>
+                                                        <input name="contact_sick_people[name_people_sick][]" class="form-control" value="{{ $contact->name_people_sick }}" type="text" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="contact_sick_people[address][]" class="form-control" value="{{ $contact->address }}" type="text" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="contact_sick_people[relation][]" class="form-control" value="{{ $contact->relation }}" type="text" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="contact_sick_people[contact_date][]" class="form-control" value="{{ !is_null($contact->contact_date) ? \Carbon\Carbon::parse($contact->contact_date)->format('d/m/Y') : '' }}" type="text" readonly="">
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            @else
+                                                <tr>
+                                                    <td>
+                                                        <input name="contact_sick_people[name_people_sick][]" class="form-control" value="" type="text" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="contact_sick_people[address][]" class="form-control" value="" type="text" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="contact_sick_people[relation][]" class="form-control" value="" type="text" readonly="">
+                                                    </td>
+                                                    <td>
+                                                        <input name="contact_sick_people[contact_date][]" class="form-control" value="" type="text" readonly="">
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
