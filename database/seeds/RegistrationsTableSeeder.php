@@ -14,7 +14,6 @@ class RegistrationsTableSeeder extends Seeder
     {
         DB::table('registrations')->insert([
             'registration_number' => '20200321000001',
-            'sample_number' => 'L1QWERTY',
             'dinkes_sender' => 'Dinkes 1',
             'fasyankes_sender' => 'Puskesmas 1',
             'fasyankes_phone' => '0123456789',

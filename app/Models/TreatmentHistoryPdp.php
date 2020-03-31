@@ -19,4 +19,13 @@ class TreatmentHistoryPdp extends Model
         'date_treated',
         'patient_id'
     ];
+
+    public static function getTreatmentOrder()
+    {
+        return [
+            0 => 'pertama',
+            1 => 'kedua',
+            2 => 'ketiga',
+        ];
+    }
 }

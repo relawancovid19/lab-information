@@ -50,7 +50,12 @@ class Symptom extends Model
         'neurologi',
         'hiv',
         'kidney',
-        'chronic_lung'
+        'chronic_lung',
+        'check_people_infected',
+        'check_family_members_infected',
+        'contact_with_suspect_covid19',
+        'date_onset',
+        'note'
     ];
 
     /**
@@ -59,5 +64,19 @@ class Symptom extends Model
     public function registration()
     {
         return $this->belongsTo(Registration::class);
+    }
+
+    public static function getHealthStatusLabel()
+    {
+        return [
+            0 => 'Pulang',
+            1 => 'Dirawat',
+            2 => 'Meninggal',
+        ];
+    }
+
+    public function getHealthStatusLabelAttribute()
+    {
+        return $this->getHealthStatusLabel()[$this->health_status];
     }
 }
