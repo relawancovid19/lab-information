@@ -62,6 +62,26 @@ class Controller extends BaseController
                     ]
                 ]
             ],
+            ['name' => 'sample_receive_pcr', 'url' => "#", 'label' => 'PCR', 'icon' => 'fas fa-file-signature', 'active_in' => ['sample_receive_pcr'], 'segment_active' => 1, 'submenu' =>
+                [
+                    [
+                        'name' => 'index', 'url' => url('/sample_receive_pcr'),
+                        'label' => 'Data Sampel PCR', 'icon' => 'fas fa-file-signature',
+                        'active_in' => [''],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'sample_receive_pcr'
+                    ],
+                    [
+                        'name' => 'create', 'url' => url('/sample_receive_pcr/create'),
+                        'label' => 'Buat Baru Sampel PCR', 'icon' => 'fas fa-file-signature',
+                        'active_in' => ['create'],
+                        'segment_active' => 2,
+                        'has_submenu' => false,
+                        'parent' => 'sample_receive_pcr'
+                    ],
+                ],
+            ],
             ['name' => 'rna', 'url' => "#", 'label' => 'Ekstraksi RNA', 'icon' => 'fas fa-vials', 'active_in' => ['rna'], 'segment_active' => 1, 'submenu' =>
                 [
                     [

@@ -42,6 +42,22 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                 Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceiveTakingController@update")
                     ->name("update");
             });
+        $router->prefix("sample_receive_pcr")
+            ->name("sample_receive_pcr.")
+            ->group(function () {
+                Route::get("", "SampleReceivePcrController@index")
+                    ->name("index");
+                Route::get("create", "SampleReceivePcrController@create")
+                    ->name("create");
+                Route::post("", "SampleReceivePcrController@store")
+                    ->name("store");
+                Route::get("{sampleReceivePcr}", "SampleReceivePcrController@show")
+                    ->name("show");
+                Route::get("{sampleReceivePcr}/edit", "SampleReceivePcrController@edit")
+                    ->name("edit");
+                Route::match(['put', 'patch'], "{sampleReceivePcr}", "SampleReceivePcrController@update")
+                    ->name("update");
+            });
         $router->prefix("rna")
             ->name("rna.")
             ->group(function () {
