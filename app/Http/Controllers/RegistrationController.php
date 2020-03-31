@@ -60,14 +60,15 @@ class RegistrationController extends Controller
         $data = $request->all();
 
         // Change date format to Y-m-d
-        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? $data['date_of_birth'] : null;
+        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
+        $data['date_onset'] = ($data['date_onset'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_onset'])->format('Y-m-d') : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
         $dataTreatmentHistoryPdps = [];
         foreach ($data['explanation'] as $key => $value) {
             $dataTreatmentHistoryPdps[$key]['explanation'] = $value;
-            $dataTreatmentHistoryPdps[$key]['date_treated'] = $data['date_treated'][$key];
+            $dataTreatmentHistoryPdps[$key]['date_treated'] = ($data['date_treated'][$key] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_treated'][$key])->format('Y-m-d') : null;
             $dataTreatmentHistoryPdps[$key]['fasyankes_name'] = $data['fasyankes_name'][$key];
         }
 
@@ -86,7 +87,7 @@ class RegistrationController extends Controller
                 'name_people_sick' => $value,
                 'address' => $data['contact_sick_people']['address'][$key],
                 'relation' => $data['contact_sick_people']['relation'][$key],
-                'contact_date' => $data['contact_sick_people']['contact_date'][$key]
+                'contact_date' => ($data['contact_sick_people']['contact_date'][$key] != null) ? Carbon::createFromFormat('d/m/Y', $data['contact_sick_people']['contact_date'][$key])->format('Y-m-d') : null
             ];
         }
 

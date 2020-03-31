@@ -27,7 +27,7 @@ class Registration extends FormRequest
             // Patient
             'nik' => 'nullable|integer',
             'fullname' => 'required',
-            'date_of_birth' => 'nullable|date_format:Y-m-d',
+            'date_of_birth' => 'nullable|date_format:d/m/Y',
             'age_year' => 'nullable|integer',
             'age_month' => 'nullable|integer',
             'gender' => 'nullable',
@@ -40,7 +40,6 @@ class Registration extends FormRequest
             'fasyankes_sender' => 'nullable',
             'fasyankes_phone' => 'nullable|digits_between:5,15',
             'doctor' => 'nullable',
-            'registration_date' => 'nullable|date_format:Y-m-d',
             // Symptoms
             'comorbid_description' => 'required_if:comorbid,true',
         ];

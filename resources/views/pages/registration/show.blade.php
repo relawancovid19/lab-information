@@ -134,14 +134,14 @@
 
                         @if ($registration->patient->gender == 'Perempuan' && !is_null($registration->patient->maternity_status))
                         <div class="form-group row">
-                            <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan</label>
+                            <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan?</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="icheck-primary d-inline mr-1 disabled">
-                                    <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ $registration->patient->maternity_status == '1' ? 'checked' : '' }}>
+                                    <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ $registration->patient->maternity_status == true ? 'checked' : '' }}>
                                     <label for="hamil-melahirkan">Ya</label>
                                 </div>
                                 <div class="icheck-primary d-inline ml-1 disabled">
-                                    <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ $registration->patient->maternity_status == '0' ? 'checked' : '' }}>
+                                    <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ $registration->patient->maternity_status == false ? 'checked' : '' }}>
                                     <label for="tidak-hamil-melahirkan">Tidak</label>
                                 </div>
                             </div>
@@ -458,7 +458,12 @@
                         <div class="form-group row">
                             <label for="health_status" class="col-sm-3 col-form-label">Status Kesehatan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="health_status" value="{{ $registration->symptom->healthStatusLabel }}" readonly="">
+                                <select name="healt_status" class="form-control select2" disabled="">
+                                    <option>== Pilih Status Kesehatan ==</option>
+                                    <option {{ $registration->symptom->health_status == '1' ? 'selected' : '' }} value="1">Pulang</option>
+                                    <option {{ $registration->symptom->health_status == '2' ? 'selected' : '' }} value="2">Dirawat</option>
+                                    <option {{ $registration->symptom->health_status == '0' ? 'selected' : '' }} value="0">Meninggal</option>
+                                </select>
                             </div>
                         </div>
                     </div>

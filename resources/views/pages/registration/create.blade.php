@@ -151,7 +151,7 @@
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" data-mask placeholder="Tanggal lahir">
+                                <input type="text" class="form-control @error('date_of_birth') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Tanggal lahir">
 
                                 @error('date_of_birth')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -260,7 +260,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="pertama">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="text" class="form-control @error('date_treated.0') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.0') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -272,7 +272,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name.0') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.0') }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -288,7 +288,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="kedua">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="text" class="form-control @error('date_treated.1') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.1') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -300,7 +300,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name.1') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.1') }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -316,7 +316,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="ketiga">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="text" class="form-control @error('date_treated.2') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.2') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -328,7 +328,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[] ') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name.2') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.2') }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -349,7 +349,7 @@
                         <div class="form-group row">
                             <label for="comorbid_description" class="col-sm-3 col-form-label">Tanggal Onset Gejala (Panas)</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="date_onset" placeholder="Tanggal onset gejala (panas)">
+                                <input type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask class="form-control" name="date_onset" placeholder="Tanggal onset gejala (panas)">
                             </div>
                         </div>
 
@@ -715,9 +715,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input name="travel[date_of_visit][]" class="form-control" type="date"></td>
-                                                <td><input name="travel[city][]" class="form-control" type="text"></td>
-                                                <td><input name="travel[country][]" class="form-control" type="text"></td>
+                                                <td><input name="travel[date_of_visit][]" class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask value="{{ old('travel[date_of_visit]') }}"></td>
+                                                <td><input name="travel[city][]" class="form-control" type="text" value="{{ old('travel[city]') }}"></td>
+                                                <td><input name="travel[country][]" class="form-control" type="text" value="{{old(' travel[country]') }}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -762,10 +762,10 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[contact_date][]" class="form-control" type="date"></td>
+                                                <td><input name="contact_sick_people[name_people_sick][]" class="form-control" value="{{ old('contact_sick_people[name_people_sick].0') }}" type="text"></td>
+                                                <td><input name="contact_sick_people[address][]" class="form-control" value="{{ old('contact_sick_people[address].0') }}" type="text"></td>
+                                                <td><input name="contact_sick_people[relation][]" class="form-control" value="{{ old('contact_sick_people[relation].0') }}" type="text"></td>
+                                                <td><input name="contact_sick_people[contact_date][]" class="form-control" value="{{ old('contact_sick_people[contact_date].0') }}" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -984,10 +984,10 @@
 
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label">
-                                Keterangan lainnya: (sebutkan informasi yang dianggap penting)
+                                Keterangan lainnya:<br/>(sebutkan informasi yang dianggap penting)
                             </label>
                             <div class="col-sm-9 mt-2">
-                            <textarea name="note" class="form-control" rows="3"></textarea>
+                                <textarea name="note" class="form-control" rows="3">{{ old('note') }}</textarea>
                             </div>
                         </div>
 
@@ -1060,7 +1060,7 @@
     $("#datatable").DataTable();
 
     // Datemask dd/mm/yyyy
-    $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('[data-mask]').inputmask();
 
     // Form wizard
     var currentTab = 0; // Current tab is set to be the first tab (0)
