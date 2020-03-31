@@ -137,7 +137,7 @@
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ !is_null($registration->patient->date_of_birth) ? \Carbon\Carbon::createFromFormat('Y-m-d', $registration->patient->date_of_birth)->format('d/m/Y') : null }}" data-mask placeholder="Tanggal lahir">
+                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ $registration->patient->date_of_birth }}" data-mask placeholder="Tanggal lahir">
 
                                 @error('date_of_birth')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -239,14 +239,15 @@
                     <!-- Step 3: Riwayat Perawatan Pasien Dalam Pengawasan -->
                     <div class="tab">
                         <div class="form-group row">
-                            <label class="col col-form-label">3. RIWAYAR PERAWATAN PASIEN DALAM PENGAWASAN COVID-19</label>
+                            <label class="col col-form-label">3. RIWAYAT PERAWATAN PASIEN DALAM PENGAWASAN COVID-19</label>
                         </div>
+                        @foreach (\App\Models\TreatmentHistoryPdp::getTreatmentOrder() as $treatment)
                         <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Pertama</label>
+                            <label for="First" class="col-sm-3 col-form-label">Kunjungan {{ ucwords($treatment) }}</label>
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
-                                    <input type="hidden" name="explanation[]" value="pertama">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="hidden" name="explanation[]" value="{{ $treatment }}">
+                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ isset($treatmentData[$treatment]) ? $treatmentData[$treatment]->date_treated : null }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -258,7 +259,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ isset($treatmentData[$treatment]) ? $treatmentData[$treatment]->fasyankes_name : null }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -269,62 +270,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Kedua</label>
-                            <div class="col-sm-5">
-                                <div class="input-group mb-3">
-                                    <input type="hidden" name="explanation[]" value="kedua">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Tanggal</span>
-                                    </div>
-
-                                    @error('date_treated[]')
-                                        <span class="error invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">RS/Fasyankes</span>
-                                    </div>
-
-                                    @error('fasyankes_name[]')
-                                        <span class="error invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="First" class="col-sm-3 col-form-label">Kunjungan Ketiga</label>
-                            <div class="col-sm-5">
-                                <div class="input-group mb-3">
-                                    <input type="hidden" name="explanation[]" value="ketiga">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Tanggal</span>
-                                    </div>
-
-                                    @error('date_treated[]')
-                                        <span class="error invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[] ') }}">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">RS/Fasyankes</span>
-                                    </div>
-
-                                    @error('fasyankes_name[]')
-                                        <span class="error invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <!-- Step 4: Tanda dan Gejala -->
                     <div class="tab">
@@ -335,7 +281,7 @@
                         <div class="form-group row">
                             <label for="comorbid_description" class="col-sm-3 col-form-label">Tanggal Onset Gejala (Panas)</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="date_onset" placeholder="Tanggal onset gejala (panas)">
+                                <input type="date" class="form-control datemask" name="date_onset" placeholder="Tanggal onset gejala (panas)" value="{{ $registration->symptom->date_onset }}">
                             </div>
                         </div>
 
@@ -348,15 +294,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('fever') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaPanas" name="fever" value="1" {{ $registration->fever == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaPanas" name="fever" value="1" {{ $registration->symptom->fever == true ? 'checked' : '' }}>
                                         <label for="iyaPanas">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakPanas" name="fever" value="0" {{ $registration->fever == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakPanas" name="fever" value="0" {{ $registration->symptom->fever == false ? 'checked' : '' }}>
                                         <label for="tidakPanas">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullPanas" name="fever" {{ is_null($registration->fever) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullPanas" name="fever" {{ is_null($registration->symptom->fever) ? 'checked' : '' }}>
                                         <label for="nullPanas">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -371,15 +317,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('cough') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaBatuk" name="cough" value="1" {{ $registration->cough == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaBatuk" name="cough" value="1" {{ $registration->symptom->cough == true ? 'checked' : '' }}>
                                         <label for="iyaBatuk">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakBatuk" name="cough" value="0" {{ $registration->cough == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakBatuk" name="cough" value="0" {{ $registration->symptom->cough == false ? 'checked' : '' }}>
                                         <label for="tidakBatuk">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullBatuk" name="cough" {{ is_null($registration->cough) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullBatuk" name="cough" {{ is_null($registration->symptom->cough) ? 'checked' : '' }}>
                                         <label for="nullBatuk">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -394,15 +340,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('sore_throat') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaNyeri" name="sore_throat" value="1" {{ $registration->sore_throat == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaNyeri" name="sore_throat" value="1" {{ $registration->symptom->sore_throat == true ? 'checked' : '' }}>
                                         <label for="iyaNyeri">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakNyeri" name="sore_throat" value="0" {{ $registration->sore_throat == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakNyeri" name="sore_throat" value="0" {{ $registration->symptom->sore_throat == false ? 'checked' : '' }}>
                                         <label for="tidakNyeri">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullNyeri" name="sore_throat" {{ is_null($registration->sore_throat) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullNyeri" name="sore_throat" {{ is_null($registration->symptom->sore_throat) ? 'checked' : '' }}>
                                         <label for="nullNyeri">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -417,15 +363,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('shortness_of_breath') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaSesak" name="shortness_of_breath" value="1" {{ $registration->shortness_of_breath == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaSesak" name="shortness_of_breath" value="1" {{ $registration->symptom->shortness_of_breath == true ? 'checked' : '' }}>
                                         <label for="iyaSesak">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakSesak" name="shortness_of_breath" value="0" {{ $registration->shortness_of_breath == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakSesak" name="shortness_of_breath" value="0" {{ $registration->symptom->shortness_of_breath == false ? 'checked' : '' }}>
                                         <label for="tidakSesak">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullSesak" name="shortness_of_breath" {{ is_null($registration->shortness_of_breath) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullSesak" name="shortness_of_breath" {{ is_null($registration->symptom->shortness_of_breath) ? 'checked' : '' }}>
                                         <label for="nullSesak">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -440,15 +386,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('flu') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaFlu" name="flu" value="1" {{ $registration->flu == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaFlu" name="flu" value="1" {{ $registration->symptom->flu == true ? 'checked' : '' }}>
                                         <label for="iyaFlu">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakFlu" name="flu" value="0" {{ $registration->flu == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakFlu" name="flu" value="0" {{ $registration->symptom->flu == false ? 'checked' : '' }}>
                                         <label for="tidakFlu">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullFlu" name="flu" {{ is_null($registration->flu) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullFlu" name="flu" {{ is_null($registration->symptom->flu) ? 'checked' : '' }}>
                                         <label for="nullFlu">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -463,15 +409,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('fatigue') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaLesu" name="fatigue" value="1" {{ $registration->fatigue == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaLesu" name="fatigue" value="1" {{ $registration->symptom->fatigue == true ? 'checked' : '' }}>
                                         <label for="iyaLesu">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakLesu" name="fatigue" value="0" {{ $registration->fatigue == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakLesu" name="fatigue" value="0" {{ $registration->symptom->fatigue == false ? 'checked' : '' }}>
                                         <label for="tidakLesu">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullLesu" name="fatigue" {{ is_null($registration->fatigue) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullLesu" name="fatigue" {{ is_null($registration->symptom->fatigue) ? 'checked' : '' }}>
                                         <label for="nullLesu">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -486,15 +432,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('headache') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaSakit" name="headache" value="1" {{ $registration->headache == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaSakit" name="headache" value="1" {{ $registration->symptom->headache == true ? 'checked' : '' }}>
                                         <label for="iyaSakit">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakSakit" name="headache" value="0" {{ $registration->headache == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakSakit" name="headache" value="0" {{ $registration->symptom->headache == false ? 'checked' : '' }}>
                                         <label for="tidakSakit">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullSakit" name="headache" {{ is_null($registration->headache) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullSakit" name="headache" {{ is_null($registration->symptom->headache) ? 'checked' : '' }}>
                                         <label for="nullSakit">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -509,15 +455,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('diarrhea') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaDiare" name="diarrhea" value="1" {{ $registration->diarrhea == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaDiare" name="diarrhea" value="1" {{ $registration->symptom->diarrhea == true ? 'checked' : '' }}>
                                         <label for="iyaDiare">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakDiare" name="diarrhea" value="0" {{ $registration->diarrhea == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakDiare" name="diarrhea" value="0" {{ $registration->symptom->diarrhea == false ? 'checked' : '' }}>
                                         <label for="tidakDiare">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullDiare" name="diarrhea" {{ is_null($registration->diarrhea) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullDiare" name="diarrhea" {{ is_null($registration->symptom->diarrhea) ? 'checked' : '' }}>
                                         <label for="nullDiare">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -532,15 +478,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('nausea_or_vomiting') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaMual" name="nausea_or_vomiting" value="1" {{ $registration->nausea_or_vomiting == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaMual" name="nausea_or_vomiting" value="1" {{ $registration->symptom->nausea_or_vomiting == true ? 'checked' : '' }}>
                                         <label for="iyaMual">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakMual" name="nausea_or_vomiting" value="0" {{ $registration->nausea_or_vomiting == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakMual" name="nausea_or_vomiting" value="0" {{ $registration->symptom->nausea_or_vomiting == false ? 'checked' : '' }}>
                                         <label for="tidakMual">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullMual" name="nausea_or_vomiting" {{ is_null($registration->nausea_or_vomiting) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullMual" name="nausea_or_vomiting" {{ is_null($registration->symptom->nausea_or_vomiting) ? 'checked' : '' }}>
                                         <label for="nullMual">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -553,7 +499,7 @@
                         <div class="form-group row">
                             <label for="other_symptoms" class="col-sm-3 col-form-label">Gejala Lainnya (Jelaskan)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="other_symptoms" value="{{ $registration->other_symptoms }}" placeholder="Gejala lainnya">
+                                <input type="text" class="form-control" name="other_symptoms" value="{{ $registration->symptom->other_symptoms }}" placeholder="Gejala lainnya">
                             </div>
                         </div>
                     </div>
@@ -566,13 +512,17 @@
                             <label for="pulmonary_xray" class="col-sm-3 col-form-label">X-Ray Paru</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('pulmonary_xray') form-control is-invalid @enderror">
-                                    <div class="icheck-primary d-inline ml-1 mr-1">
-                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ $registration->pulmonary_xray == true ? 'checked' : '' }}>
-                                        <label for="gambaranPneumonia">Iya</label>
-                                    </div>
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ $registration->pulmonary_xray == false ? 'checked' : '' }}>
-                                        <label for="tidakXray">Tidak</label>
+                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ $registration->symptom->pulmonary_xray == 0 ? 'checked' : '' }}>
+                                        <label for="tidakXray">Tidak Dilakukan</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1 mr-1">
+                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ $registration->symptom->pulmonary_xray == 1 ? 'checked' : '' }}>
+                                        <label for="gambaranPneumonia">Gambaran Pneumonia</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1 mr-1">
+                                        <input type="radio" id="tidakAdaGambaran" name="pulmonary_xray" value="2" {{ $registration->symptom->pulmonary_xray == 2 ? 'checked' : '' }}>
+                                        <label for="tidakAdaGambaran">Tidak Ada Gambaran Pneumonia</label>
                                     </div>
                                 </div>
 
@@ -584,7 +534,7 @@
                         <div class="form-group row">
                             <label for="xray_result" class="col-sm-3 col-form-label">Hasil X Ray Paru</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('xray_result') is-invalid @enderror" name="xray_result" value="{{ $registration->xray_result }}" placeholder="Hasil X Ray Paru">
+                                <input type="text" class="form-control @error('xray_result') is-invalid @enderror" name="xray_result" value="{{ $registration->symptom->xray_result }}" placeholder="Hasil X Ray Paru">
 
                                 @error('xray_result')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -597,7 +547,7 @@
                         <div class="form-group row">
                             <label for="leukosit" class="col-sm-3 col-form-label">Leukosit (/ul)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('leukosit') is-invalid @enderror" name="leukosit" value="{{ $registration->leukosit }}" placeholder="Perhitungan Leukosit">
+                                <input type="text" class="form-control @error('leukosit') is-invalid @enderror" name="leukosit" value="{{ $registration->symptom->leukosit }}" placeholder="Perhitungan Leukosit">
 
                                 @error('leukosit')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -607,7 +557,7 @@
                         <div class="form-group row">
                             <label for="limfosit" class="col-sm-3 col-form-label">Limfosit (/ul)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('limfosit') is-invalid @enderror" name="limfosit" value="{{ $registration->limfosit }}" placeholder="Perhitungan Limfosit">
+                                <input type="text" class="form-control @error('limfosit') is-invalid @enderror" name="limfosit" value="{{ $registration->symptom->limfosit }}" placeholder="Perhitungan Limfosit">
 
                                 @error('limfosit')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -617,7 +567,7 @@
                         <div class="form-group row">
                             <label for="trombosit" class="col-sm-3 col-form-label">Trombosit (/ul)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('trombosit') is-invalid @enderror" name="trombosit" value="{{ $registration->trombosit }}" placeholder="Perhitungan Trombosit">
+                                <input type="text" class="form-control @error('trombosit') is-invalid @enderror" name="trombosit" value="{{ $registration->symptom->trombosit }}" placeholder="Perhitungan Trombosit">
 
                                 @error('trombosit')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -629,15 +579,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('using_ventilator') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaVentilator" name="using_ventilator" value="1" {{ $registration->using_ventilator == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaVentilator" name="using_ventilator" value="1" {{ $registration->symptom->using_ventilator == true ? 'checked' : '' }}>
                                         <label for="iyaVentilator">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakVentilator" name="using_ventilator" value="0" {{ $registration->using_ventilator == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakVentilator" name="using_ventilator" value="0" {{ $registration->symptom->using_ventilator == false ? 'checked' : '' }}>
                                         <label for="tidakVentilator">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullVentilator" name="using_ventilator" {{ is_null($registration->using_ventilator) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullVentilator" name="using_ventilator" {{ is_null($registration->symptom->using_ventilator) ? 'checked' : '' }}>
                                         <label for="nullVentilator">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -650,11 +600,11 @@
                         <div class="form-group row">
                             <label for="health_status" class="col-sm-3 col-form-label">Status Kesehatan</label>
                             <div class="col-sm-9">
-                                <select name="healt_status" class="form-control select2 @error('health_status') is-invalid @enderror">
+                                <select name="health_status" class="form-control select2 @error('health_status') is-invalid @enderror">
                                     <option>== Pilih Status Kesehatan ==</option>
-                                    <option {{ $registration->health_status == 'Pulang' ? 'selected' : '' }} value="Pulang">Pulang</option>
-                                    <option {{ $registration->health_status == 'Dirawat' ? 'selected' : '' }} value="Dirawat">Dirawat</option>
-                                    <option {{ $registration->health_status == 'Meninggal' ? 'selected' : '' }} value="Meninggal">Meninggal</option>
+                                    <option {{ $registration->symptom->health_status == 0 ? 'selected' : '' }} value="0">Pulang</option>
+                                    <option {{ $registration->symptom->health_status == 1 ? 'selected' : '' }} value="1">Dirawat</option>
+                                    <option {{ $registration->symptom->health_status == 2 ? 'selected' : '' }} value="2">Meninggal</option>
                                 </select>
 
                                 @error('health_status')
@@ -696,11 +646,21 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><input name="travel[date_of_visit][]" class="form-control" type="date"></td>
-                                                <td><input name="travel[city][]" class="form-control" type="text"></td>
-                                                <td><input name="travel[country][]" class="form-control" type="text"></td>
-                                            </tr>
+                                            @if(count($registration->travelHistories) < 0)
+                                                <tr>
+                                                    <td><input name="travel[date_of_visit][]" class="form-control datemask" type="date"></td>
+                                                    <td><input name="travel[city][]" class="form-control" type="text"></td>
+                                                    <td><input name="travel[country][]" class="form-control" type="text"></td>
+                                                </tr>
+                                            @else
+                                                @foreach ($registration->travelHistories as $travel)
+                                                <tr>
+                                                    <td><input name="travel[date_of_visit][]" class="form-control datemask" type="date" value="{{ $travel->date_of_visit->format('Y-m-d') }}"></td>
+                                                    <td><input name="travel[city][]" class="form-control" type="text" value="{{ $travel->city }}"></td>
+                                                    <td><input name="travel[country][]" class="form-control" type="text" value="{{ $travel->country }}"></td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -743,12 +703,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[contact_date][]" class="form-control" type="date"></td>
-                                            </tr>
+                                            @if(count($registration->travelHistories) < 0)
+                                                <tr>
+                                                    <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
+                                                    <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
+                                                    <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
+                                                    <td><input name="contact_sick_people[contact_date][]" class="form-control datemask" type="date"></td>
+                                                </tr>
+                                            @else
+                                                @foreach ($registration->contactHistories as $contact)
+                                                <tr>
+                                                    <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text" value="{{ $contact->name_people_sick }}"></td>
+                                                    <td><input name="contact_sick_people[address][]" class="form-control" type="text" value="{{ $contact->address }}"></td>
+                                                    <td><input name="contact_sick_people[relation][]" class="form-control" type="text" value="{{ $contact->relation }}"></td>
+                                                    <td><input name="contact_sick_people[contact_date][]" class="form-control datemask" type="date" value="{{ $contact->contact_date }}"></td>
+                                                </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -769,11 +740,11 @@
                             </label>
                             <div class="col-sm-9 mt-2">
                                 <div class="icheck-primary d-inline ml-1 mr-1">
-                                    <input type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_1" {{ old('contact_with_suspect_covid19') == true ? 'checked' : '' }} value="1">
+                                    <input type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_1" {{ $registration->symptom->contact_with_suspect_covid19 == true ? 'checked' : '' }} value="1">
                                     <label class="form-check-label" for="contact_with_suspect_covid19_1">Iya</label>
                                 </div>
                                 <div class="icheck-primary d-inline ml-1 mr-1">
-                                    <input type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_0" {{ old('contact_with_suspect_covid19') == false ? 'checked' : '' }} value="0">
+                                    <input type="radio" name="contact_with_suspect_covid19" id="contact_with_suspect_covid19_0" {{ $registration->symptom->contact_with_suspect_covid19 == false ? 'checked' : '' }} value="0">
                                     <label class="form-check-label" for="contact_with_suspect_covid19_0">Tidak</label>
                                 </div>
                             </div>
@@ -785,11 +756,11 @@
                             </label>
                             <div class="col-sm-9 mt-2">
                                 <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" name="check_family_members_infected" id="check_family_members_infected_1" {{ $registration->check_family_members_infected == true ? 'checked' : '' }} value="1">
+                                    <input type="radio" name="check_family_members_infected" id="check_family_members_infected_1" {{ $registration->symptom->check_family_members_infected == true ? 'checked' : '' }} value="1">
                                     <label class="form-check-label" for="check_family_members_infected_1">Iya</label>
                                 </div>
                                 <div class="icheck-primary d-inline mr-1">
-                                    <input type="radio" name="check_family_members_infected" id="check_family_members_infected_0" {{ $registration->check_family_members_infected == false ? 'checked' : '' }} value="0">
+                                    <input type="radio" name="check_family_members_infected" id="check_family_members_infected_0" {{ $registration->symptom->check_family_members_infected == false ? 'checked' : '' }} value="0">
                                     <label class="form-check-label" for="check_family_members_infected_0">Tidak</label>
                                 </div>
                                 <div class="form-check form-check-inline">
@@ -807,15 +778,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('hipertensi') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaHipertensi" name="hipertensi" value="1" {{ $registration->hipertensi == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaHipertensi" name="hipertensi" value="1" {{ $registration->symptom->hipertensi == true ? 'checked' : '' }}>
                                         <label for="iyaHipertensi">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakHipertensi" name="hipertensi" value="0" {{ $registration->hipertensi == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakHipertensi" name="hipertensi" value="0" {{ $registration->symptom->hipertensi == false ? 'checked' : '' }}>
                                         <label for="tidakHipertensi">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullHipertensi" name="hipertensi" {{ is_null($registration->hipertensi) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullHipertensi" name="hipertensi" {{ is_null($registration->symptom->hipertensi) ? 'checked' : '' }}>
                                         <label for="nullHipertensi">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -830,15 +801,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('diabetes_mellitus') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaDiabetesMellitus" name="diabetes_mellitus" value="1" {{ $registration->diabetes_mellitus == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaDiabetesMellitus" name="diabetes_mellitus" value="1" {{ $registration->symptom->diabetes_mellitus == true ? 'checked' : '' }}>
                                         <label for="iyaDiabetesMellitus">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakDiabetesMellitus" name="diabetes_mellitus" value="0" {{ $registration->diabetes_mellitus == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakDiabetesMellitus" name="diabetes_mellitus" value="0" {{ $registration->symptom->diabetes_mellitus == false ? 'checked' : '' }}>
                                         <label for="tidakDiabetesMellitus">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullDiabetes" name="diabetes_mellitus" {{ is_null($registration->diabetes_mellitus) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullDiabetes" name="diabetes_mellitus" {{ is_null($registration->symptom->diabetes_mellitus) ? 'checked' : '' }}>
                                         <label for="nullDiabetes">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -853,15 +824,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('liver') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaLiver" name="liver" value="1" {{ $registration->liver == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaLiver" name="liver" value="1" {{ $registration->symptom->liver == true ? 'checked' : '' }}>
                                         <label for="iyaLiver">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakLiver" name="liver" value="0" {{ $registration->liver == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakLiver" name="liver" value="0" {{ $registration->symptom->liver == false ? 'checked' : '' }}>
                                         <label for="tidakLiver">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullLiver" name="liver" {{ is_null($registration->liver) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullLiver" name="liver" {{ is_null($registration->symptom->liver) ? 'checked' : '' }}>
                                         <label for="nullLiver">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -876,15 +847,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('neurologi') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaNeurologi" name="neurologi" value="1" {{ $registration->neurologi == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaNeurologi" name="neurologi" value="1" {{ $registration->symptom->neurologi == true ? 'checked' : '' }}>
                                         <label for="iyaNeurologi">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakNeurologi" name="neurologi" value="0" {{ $registration->neurologi == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakNeurologi" name="neurologi" value="0" {{ $registration->symptom->neurologi == false ? 'checked' : '' }}>
                                         <label for="tidakNeurologi">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullNeurologi" name="neurologi" {{ is_null($registration->neurologi) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullNeurologi" name="neurologi" {{ is_null($registration->symptom->neurologi) ? 'checked' : '' }}>
                                         <label for="nullNeurologi">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -899,15 +870,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('hiv') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaHiv" name="hiv" value="1" {{ $registration->hiv == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaHiv" name="hiv" value="1" {{ $registration->symptom->hiv == true ? 'checked' : '' }}>
                                         <label for="iyaHiv">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakHiv" name="hiv" value="0" {{ $registration->hiv == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakHiv" name="hiv" value="0" {{ $registration->symptom->hiv == false ? 'checked' : '' }}>
                                         <label for="tidakHiv">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullHiv" name="hiv" {{ is_null($registration->hiv) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullHiv" name="hiv" {{ is_null($registration->symptom->hiv) ? 'checked' : '' }}>
                                         <label for="nullHiv">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -922,15 +893,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('kidney') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaKidney" name="kidney" value="1" {{ $registration->kidney == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaKidney" name="kidney" value="1" {{ $registration->symptom->kidney == true ? 'checked' : '' }}>
                                         <label for="iyaKidney">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakKidney" name="kidney" value="0" {{ $registration->kidney == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakKidney" name="kidney" value="0" {{ $registration->symptom->kidney == false ? 'checked' : '' }}>
                                         <label for="tidakKidney">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullKidney" name="kidney" {{ is_null($registration->kidney) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullKidney" name="kidney" {{ is_null($registration->symptom->kidney) ? 'checked' : '' }}>
                                         <label for="nullKidney">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -945,15 +916,15 @@
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('chronic_lung') form-control is-invalid @enderror">
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="iyaChronicLung" name="chronic_lung" value="1" {{ $registration->chronic_lung == true ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaChronicLung" name="chronic_lung" value="1" {{ $registration->symptom->chronic_lung == true ? 'checked' : '' }}>
                                         <label for="iyaChronicLung">Iya</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="tidakChronicLung" name="chronic_lung" value="0" {{ $registration->chronic_lung == false ? 'checked' : '' }}>
+                                        <input type="radio" id="tidakChronicLung" name="chronic_lung" value="0" {{ $registration->symptom->chronic_lung == false ? 'checked' : '' }}>
                                         <label for="tidakChronicLung">Tidak</label>
                                     </div>
                                     <div class="icheck-primary d-inline ml-1">
-                                        <input type="radio" id="nullChronicLung" name="chronic_lung" {{ is_null($registration->chronic_lung) ? 'checked' : '' }}>
+                                        <input type="radio" id="nullChronicLung" name="chronic_lung" {{ is_null($registration->symptom->chronic_lung) ? 'checked' : '' }}>
                                         <label for="nullChronicLung">Tidak Keduanya</label>
                                     </div>
                                 </div>
@@ -969,7 +940,7 @@
                                 Keterangan lainnya: (sebutkan informasi yang dianggap penting)
                             </label>
                             <div class="col-sm-9 mt-2">
-                            <textarea name="note" class="form-control" rows="3"></textarea>
+                            <textarea name="note" class="form-control" rows="3">{{ $registration->symptom->note }}</textarea>
                             </div>
                         </div>
 

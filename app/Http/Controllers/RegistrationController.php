@@ -131,8 +131,13 @@ class RegistrationController extends Controller
     public function edit($idRegistration)
     {
         $registration = Registration::findOrFail($idRegistration);
+        $treatmentHistory = $registration->patient->treatmentHistoryPdps()->get();
+        $treatmentData = [];
+        foreach ($treatmentHistory as $value) {
+            $treatmentData[$value->explanation] = $value;
+        }
 
-        return view('pages.registration.edit', compact('registration'));
+        return view('pages.registration.edit', compact('registration', 'treatmentData'));
     }
 
     /**
@@ -155,11 +160,6 @@ class RegistrationController extends Controller
         $registration->patient->update($data);
         // clean up symptom data
         $symptomFillables = (new Symptom())->getFillable();
-        foreach ($symptomFillables as $symptomFillable) {
-            if (isset($data[$symptomFillable]) && !in_array($data[$symptomFillable], ["0", "1"])) {
-                $data[$symptomFillable] = null;
-            }
-        }
         // Update symptom
         $registration->symptom->update($data);
 

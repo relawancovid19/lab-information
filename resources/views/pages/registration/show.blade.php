@@ -60,7 +60,7 @@
                         <div class="form-group row">
                             <label for="medical_record_number" class="col-sm-3 col-form-label">No Rekam Medis</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="medical_record_number" value="{{ $registration->patient->medical_record_number }}" readonly="">
+                                <input type="text" class="form-control" name="medical_record_number" value="{{ isset($registration->patient->medical_record_number) ? $registration->patient->medical_record_number : $registration->medical_record_number }}" readonly="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -201,7 +201,7 @@
                         <div class="form-group row">
                             <label for="date_onset" class="col-sm-3 col-form-label">Tanggal onset gejala (panas)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="date_onset" value="{{ $registration->symptom->date_onset }}" readonly="">
+                                <input type="text" class="form-control" name="date_onset" value="{{ !is_null($registration->symptom->date_onset) ? \Carbon\Carbon::parse($registration->symptom->date_onset)->format('d/m/Y') : '' }}" readonly="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -421,19 +421,19 @@
                         <div class="form-group row">
                             <label for="leukosit" class="col-sm-3 col-form-label">Perhitungan Leukosit</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="leukosit" value="{{ $registration->leukosit }}" readonly="">
+                                <input type="text" class="form-control" name="leukosit" value="{{ $registration->symptom->leukosit }}" readonly="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="limfosit" class="col-sm-3 col-form-label">Perhitungan Limfosit</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="limfosit" value="{{ $registration->limfosit }}" readonly="">
+                                <input type="text" class="form-control" name="limfosit" value="{{ $registration->symptom->limfosit }}" readonly="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="trombosit" class="col-sm-3 col-form-label">Perhitungan Trombosit</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="trombosit" value="{{ $registration->trombosit }}" readonly="">
+                                <input type="text" class="form-control" name="trombosit" value="{{ $registration->symptom->trombosit }}" readonly="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -458,7 +458,7 @@
                         <div class="form-group row">
                             <label for="health_status" class="col-sm-3 col-form-label">Status Kesehatan</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="health_status" value="{{ $registration->health_status }}" readonly="">
+                                <input type="text" class="form-control" name="health_status" value="{{ $registration->symptom->healthStatusLabel }}" readonly="">
                             </div>
                         </div>
                     </div>
