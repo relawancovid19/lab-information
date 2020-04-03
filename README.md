@@ -1,4 +1,4 @@
-# LAB INFORMATION TRACKER
+# LAB INFORMATION TRACKER ![Status](https://img.shields.io/badge/Project%20Status-Terminate-red?style=for-the-badge)
 
 This is the repository for the lab information tracker app.
 
