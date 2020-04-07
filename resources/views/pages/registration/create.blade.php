@@ -40,6 +40,18 @@
     <div class="container-fluid">
         <div class="card card-default color-palette-box">
             <div class="card-body">
+                <form id="registrationImport" class="form-horizontal" action="{{ route('registrations.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="nik" class="col-sm-3 col-form-label">Import File</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control-file" name="upload_file">
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </div>
+                </form>
                 <form id="registrationForm" class="form-horizontal" action="{{ route('registrations.store') }}" method="post">
                     @csrf
                     <div class="form-group row">
@@ -139,7 +151,7 @@
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control datemask @error('date_of_birth') is-invalid @enderror" name="date_of_birth" value="{{ old('date_of_birth') }}" data-mask placeholder="Tanggal lahir">
+                                <input type="text" class="form-control @error('date_of_birth') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_of_birth" value="{{ old('date_of_birth') }}" placeholder="Tanggal lahir">
 
                                 @error('date_of_birth')
                                     <span class="error invalid-feedback">{{ $message }}</span>
@@ -192,6 +204,25 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row" style="display: none">
+                            <label for="maternity_status" class="col-sm-3 col-form-label">Apakah hamil atau setelah melahirkan</label>
+                            <div class="col-sm-9 mt-2">
+                                <div class="@error('maternity_status') form-control is-invalid @enderror">
+                                    <div class="icheck-primary d-inline mr-1">
+                                        <input type="radio" id="hamil-melahirkan" name="maternity_status" value="1" {{ old('maternity_status') == '1' ? 'checked' : '' }}>
+                                        <label for="hamil-melahirkan">Ya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-1">
+                                        <input type="radio" id="tidak-hamil-melahirkan" name="maternity_status" value="0" {{ old('maternity_status') == '0' ? 'checked' : '' }}>
+                                        <label for="tidak-hamil-melahirkan">Tidak</label>
+                                    </div>
+                                </div>
+
+                                @error('maternity_status')
+                                <span class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="address_1" class="col-sm-3 col-form-label">Alamat</label>
                             <div class="col-sm-9">
@@ -229,7 +260,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="pertama">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="text" class="form-control @error('date_treated.0') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.0') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -241,7 +272,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name.0') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.0') }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -257,7 +288,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="kedua">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="text" class="form-control @error('date_treated.1') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.1') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -269,7 +300,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[]') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name.1') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.1') }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -285,7 +316,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="explanation[]" value="ketiga">
-                                    <input type="date" class="form-control  datemask @error('date_treated[]') is-invalid @enderror" name="date_treated[]" value="{{ old('date_treated[]') }}" placeholder="Tanggal Dirawat">
+                                    <input type="text" class="form-control @error('date_treated.2') is-invalid @enderror" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask name="date_treated[]" value="{{ old('date_treated.2') }}" placeholder="Tanggal Dirawat">
                                     <div class="input-group-append">
                                         <span class="input-group-text">Tanggal</span>
                                     </div>
@@ -297,7 +328,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control @error('fasyankes_name[]') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name[] ') }}">
+                                    <input type="text" class="form-control @error('fasyankes_name.2') is-invalid @enderror" name="fasyankes_name[]" value="{{ old('fasyankes_name.2') }}">
                                     <div class="input-group-append">
                                         <span class="input-group-text">RS/Fasyankes</span>
                                     </div>
@@ -318,7 +349,7 @@
                         <div class="form-group row">
                             <label for="comorbid_description" class="col-sm-3 col-form-label">Tanggal Onset Gejala (Panas)</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="date_onset" placeholder="Tanggal onset gejala (panas)">
+                                <input type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask class="form-control" name="date_onset" placeholder="Tanggal onset gejala (panas)">
                             </div>
                         </div>
 
@@ -549,12 +580,12 @@
                             <label for="pulmonary_xray" class="col-sm-3 col-form-label">X-Ray Paru</label>
                             <div class="col-sm-9 mt-2">
                                 <div class="@error('pulmonary_xray') form-control is-invalid @enderror">
-                                    <div class="icheck-primary d-inline ml-1 mr-1">
-                                        <input type="radio" id="gambaranPneumonia" name="pulmonary_xray" value="1" {{ old('pulmonary_xray') == true ? 'checked' : '' }}>
-                                        <label for="gambaranPneumonia">Iya</label>
-                                    </div>
                                     <div class="icheck-primary d-inline mr-1">
-                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ old('pulmonary_xray') == false ? 'checked' : '' }}>
+                                        <input type="radio" id="iyaXray" name="pulmonary_xray" value="1" {{ old('pulmonary_xray') == 1 ? 'checked' : '' }}>
+                                        <label for="iyaXray">Iya</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
+                                        <input type="radio" id="tidakXray" name="pulmonary_xray" value="0" {{ old('pulmonary_xray') == 0 ? 'checked' : '' }}>
                                         <label for="tidakXray">Tidak</label>
                                     </div>
                                 </div>
@@ -633,11 +664,11 @@
                         <div class="form-group row">
                             <label for="health_status" class="col-sm-3 col-form-label">Status Kesehatan</label>
                             <div class="col-sm-9">
-                                <select name="healt_status" class="form-control select2 @error('health_status') is-invalid @enderror">
+                                <select name="health_status" class="form-control select2 @error('health_status') is-invalid @enderror">
                                     <option>== Pilih Status Kesehatan ==</option>
-                                    <option {{ old('health_status') == 'Pulang' ? 'selected' : '' }} value="Pulang">Pulang</option>
-                                    <option {{ old('health_status') == 'Dirawat' ? 'selected' : '' }} value="Dirawat">Dirawat</option>
-                                    <option {{ old('health_status') == 'Meninggal' ? 'selected' : '' }} value="Meninggal">Meninggal</option>
+                                    <option {{ old('health_status') == 0 ? 'selected' : '' }} value="0">Pulang</option>
+                                    <option {{ old('health_status') == 1 ? 'selected' : '' }} value="1">Dirawat</option>
+                                    <option {{ old('health_status') == 2 ? 'selected' : '' }} value="2">Meninggal</option>
                                 </select>
 
                                 @error('health_status')
@@ -680,9 +711,9 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input name="travel[date_of_visit][]" class="form-control" type="date"></td>
-                                                <td><input name="travel[city][]" class="form-control" type="text"></td>
-                                                <td><input name="travel[country][]" class="form-control" type="text"></td>
+                                                <td><input name="travel[date_of_visit][]" class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask value="{{ old('travel[date_of_visit]') }}"></td>
+                                                <td><input name="travel[city][]" class="form-control" type="text" value="{{ old('travel[city]') }}"></td>
+                                                <td><input name="travel[country][]" class="form-control" type="text" value="{{old(' travel[country]') }}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -727,10 +758,10 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input name="contact_sick_people[name_people_sick][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[address][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[relation][]" class="form-control" type="text"></td>
-                                                <td><input name="contact_sick_people[contact_date][]" class="form-control" type="date"></td>
+                                                <td><input name="contact_sick_people[name_people_sick][]" class="form-control" value="{{ old('contact_sick_people[name_people_sick].0') }}" type="text"></td>
+                                                <td><input name="contact_sick_people[address][]" class="form-control" value="{{ old('contact_sick_people[address].0') }}" type="text"></td>
+                                                <td><input name="contact_sick_people[relation][]" class="form-control" value="{{ old('contact_sick_people[relation].0') }}" type="text"></td>
+                                                <td><input name="contact_sick_people[contact_date][]" class="form-control" value="{{ old('contact_sick_people[contact_date].0') }}" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -949,10 +980,10 @@
 
                         <div class="form-group row">
                             <label for="" class="col-sm-3 col-form-label">
-                                Keterangan lainnya: (sebutkan informasi yang dianggap penting)
+                                Keterangan lainnya:<br/>(sebutkan informasi yang dianggap penting)
                             </label>
                             <div class="col-sm-9 mt-2">
-                            <textarea name="note" class="form-control" rows="3"></textarea>
+                                <textarea name="note" class="form-control" rows="3">{{ old('note') }}</textarea>
                             </div>
                         </div>
 
@@ -1025,7 +1056,7 @@
     $("#datatable").DataTable();
 
     // Datemask dd/mm/yyyy
-    $('.datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('[data-mask]').inputmask();
 
     // Form wizard
     var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -1105,6 +1136,21 @@
         }
 
         tr.last().remove();
+    });
+
+    $('input[name=gender]').each((index, elem) => {
+        $(elem).click((event) => {
+            const { value } = event.currentTarget;
+            const maternityStatusSection = $('label[for=maternity_status]').parent();
+            if(value === "Laki-laki") {
+                maternityStatusSection.hide();
+                $('input[name=maternity_status]').each((index, elem) => {
+                    elem.checked = false;
+                });
+            } else if (value === "Perempuan") {
+                maternityStatusSection.show();
+            }
+        })
     });
 </script>
 @endsection

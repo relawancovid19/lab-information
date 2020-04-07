@@ -65,4 +65,18 @@ class Symptom extends Model
     {
         return $this->belongsTo(Registration::class);
     }
+
+    public static function getHealthStatusLabel()
+    {
+        return [
+            0 => 'Pulang',
+            1 => 'Dirawat',
+            2 => 'Meninggal',
+        ];
+    }
+
+    public function getHealthStatusLabelAttribute()
+    {
+        return $this->getHealthStatusLabel()[$this->health_status];
+    }
 }

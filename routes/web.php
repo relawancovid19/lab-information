@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
 
     // Registration
     Route::resource('/registrations', 'RegistrationController');
+    Route::post('/registrations/import', 'ImportRegistrationController@import')->name('registrations.import');
 
     $router->group(['middleware' => ['role:lab_officer']], function (\Illuminate\Routing\Router $router) {
         $router->prefix("sample_receive_taking")
@@ -39,6 +40,22 @@ Route::group(['middleware' => ['auth']], function (\Illuminate\Routing\Router $r
                 Route::get("{sampleReceiveTaking}/edit", "SampleReceiveTakingController@edit")
                     ->name("edit");
                 Route::match(['put', 'patch'], "{sampleReceiveTaking}", "SampleReceiveTakingController@update")
+                    ->name("update");
+            });
+        $router->prefix("sample_receive_pcr")
+            ->name("sample_receive_pcr.")
+            ->group(function () {
+                Route::get("", "SampleReceivePcrController@index")
+                    ->name("index");
+                Route::get("create", "SampleReceivePcrController@create")
+                    ->name("create");
+                Route::post("", "SampleReceivePcrController@store")
+                    ->name("store");
+                Route::get("{sampleReceivePcr}", "SampleReceivePcrController@show")
+                    ->name("show");
+                Route::get("{sampleReceivePcr}/edit", "SampleReceivePcrController@edit")
+                    ->name("edit");
+                Route::match(['put', 'patch'], "{sampleReceivePcr}", "SampleReceivePcrController@update")
                     ->name("update");
             });
         $router->prefix("rna")

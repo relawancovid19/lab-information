@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use App\Models\Registration;
 use App\Models\Symptom;
+use App\Models\TreatmentHistoryPdp;
 use App\Http\Requests\Registration as RegistrationRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class RegistrationController extends Controller
 {
@@ -41,7 +44,7 @@ class RegistrationController extends Controller
     public function create()
     {
         $patients = Patient::get();
-        $registrationNumber = $this->nextRegistrationNumber();
+        $registrationNumber = Registration::nextRegistrationNumber();
 
         return view('pages.registration.create', compact('patients', 'registrationNumber'));
     }
@@ -49,30 +52,32 @@ class RegistrationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Registration  $request
+     * @param \App\Http\Requests\Registration $request
      * @return \Illuminate\Http\Response
+     *
+     * @SuppressWarnings("PHPMD")
      */
     public function store(RegistrationRequest $request)
     {
         $data = $request->all();
 
         // Change date format to Y-m-d
-        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? $data['date_of_birth'] : null;
-        $data['registration_date'] = ($data['registration_date'] != null) ? $data['registration_date'] : null;
+        $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
+        $data['date_onset'] = ($data['date_onset'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_onset'])->format('Y-m-d') : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
         $dataTreatmentHistoryPdps = [];
         foreach ($data['explanation'] as $key => $value) {
             $dataTreatmentHistoryPdps[$key]['explanation'] = $value;
-            $dataTreatmentHistoryPdps[$key]['date_treated'] = $data['date_treated'][$key];
+            $dataTreatmentHistoryPdps[$key]['date_treated'] = ($data['date_treated'][$key] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_treated'][$key])->format('Y-m-d') : null;
             $dataTreatmentHistoryPdps[$key]['fasyankes_name'] = $data['fasyankes_name'][$key];
         }
 
         $travels = [];
         foreach ($data['travel']['date_of_visit'] as $key => $value) {
             $travels[$key] = [
-                'date_of_visit' => $value,
+                'date_of_visit' => ($value != null) ? Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d') : null,
                 'city' => $data['travel']['city'][$key],
                 'country' => $data['travel']['country'][$key]
             ];
@@ -84,7 +89,7 @@ class RegistrationController extends Controller
                 'name_people_sick' => $value,
                 'address' => $data['contact_sick_people']['address'][$key],
                 'relation' => $data['contact_sick_people']['relation'][$key],
-                'contact_date' => $data['contact_sick_people']['contact_date'][$key]
+                'contact_date' => ($data['contact_sick_people']['contact_date'][$key] != null) ? Carbon::createFromFormat('d/m/Y', $data['contact_sick_people']['contact_date'][$key])->format('Y-m-d') : null
             ];
         }
 
@@ -110,7 +115,7 @@ class RegistrationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function show($idRegistration)
@@ -123,29 +128,35 @@ class RegistrationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function edit($idRegistration)
     {
         $registration = Registration::findOrFail($idRegistration);
+        $treatmentHistory = $registration->patient->treatmentHistoryPdps()->get();
+        $treatmentData = [];
+        foreach ($treatmentHistory as $value) {
+            $treatmentData[$value->explanation] = $value;
+        }
 
-        return view('pages.registration.edit', compact('registration'));
+        return view('pages.registration.edit', compact('registration', 'treatmentData'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Registration  $request
-     * @param  int  $idRegistration
+     * @param \App\Http\Requests\Registration $request
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
+     *
+     * @SuppressWarnings("PHPMD")
      */
     public function update(RegistrationRequest $request, $idRegistration)
     {
         $data = $request->all();
-        // Change date format to Y-m-d
         $data['date_of_birth'] = ($data['date_of_birth'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_of_birth'])->format('Y-m-d') : null;
-        $data['registration_date'] = ($data['registration_date'] != null) ? Carbon::createFromFormat('d/m/Y', $data['registration_date'])->format('Y-m-d') : null;
+        $data['date_onset'] = ($data['date_onset'] != null) ? Carbon::createFromFormat('d/m/Y', $data['date_onset'])->format('Y-m-d') : null;
         $data['age_year'] = ($data['age_year'] != null) ? $data['age_year'] : 0;
         $data['age_month'] = ($data['age_month'] != null) ? $data['age_month'] : 0;
 
@@ -157,6 +168,47 @@ class RegistrationController extends Controller
         // Update symptom
         $registration->symptom->update($data);
 
+        // Update treatmentHistoryPdp
+        $patient = Patient::find($data['patient_id']);
+        for ($i=0; $i < count($data['treatment']['id']); $i++) {
+            $patient->treatmentHistoryPdps()->where('id', $data['treatment']['id'][$i])->update([
+                'explanation' => $data['treatment']['explanation'][$i],
+                'date_treated' => ($data['treatment']['date_treated'][$i] != null) ? Carbon::createFromFormat('d/m/Y', $data['treatment']['date_treated'][$i])->format('Y-m-d') : null,
+                'fasyankes_name' => $data['treatment']['fasyankes_name'][$i],
+            ]);
+        }
+
+        // Update or create travel histories
+        for ($j = 0; $j < count($data['travel']['id']); $j++) {
+            $registration->travelHistories()->updateOrCreate(
+                [
+                    'id' => $data['travel']['id'][$j],
+                    'date_of_visit' => Carbon::createFromFormat('d/m/Y', $data['travel']['date_of_visit'][$j])->format('Y-m-d'),
+                ],
+                [
+                    'date_of_visit' => ($data['travel']['date_of_visit'][$j] != null) ? Carbon::createFromFormat('d/m/Y', $data['travel']['date_of_visit'][$j])->format('Y-m-d') : null,
+                    'city' => $data['travel']['city'][$j],
+                    'country' => $data['travel']['country'][$j]
+                ]
+            );
+        }
+
+        // Update contact histories
+        for ($k = 0; $k < count($data['contact_sick_people']['id']); $k++) {
+            $registration->contactHistories()->updateOrCreate(
+                [
+                    'id' => $data['contact_sick_people']['id'][$k],
+                    'name_people_sick' => $data['contact_sick_people']['name_people_sick'][$k],
+                ],
+                [
+                    'name_people_sick' => $data['contact_sick_people']['name_people_sick'][$k],
+                    'address' => $data['contact_sick_people']['address'][$k],
+                    'relation' => $data['contact_sick_people']['relation'][$k],
+                    'contact_date' => ($data['contact_sick_people']['contact_date'][$k] != null) ? Carbon::createFromFormat('d/m/Y', $data['contact_sick_people']['contact_date'][$k])->format('Y-m-d') : null
+                ]
+            );
+        }
+
         return redirect()->route('registrations.index')->with('alert', [
             'color' => 'success',
             'message' => 'Registrasi berhasil diubah!',
@@ -164,36 +216,9 @@ class RegistrationController extends Controller
     }
 
     /**
-     * Generate registraion number.
-     *
-     * @return void
-     */
-    private function nextRegistrationNumber()
-    {
-        // Get the last created registration
-        $lastRegistration = Registration::orderBy('created_at', 'desc')->first();
-
-        if (!$lastRegistration) {
-            // We get here if there is no registration at all
-            // If there is no number set it to 0, which will be 1 at the end.
-            $number = 0;
-        } else {
-            $number = substr($lastRegistration->registration_number, 8);
-        }
-        // If we have YYYYMMDD000001 in the database then we only want the number
-        // So the substr returns this 000001
-
-        // Add the string in front and higher up the number.
-        // the %06d part makes sure that there are always 6 numbers in the string.
-        // so it adds the missing zero's when needed.
-
-        return Carbon::now()->format('Ymd') . sprintf('%06d', intval($number) + 1);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $idRegistration
+     * @param int $idRegistration
      * @return \Illuminate\Http\Response
      */
     public function destroy($idRegistration)
